@@ -1,5 +1,6 @@
 nav {
     min-width: 20vw;
+    max-height: 100vh;
     position: sticky;
     top: 0;
     left: 0;
@@ -12,16 +13,35 @@ nav {
     box-shadow: 1px 1px 10px 5px rgba(0, 0, 0, 0.2);
 }
 
-ul {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    list-style: none;
-    width: 100%;
-}
-
 .navbar-login-container {
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+.navbar-link-container {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    width: 100%;
+    padding: 0;
+}
+
+.navbar-link-item a {
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+    width: 100%;
+    display: inline-block;
+    transition: all .2s;
+}
+
+.navbar-link-item a:hover {
+    background-color: cornflowerblue;
+    color: white;
+}
+
+.active {
+    background-color: cornflowerblue;
+    color: white;
 }

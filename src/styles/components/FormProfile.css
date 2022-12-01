@@ -1,0 +1,12 @@
+.display-form-value {
+    background-color: lightgrey;
+    padding: 0 10px;
+}
+
+.display-list-item {
+    background-color: lightgrey;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+}

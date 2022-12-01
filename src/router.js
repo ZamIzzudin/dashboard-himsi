@@ -1,5 +1,6 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
+import Home from './pages/Home'
 import Profile from './pages/Profile'
 import Event from './pages/Event'
 import Article from './pages/Article'
@@ -14,7 +15,8 @@ export default function Router() {
         <BrowserRouter>
             <Sidebar />
             <Switch>
-                <Route exact path="/" component={Profile} />
+                <Route exact path="/" component={Home} />
+                <Route path="/profile" component={Profile} />
                 <Route path="/event" component={Event} />
                 <Route path="/article" component={Article} />
                 <Route path="/banner" component={Banner} />

@@ -8,7 +8,7 @@
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
     color: black
 }
 
@@ -17,6 +17,12 @@ a:active {
 }
 
 main {
+    position: relative;
+    box-sizing: border-box;
     width: 80vw;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
 }
