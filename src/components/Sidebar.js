@@ -2,10 +2,13 @@ import { Link, useLocation } from 'react-router-dom'
 
 import '../styles/components/Sidebar.css'
 
-import UINLogo from '../assets/UIN_LOGO.png'
-
 export default function Sidebar() {
     const location = useLocation().pathname
+
+    function handleLogout() {
+        localStorage.clear()
+        window.location.reload()
+    }
 
     return (
         <nav>
@@ -39,8 +42,7 @@ export default function Sidebar() {
             </ul>
 
             <div className="navbar-login-container">
-                <img src={UINLogo} alt="avatar" width="50" />
-                <span>Admin</span>
+                <button className="edit-btn" onClick={() => handleLogout()}>Logout</button>
             </div>
         </nav>
     )

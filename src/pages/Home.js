@@ -11,7 +11,7 @@ export default function Home() {
             <section className="home-link-container">
 
                 {homeLink.map(link => (
-                    <HomeLinkCard cardData={link} />
+                    <HomeLinkCard cardData={link} key={link.name} />
                 ))}
 
             </section>

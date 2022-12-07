@@ -1,0 +1,7 @@
+.banner-card {
+    border: 2px solid cornflowerblue;
+    border-radius: 10px;
+    max-width: 30%;
+    padding: 20px;
+    box-sizing: border-box;
+}
