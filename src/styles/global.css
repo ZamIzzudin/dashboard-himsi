@@ -8,7 +8,7 @@
 }
 
 a {
-    text-decoration: none;
+    text-decoration: none !important;
     color: black
 }
 
@@ -17,6 +17,54 @@ a:active {
 }
 
 main {
+    position: relative;
+    box-sizing: border-box;
     width: 80vw;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+}
+
+.container-cta {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5%;
+}
+
+.delete-btn {
+    border: 2px solid cornflowerblue;
+    padding: 5px 10px;
+    font-size: .8em;
+    border-radius: 15px;
+    color: cornflowerblue;
+}
+
+.edit-btn {
+    background-color: cornflowerblue;
+    border: 2px solid cornflowerblue;
+    padding: 5px 10px;
+    font-size: .8em;
+    color: white;
+    border-radius: 15px;
+}
+
+.display-card-form-cta {
+    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.card-form-cta {
+    float: right;
+    position: absolute;
+    right: 2%;
+    top: 30%;
 }

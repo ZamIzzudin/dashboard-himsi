@@ -1,0 +1,12 @@
+.back-button {
+    background-color: cornflowerblue;
+    width: fit-content;
+    z-index: 5;
+    color: white;
+    padding: 15px 10px;
+    border-radius: 50%;
+}
+
+.back-button:active {
+    color: white;
+}
