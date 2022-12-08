@@ -1,8 +1,8 @@
 import { useState } from "react";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import Form from "../components/Form";
-import List from "../components/List";
+import EventForm from "../components/EventForm";
+import EventLists from "../components/EventLists";
 
 
 export default function Event() {
@@ -18,10 +18,10 @@ export default function Event() {
         className="d-flex flex-row gap-0 my-5 fs-6 fw-normal"
         >
           <Tab i="bi bi-list" eventKey='create' title="Create">
-            <Form />
+            <EventForm />
           </Tab>
           <Tab eventKey='list' title="List">
-            <List />
+            <EventLists />
           </Tab>
 
         </Tabs>
