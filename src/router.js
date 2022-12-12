@@ -3,11 +3,15 @@ import { useState, useEffect } from 'react'
 
 import Home from './pages/Home'
 import Profile from './pages/Profile'
-import Event from './pages/Event'
-import Article from './pages/Article'
-import Banner from './pages/Banner'
-import Links from './pages/Link'
-import FAQ from './pages/FAQ'
+// import Event from './pages/Event'
+// import Article from './pages/Article'
+// import Banner from './pages/Banner'
+// import Links from './pages/Link'
+// import FAQ from './pages/FAQ'
+import Berita from "./pages/Berita";
+import Hubungikami from "./pages/HubungiKami";
+import LayananMahasiswa from "./pages/LayananMahasiswa";
+import ProgramKerja from "./pages/ProgramKerja";
 import Login from './pages/Login'
 
 import Sidebar from './components/Sidebar'
@@ -34,11 +38,10 @@ export default function Router() {
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/profile" component={Profile} />
-                <Route path="/event" component={Event} />
-                <Route path="/article" component={Article} />
-                <Route path="/banner" component={Banner} />
-                <Route path="/link" component={Links} />
-                <Route path="/faq" component={FAQ} />
+                <Route path="/programkerja" component={ProgramKerja} />
+                <Route path="/berita" component={Berita} />
+                <Route path="/layananmahasiswa" component={LayananMahasiswa} />
+                <Route path="/hubungikami" component={Hubungikami} />
             </Switch>
         </BrowserRouter>
     )

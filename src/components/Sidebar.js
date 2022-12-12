@@ -24,20 +24,17 @@ export default function Sidebar() {
                     <Link to='/profile' className={location === '/profile' ? 'active' : null}>Profile</Link>
                 </li>
                 <li className="navbar-link-item">
-                    <Link to='/event' className={location === '/event' ? 'active' : null}>Event</Link>
+                    <Link to='/programkerja' className={location === '/programkerja' ? 'active' : null}>Program Kerja</Link>
                 </li>
                 <li className="navbar-link-item">
-                    <Link to='/article' className={location === '/article' ? 'active' : null}>Article</Link>
+                    <Link to='/berita' className={location === '/berita' ? 'active' : null}>Berita</Link>
                 </li>
                 <hr />
                 <li className="navbar-link-item">
-                    <Link to='/link' className={location === '/link' ? 'active' : null}>Link</Link>
+                    <Link to='/layananmahasiswa' className={location === '/layananmahasiswa' ? 'active' : null}>Layanan Mahasiswa</Link>
                 </li>
                 <li className="navbar-link-item">
-                    <Link to='/banner' className={location === '/banner' ? 'active' : null}>Banner</Link>
-                </li>
-                <li className="navbar-link-item">
-                    <Link to='/faq' className={location === '/faq' ? 'active' : null}>FAQ</Link>
+                    <Link to='/hubungikami' className={location === '/hubungikami' ? 'active' : null}>Hubungi Kami</Link>
                 </li>
             </ul>
 
