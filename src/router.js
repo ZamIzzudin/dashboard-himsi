@@ -1,5 +1,7 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useState, useEffect } from 'react'
+import api from './utils/api'
+import cookies from './utils/cookies'
 
 import Home from './pages/Home'
 import Profile from './pages/Profile'
@@ -13,11 +15,27 @@ import Login from './pages/Login'
 import Sidebar from './components/Sidebar'
 
 export default function Router() {
-    const [userData, setUserData] = useState({})
+    const [userData, setUserData] = useState(null)
 
     useEffect(() => {
-        const user = localStorage.getItem('user')
-        setUserData(JSON.parse(user))
+        if (userData !== null) {
+            const refreshToken = async () => {
+                const dataAfterRefresh = await api.Refresh()
+                cookies.remove('refreshToken')
+                cookies.add('refreshToken', dataAfterRefresh, 1)
+            }
+
+            const interval = setInterval(() => {
+                refreshToken();
+            }, 50000);
+
+            return () => clearInterval(interval);
+        }
+    }, [userData])
+
+    useEffect(() => {
+        const user = cookies.get('refreshToken')
+        setUserData(user)
     }, [])
 
     if (userData === null) {

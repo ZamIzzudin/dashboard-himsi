@@ -1,12 +1,12 @@
 import { Link, useLocation } from 'react-router-dom'
-
+import cookies from '../utils/cookies'
 import '../styles/components/Sidebar.css'
 
 export default function Sidebar() {
     const location = useLocation().pathname
 
     function handleLogout() {
-        localStorage.clear()
+        cookies.remove('refreshToken')
         window.location.reload()
     }
 

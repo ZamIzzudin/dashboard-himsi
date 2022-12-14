@@ -1,18 +1,48 @@
 import axios from 'axios'
+import cookies from './cookies'
 
 const api = (() => {
 
-    const baseUrl = 'base url'
+    const baseUrl = 'https://himsi-website-be.vercel.app'
 
-    async function getSomething() {
-        const url = baseUrl + '/endpoint'
+    async function Login(email, password) {
+        const url = baseUrl + '/login'
 
-        const response = await axios.get(url)
+        const data = {
+            email,
+            password
+        }
 
-        return response
+        await axios.post(url, data).then(res => {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.accessToken}`;
+            cookies.remove('refreshToken')
+            cookies.add('refreshToken', res.data.accessToken, 7)
+        }).catch(err => {
+            console.log(err)
+        })
+
     }
+
+    async function Refresh() {
+        const url = baseUrl + '/refresh'
+
+        try {
+            axios.defaults.withCredentials = true
+            const response = await axios.get(url, {
+                credentials: "include"
+            })
+            return response
+        } catch (err) {
+
+            console.log(err)
+
+        }
+
+    }
+
     return {
-        getSomething
+        Login,
+        Refresh
     }
 })()
 
