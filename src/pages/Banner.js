@@ -60,7 +60,6 @@ export default function Banner() {
 
   return (
     <main>
-      <BackButton />
       <h2>Banner</h2>
       <section>
         <button className="edit-btn" onClick={() => setShowAddModal(true)}>Add</button>

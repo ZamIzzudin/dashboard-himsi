@@ -1,48 +1,37 @@
-import HomeLinkCard from "../components/HomeLinkCard"
-
-import '../styles/pages/Home.css'
+// import HomeLinkCard from "../components/HomeLinkCard"
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+import "../styles/pages/Home.css";
+import { useState } from "react";
+import SliderInformation from "../components/HomeComponents/SliderInformation";
+import UpcomingEvent from "../components/HomeComponents/UpcomingEvent";
+import SocialMedia from "../components/HomeComponents/SocialMedia";
+import Partner from "../components/HomeComponents/Partner";
 
 export default function Home() {
-    return (
-        <main className="home-content">
-            <h1>Welcome to HIMSI Dashboard</h1>
-            <span>What you wanna manage?</span>
-
-            <section className="home-link-container">
-
-                {homeLink.map(link => (
-                    <HomeLinkCard cardData={link} key={link.name} />
-                ))}
-
-            </section>
-
-        </main>
-    )
+  const [key, setKey] = useState("slider");
+  return (
+    <main>
+      <h1 className="page-header">Home</h1>
+      <Tabs
+        id="event-tab"
+        activeKey={key}
+        onSelect={(k) => setKey(k)}
+        className="d-flex flex-row gap-0 mb-5 fs-6 fw-normal"
+      >
+        <Tab eventKey="slider" title="Edit Slider Information">
+          <SliderInformation />
+        </Tab>
+        <Tab eventKey="event" title="Upcoming Event">
+          <UpcomingEvent />
+        </Tab>
+        <Tab eventKey="socialmedia" title="Social Media">
+          <SocialMedia />
+        </Tab>
+        <Tab eventKey="partner" title="Partner">
+          <Partner />
+        </Tab>
+      </Tabs>
+    </main>
+  );
 }
-
-const homeLink = [
-    {
-        name: 'Profile',
-        path: '/profile'
-    },
-    {
-        name: 'Event',
-        path: '/event'
-    },
-    {
-        name: 'Article',
-        path: '/article'
-    },
-    {
-        name: 'Link',
-        path: '/link'
-    },
-    {
-        name: 'Banner',
-        path: '/banner'
-    },
-    {
-        name: 'FAQ',
-        path: '/faq'
-    },
-]

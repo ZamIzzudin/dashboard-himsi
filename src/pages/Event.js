@@ -11,12 +11,11 @@ export default function Event() {
 
   return (
     <main>
-      <BackButton />
       <Tabs
         id="event-tab"
         activeKey={key}
         onSelect={(k) => setKey(k)}
-        className="d-flex flex-row gap-0 my-5 fs-6 fw-normal"
+        className="d-flex flex-row gap-0 mb-5 fs-6 fw-normal"
       >
         <Tab i="bi bi-list" eventKey='create' title="Create">
           <EventForm />
