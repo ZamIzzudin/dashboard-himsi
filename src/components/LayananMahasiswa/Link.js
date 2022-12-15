@@ -34,15 +34,15 @@ export default function Links() {
     setShowAddModal(false)
   }
 
-  function changeData(data) {
-    const newData = dataLink.map((link) => {
-      if (data.id === link.id) {
-        return data
-      }
-      return link
-    })
-    setDataLink(newData)
-  }
+  // function changeData(data) {
+  //   const newData = dataLink.map((link) => {
+  //     if (data.id === link.id) {
+  //       return data
+  //     }
+  //     return link
+  //   })
+  //   setDataLink(newData)
+  // }
 
   function deleteData(id) {
     const newData = dataLink.filter((link) => link.id !== id)

@@ -1,10 +1,7 @@
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
-
 function BasicExample() {
-  return  (
+  return (
     <>
-        <h1>Ini Berita</h1>
+      <h1>Ini Berita</h1>
     </>
   );
 }

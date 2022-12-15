@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { useState, useEffect } from 'react'
-import api from './utils/api'
+// import api from './utils/api'
 import cookies from './utils/cookies'
 
 import Home from './pages/Home'
