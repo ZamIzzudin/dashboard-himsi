@@ -12,7 +12,7 @@ export default function ProgramKerja() {
 
   const [detailBidang, setDetailBidang] = useState(null)
   const [selectedDivisi, setSelectedDivisi] = useState(null)
-  const [selectedProker, setSelectedProker] = useState(null)
+  // const [selectedProker, setSelectedProker] = useState(null)
 
   useEffect(() => {
     HIMSI.forEach(HIMSIbidang => {
