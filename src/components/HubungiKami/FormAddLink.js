@@ -4,9 +4,8 @@ import { useState } from 'react'
 import '../../styles/components/FormLayout.css'
 
 export default function FormAddLink({ getData }) {
-    const [linkName, setLinkName] = useState('')
+    const [linkTitle, setLinkTitle] = useState('')
     const [linkURL, setLinkURL] = useState('')
-    const [linkCategory, setLinkCategory] = useState('E-Layanan')
 
     function handleAddLink(e) {
         e.preventDefault()
@@ -14,24 +13,16 @@ export default function FormAddLink({ getData }) {
 
         getData({
             id,
-            name: linkName,
-            category: linkCategory,
-            url: linkURL,
+            question: linkTitle,
+            answer: linkURL
         })
     }
 
     return (
         <Form onSubmit={(e) => handleAddLink(e)}>
             <Form.Group>
-                <Form.Label>Nama</Form.Label>
-                <Form.Control required value={linkName} onChange={(e) => setLinkName(e.target.value)} />
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Kategori</Form.Label>
-                <Form.Select required value={linkCategory} onChange={(e) => setLinkCategory(e.target.value)}>
-                    <option value="E-Layanan">E-Layanan Mahasiswa</option>
-                    <option value="Database Materi">Database Materi</option>
-                </Form.Select>
+                <Form.Label>Judul</Form.Label>
+                <Form.Control required value={linkTitle} onChange={(e) => setLinkTitle(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>URL</Form.Label>

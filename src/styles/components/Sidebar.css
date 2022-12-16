@@ -1,6 +1,6 @@
 nav {
     min-width: 24vw;
-    height: 90vh;
+    height: 92vh;
     position: fixed;
     bottom: 3%;
     left: 2%;
@@ -25,8 +25,8 @@ nav {
 }
 
 .navbar-link-item a {
-    padding: 15px;
-    border-radius: 5px;
+    padding: 10px 15px;
+    border-radius: 8px;
     box-sizing: border-box;
     width: 100%;
     display: inline-block;
@@ -34,7 +34,7 @@ nav {
     color: #fff;
     font-style: normal;
     font-weight: 500;
-    font-size: 1.6em;
+    font-size: 1.4em;
     line-height: 25px;
     top: 18px;
     left: 16px;
@@ -48,5 +48,4 @@ nav {
 .active {
     background-color: var(--black20);
     color: white;
-
 }

@@ -5,15 +5,11 @@ import cookies from './utils/cookies'
 
 import Home from './pages/Home'
 import Profile from './pages/Profile'
-// import Event from './pages/Event'
-// import Article from './pages/Article'
-// import Banner from './pages/Banner'
-// import Links from './pages/Link'
-// import FAQ from './pages/FAQ'
 import Berita from "./pages/Berita";
 import Hubungikami from "./pages/HubungiKami";
 import LayananMahasiswa from "./pages/LayananMahasiswa";
 import ProgramKerja from "./pages/ProgramKerja";
+import User from "./pages/User";
 import Login from './pages/Login'
 
 import Sidebar from './components/Sidebar'
@@ -56,6 +52,7 @@ export default function Router() {
         return (
             <BrowserRouter>
                 <Route exact path="/" component={Login} />
+                <Route exact path="*" component={Home} />
             </BrowserRouter>
         )
     }
@@ -67,10 +64,12 @@ export default function Router() {
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route path="/profile" component={Profile} />
-                <Route path="/program-kerja" component={ProgramKerja} />
+                <Route path="/program-kerja/:bidang" component={ProgramKerja} />
                 <Route path="/berita" component={Berita} />
                 <Route path="/layanan-mahasiswa" component={LayananMahasiswa} />
                 <Route path="/hubungi-kami" component={Hubungikami} />
+                <Route path="/user" component={User} />
+                <Route exact path="*" component={Home} />
             </Switch>
         </BrowserRouter>
     )

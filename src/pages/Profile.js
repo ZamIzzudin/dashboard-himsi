@@ -3,10 +3,10 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 import "../styles/pages/Home.css";
 import { useState } from "react";
-import VisiMisi from '../components/ProfileComponents/VisiMisi';
-import BidangDivisi from '../components/ProfileComponents/BidangDivisi';
-import StrukturOrganisasi from '../components/ProfileComponents/StrukturOrganisasi';
-import ShowProfile from "../components/ProfileComponents/ShowProfile";
+import VisiMisi from '../components/Profile/VisiMisi';
+import BidangDivisi from '../components/Profile/BidangDivisi';
+import StrukturOrganisasi from '../components/Profile/StrukturOrganisasi';
+import ShowProfile from "../components/Profile/ShowProfile";
 
 export default function Profile() {
   const [key, setKey] = useState("visimisi");

@@ -5,6 +5,8 @@ const api = (() => {
 
     const baseUrl = 'https://himsi-website-be.vercel.app'
 
+    axios.defaults.withCredentials = true
+
     async function Login(email, password) {
         const url = baseUrl + '/login'
 
@@ -27,7 +29,6 @@ const api = (() => {
         const url = baseUrl + '/refresh'
 
         try {
-            axios.defaults.withCredentials = true
             const response = await axios.get(url, {
                 credentials: "include"
             })

@@ -1,0 +1,93 @@
+.form-label {
+    font-size: 1.6em;
+    font-weight: 700;
+    margin-top: 18px;
+    margin-bottom: 10px;
+    text-align: left;
+    width: 100%;
+}
+
+.form-control,
+.form-select,
+textarea {
+    font-size: 1.6em !important;
+    padding: 5px 10px !important;
+    border: 1px solid var(--primaryColor2) !important;
+}
+
+.form-select option {
+    font-size: .9em !important;
+    padding: 10px !important;
+}
+
+.semi-text-area {
+    width: 100%;
+    min-height: 150px;
+    border-radius: 4px;
+}
+
+.semi-text-area:focus {
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
+}
+
+.semi-text-area:focus-visible {
+    outline: none;
+}
+
+.form-cta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 24px 0 0 0;
+}
+
+.form-submit-button {
+    font-size: 1.6em;
+    font-weight: 700;
+    padding: 16px 48px;
+    border: none;
+    background-color: var(--primaryColor2);
+    color: var(--white);
+    border-radius: 10px;
+}
+
+.form-image {
+    border: 2px solid var(--gray4);
+    border-radius: 8px;
+    width: 100%;
+    padding: 24px;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 1em;
+    gap: 16px;
+}
+
+.form-drag-drop-area {
+    width: 100%;
+    min-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.4em;
+    color: var(--gray2);
+    border: 3px dashed var(--gray4);
+    border-radius: 8px;
+}
+
+.form-image-btn {
+    font-size: 1.6em;
+    width: 100%;
+    padding: 16px 0;
+    border: none;
+    color: var(--white);
+    background-color: var(--gray4);
+    border-radius: 10px;
+}
+
+.text-org {
+    margin: 0;
+    color: var(--primaryColor2)
+}

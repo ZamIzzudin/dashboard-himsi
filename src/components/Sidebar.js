@@ -1,10 +1,15 @@
-import '../styles/components/Sidebar.css'
+import Accordion from './Accordion';
 import { Link, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 
 import '../styles/components/Sidebar.css'
 
 export default function Sidebar() {
     const location = useLocation().pathname
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    });
 
     return (
         <nav>
@@ -16,7 +21,7 @@ export default function Sidebar() {
                     <Link to='/profile' className={location === '/profile' ? 'active' : null}>Profile</Link>
                 </li>
                 <li className="navbar-link-item">
-                    <Link to='/program-kerja' className={location === '/program-kerja' ? 'active' : null}>Program Kerja</Link>
+                    <Accordion isActive={location.includes('/program-kerja/') ? true : false} />
                 </li>
                 <li className="navbar-link-item">
                     <Link to='/berita' className={location === '/berita' ? 'active' : null}>Berita</Link>
@@ -26,6 +31,9 @@ export default function Sidebar() {
                 </li>
                 <li className="navbar-link-item">
                     <Link to='/hubungi-kami' className={location === '/hubungi-kami' ? 'active' : null}>Hubungi Kami</Link>
+                </li>
+                <li className="navbar-link-item">
+                    <Link to='/user' className={location === '/user' ? 'active' : null}>User</Link>
                 </li>
             </ul>
         </nav>
