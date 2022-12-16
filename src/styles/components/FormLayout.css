@@ -12,7 +12,8 @@
 textarea {
     font-size: 1.6em !important;
     padding: 5px 10px !important;
-    border: 1px solid var(--primaryColor2) !important;
+    border: 2px solid var(--primaryColor2) !important;
+    border-radius: 25px;
 }
 
 .form-select option {
