@@ -1,10 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import FormAddBerita from "../components/BeritaComponents/FormAddBerita";
+import FormEditBerita from "../components/BeritaComponents/FormEditBerita";
 
 const Berita = () => {
   const [showAddBeritaForm, setShowAddBeritaForm] = useState(false);
-
+  const [showEditBeritaForm, setShowEditBeritaForm] = useState(false);
   const plainDataBerita = [
     {
       id : 1,
@@ -42,6 +43,18 @@ const Berita = () => {
     setListDataBerita(newData)
   }
 
+  function handleEditBerita(data) {
+    const newData = listDataBerita.map((berita) => {
+      if (data.id === data.id) {
+        return data
+      }
+      return berita
+    })
+    setListDataBerita(newData)
+    setSelectedData(null)
+    setShowEditBeritaForm(false)
+  }
+
   if(showAddBeritaForm){
     return(
       <main>
@@ -49,10 +62,27 @@ const Berita = () => {
         <section className="content-section">
           <div className="section-header-container">
             <h4 className="section-header">Tambah Berita</h4>
-            <button onClick={() => setShowAddBeritaForm(false)} className="section-add-btn"></button>
+            <button onClick={() => setShowAddBeritaForm(false)} className="section-add-btn">-</button>
           </div>
           <div className="section-body">
-              <FormAddBerita getData={handleAddBerita} />
+              <FormAddBerita getData={handleAddBerita} currentData={selectedData} />
+          </div>
+        </section>
+      </main>
+    )
+  }
+
+  if(showEditBeritaForm){
+    return(
+      <main>
+        <h1 className="page-header">Edit Berita</h1>
+        <section className="content-section">
+          <div className="section-header-container">
+            <h4 className="section-header">Edit Berita</h4>
+            <button onClick={() => setShowEditBeritaForm(false)} className="section-add-btn">-</button>
+          </div>
+          <div className="section-body">
+            <FormEditBerita getData={handleEditBerita} currentData = {selectedData} />
           </div>
         </section>
       </main>
@@ -82,7 +112,7 @@ const Berita = () => {
                     <td className="table-cta">
                       <div className="table-cta-container">
                         <button onClick={() => handleDeleteBerita(data.id)} className="section-delete-btn">Delete</button>
-                        <button className="section-edit-btn ">Edit</button>
+                        <button onClick={() => { setShowEditBeritaForm(true); setSelectedData(data)} } className="section-edit-btn ">Edit</button>
                       </div>
                     </td>
                   </tr>
