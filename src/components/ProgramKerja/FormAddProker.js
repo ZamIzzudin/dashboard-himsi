@@ -5,24 +5,36 @@ import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormAddProker({ getData, idDivisi }) {
-    const [namaProker, setNamaProker] = useState('')
-    const [tanggalProker, setTanggalProker] = useState('')
-    const [deskripsiProker, setDeskripsiProker] = useState('')
-    const [headerImageProker, setHeaderImgProker] = useState(null)
-    const [dokumentasiProker, setDokumentasiProker] = useState(null)
+export default function FormAddProker({ addData, editData, idDivisi, currentData }) {
+    const [namaProker, setNamaProker] = useState(currentData?.nama)
+    const [tanggalProker, setTanggalProker] = useState(currentData?.tanggal)
+    const [deskripsiProker, setDeskripsiProker] = useState(currentData?.deskripsi)
+    const [headerImageProker, setHeaderImgProker] = useState(currentData?.header)
+    const [dokumentasiProker, setDokumentasiProker] = useState(currentData?.dokumentasi)
 
     function handleAddProker(e) {
         e.preventDefault();
-        const id = Math.floor(Math.random() * 1001)
-        getData({
-            id,
-            nama: namaProker,
-            tanggal: tanggalProker,
-            deskripsi: deskripsiProker,
-            header: headerImageProker || '/.png',
-            dokumentasi: dokumentasiProker || '/.png'
-        }, idDivisi)
+        if (currentData !== null) {
+            editData({
+                id: currentData.id,
+                nama: namaProker,
+                tanggal: tanggalProker,
+                deskripsi: deskripsiProker,
+                header: headerImageProker || '/.png',
+                dokumentasi: dokumentasiProker || '/.png'
+            }, idDivisi)
+        } else {
+            const id = Math.floor(Math.random() * 1001)
+            addData({
+                id,
+                nama: namaProker,
+                tanggal: tanggalProker,
+                deskripsi: deskripsiProker,
+                header: headerImageProker || '/.png',
+                dokumentasi: dokumentasiProker || '/.png'
+            }, idDivisi)
+        }
+
     }
 
     return (

@@ -1,27 +1,41 @@
 import { Modal, Form } from 'react-bootstrap'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import '../../styles/components/FormLayout.css'
 
-export default function ModalDivisi({ show, setShow, getData }) {
-    const [namaDivisi, setNamaDivisi] = useState('')
+export default function ModalDivisi({ show, setShow, addData, editData, currentData }) {
+    const [namaDivisi, setNamaDivisi] = useState(currentData?.nama)
 
     function addDivisi(e) {
         e.preventDefault()
-        const id = Math.floor(Math.random() * 10001)
+        if (currentData !== null) {
+            const data = {
+                id: currentData.id,
+                nama: namaDivisi,
+                proker: currentData.proker
+            }
 
-        const data = {
-            id,
-            nama: namaDivisi,
-            proker: []
+            editData(data)
+        } else {
+            const id = Math.floor(Math.random() * 10001)
+
+            const data = {
+                id,
+                nama: namaDivisi,
+                proker: []
+            }
+
+            addData(data)
         }
-
-        getData(data)
 
         // Reset Form Fill
         setNamaDivisi('')
         setShow(false)
     }
+
+    useEffect(() => {
+        setNamaDivisi(currentData?.nama)
+    }, [currentData])
 
     return (
         <Modal

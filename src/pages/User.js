@@ -14,7 +14,7 @@ export default function User() {
             password: '123456'
         },
         {
-            id: 10293,
+            id: 1293,
             name: 'Email HIMSI',
             email: 'agusgacor@gmail.com',
             role: 'Admin',
@@ -24,14 +24,27 @@ export default function User() {
 
     const [listUser, setListUser] = useState(users)
 
-    function handleAddLink(data) {
+    const [selectedData, setSelectedData] = useState(null)
+
+    function handleAddUser(data) {
         setListUser([...listUser, data])
         setShowAddForm(false)
     }
 
-    function handleDeleteLink(id) {
-        const newData = listUser.filter(link => link.id !== id)
+    function handleDeleteUser(id) {
+        const newData = listUser.filter(user => user.id !== id)
         setListUser(newData)
+    }
+
+    function handleEditUser(data) {
+        const newData = listUser.map(user => {
+            if (user.id === data.id) {
+                return data
+            }
+            return user
+        })
+        setListUser(newData)
+        setShowAddForm(false)
     }
 
     useEffect(() => {
@@ -45,10 +58,10 @@ export default function User() {
                 <section className="content-section">
                     <div className="section-header-container">
                         <h4 className="section-header">Tambah User</h4>
-                        <button onClick={() => setShowAddForm(false)} className="section-add-btn">-</button>
+                        <button onClick={() => { setShowAddForm(false); setSelectedData(null) }} className="section-add-btn">-</button>
                     </div>
                     <div className="section-body">
-                        <FormAddUser getData={handleAddLink} />
+                        <FormAddUser addData={handleAddUser} editData={handleEditUser} currentData={selectedData} />
                     </div>
                 </section>
             </main>
@@ -61,7 +74,7 @@ export default function User() {
             <section className="content-section">
                 <div className="section-header-container">
                     <h4 className="section-header">Daftar User</h4>
-                    <button onClick={() => setShowAddForm(true)} className="section-add-btn">+</button>
+                    <button onClick={() => { setShowAddForm(true); setSelectedData(null) }} className="section-add-btn">+</button>
                 </div>
                 <div className="section-body">
                     <table>
@@ -80,7 +93,8 @@ export default function User() {
                                 <td>{link.role}</td>
                                 <td className="table-cta">
                                     <div className="table-cta-container">
-                                        <button onClick={() => handleDeleteLink(link.id)} className="section-delete-btn">Delete</button>
+                                        <button onClick={() => { setShowAddForm(true); setSelectedData(link); }} className="section-edit-btn">Edit</button>
+                                        <button onClick={() => handleDeleteUser(link.id)} className="section-delete-btn">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -88,6 +102,6 @@ export default function User() {
                     </table>
                 </div>
             </section>
-        </main>
+        </main >
     )
 }

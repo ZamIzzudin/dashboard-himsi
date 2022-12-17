@@ -1,23 +1,31 @@
 import { Form } from 'react-bootstrap'
 import { useState } from 'react'
 
-export default function FormAddFAQ({ getData }) {
-    const [question, setQuestion] = useState('')
-    const [answer, setAnswer] = useState('')
+export default function FormAddFAQ({ addData, editData, currentData }) {
+    const [question, setQuestion] = useState(currentData?.question)
+    const [answer, setAnswer] = useState(currentData?.answer)
 
-    function handleAddFAQ(e) {
+    function handleManageFAQ(e) {
         e.preventDefault()
-        const id = Math.floor(Math.random() * 1001)
+        if (currentData !== null) {
+            editData({
+                id: currentData.id,
+                question,
+                answer
+            })
+        } else {
+            const id = Math.floor(Math.random() * 1001)
 
-        getData({
-            id,
-            question,
-            answer
-        })
+            addData({
+                id,
+                question,
+                answer
+            })
+        }
     }
 
     return (
-        <Form onSubmit={(e) => handleAddFAQ(e)}>
+        <Form onSubmit={(e) => handleManageFAQ(e)}>
             <Form.Group>
                 <Form.Label>Question</Form.Label>
                 <Form.Control required value={question} onChange={(e) => setQuestion(e.target.value)} />

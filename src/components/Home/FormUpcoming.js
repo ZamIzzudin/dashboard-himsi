@@ -5,31 +5,42 @@ import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormUpcoming({ getData }) {
-    const [eventTitle, setEventTitle] = useState('')
-    const [eventTanggal, setEventTanggal] = useState('')
-    const [eventDescription, setEventDescription] = useState('')
-    const [eventURL, setEventURL] = useState('')
-    const [eventImage, setEventImage] = useState(null)
+export default function FormUpcoming({ addData, editData, currentData }) {
+    const [eventTitle, setEventTitle] = useState(currentData?.title)
+    const [eventTanggal, setEventTanggal] = useState(currentData?.tanggal)
+    const [eventDescription, setEventDescription] = useState(currentData?.description)
+    const [eventURL, setEventURL] = useState(currentData?.url)
+    const [eventImage, setEventImage] = useState(currentData?.img)
 
 
-    function handleAddSlider(e) {
+    function handleManageSlider(e) {
         e.preventDefault()
-        const id = Math.floor(Math.random() * 1001)
+        if (currentData !== null) {
+            editData({
+                id: currentData.id,
+                title: eventTitle,
+                description: eventDescription,
+                tanggal: eventTanggal,
+                img: eventImage,
+                url: eventURL
+            })
+        } else {
+            const id = Math.floor(Math.random() * 1001)
 
-        getData({
-            id,
-            title: eventTitle,
-            description: eventDescription,
-            tanggal: eventTanggal,
-            img: eventImage,
-            url: eventURL
-        })
+            addData({
+                id,
+                title: eventTitle,
+                description: eventDescription,
+                tanggal: eventTanggal,
+                img: eventImage,
+                url: eventURL
+            })
+        }
     }
 
     return (
-        <Form onSubmit={(e) => handleAddSlider(e)}>
-            <InputImage getData={setEventImage} label="Upload Gambar Card Preview" />
+        <Form onSubmit={(e) => handleManageSlider(e)}>
+            <InputImage getData={setEventImage} label="Upload Gambar Card Preview" currentData={eventImage} />
             <Form.Group>
                 <Form.Label>Judul</Form.Label>
                 <Form.Control required value={eventTitle} onChange={(e) => setEventTitle(e.target.value)} />

@@ -11,8 +11,22 @@ export default function Profile() {
   const [listBidang, setListBidang] = useState(HIMSI)
   const [showBidangForm, setShowBidangForm] = useState(false)
 
+  const [selectedData, setSelectedData] = useState(null)
+
   function addBidang(data) {
     setListBidang([...listBidang, data])
+    setShowBidangForm(false)
+  }
+
+  function editBidang(data) {
+    const newData = listBidang.map(bidang => {
+      if (bidang.id === data.id) {
+        return data
+      } else {
+        return bidang
+      }
+    })
+    setListBidang(newData)
     setShowBidangForm(false)
   }
 
@@ -32,10 +46,10 @@ export default function Profile() {
         <section className="content-section">
           <div className="section-header-container">
             <h4 className="section-header">Bidang</h4>
-            <button onClick={() => setShowBidangForm(false)} className="section-add-btn">-</button>
+            <button onClick={() => { setShowBidangForm(false); setSelectedData(null); }} className="section-add-btn">-</button>
           </div>
           <div className="section-body">
-            <FormBidang getData={addBidang} />
+            <FormBidang addData={addBidang} editData={editBidang} currentData={selectedData} />
           </div>
         </section>
       </main>
@@ -72,7 +86,7 @@ export default function Profile() {
       <section className="content-section">
         <div className="section-header-container">
           <h4 className="section-header">Bidang</h4>
-          <button onClick={() => setShowBidangForm(true)} className="section-add-btn">+</button>
+          <button onClick={() => { setShowBidangForm(true); setSelectedData(null); }} className="section-add-btn">+</button>
         </div>
         <div className="section-body">
           <table>
@@ -89,8 +103,8 @@ export default function Profile() {
                 <td>{bidang.kepanjangan}</td>
                 <td className="table-cta">
                   <div className="table-cta-container">
+                    <button onClick={() => { setShowBidangForm(true); setSelectedData(bidang); }} className="section-edit-btn">Edit</button>
                     <button onClick={() => deleteBidang(bidang.id)} className="section-delete-btn">Delete</button>
-                    <button className="section-edit-btn">Edit</button>
                   </div>
                 </td>
               </tr>

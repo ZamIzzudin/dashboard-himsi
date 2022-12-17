@@ -1,28 +1,41 @@
 import { Modal, Form } from 'react-bootstrap'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
 
-export default function ModalPengurus({ show, setShow, getData }) {
-    const [namaPengurus, setNamaPengurus] = useState('')
-    const [jabatanPengurus, setJabatanPengurus] = useState('Ketua Bidang')
-    const [socmedPengurus, setSocmedPengurus] = useState('')
-    const [imagePengurus, setImagePengurus] = useState(null)
+export default function ModalPengurus({ show, setShow, addData, editData, currentData }) {
+    const [namaPengurus, setNamaPengurus] = useState(currentData?.nama)
+    const [jabatanPengurus, setJabatanPengurus] = useState(currentData?.jabatan)
+    const [socmedPengurus, setSocmedPengurus] = useState(currentData?.socmed)
+    const [imagePengurus, setImagePengurus] = useState(currentData?.image)
+
     function addPengurus(e) {
         e.preventDefault()
-        const id = Math.floor(Math.random() * 10001)
+        if (currentData !== null) {
+            const data = {
+                id: currentData.id,
+                nama: namaPengurus,
+                jabatan: jabatanPengurus,
+                socmed: socmedPengurus,
+                image: imagePengurus,
+            }
 
-        const data = {
-            id,
-            nama: namaPengurus,
-            jabatan: jabatanPengurus,
-            socmed: socmedPengurus,
-            image: imagePengurus,
+            editData(data)
+        } else {
+            const id = Math.floor(Math.random() * 10001)
+
+            const data = {
+                id,
+                nama: namaPengurus,
+                jabatan: jabatanPengurus,
+                socmed: socmedPengurus,
+                image: imagePengurus,
+            }
+
+            addData(data)
         }
-
-        getData(data)
 
         // Reset Form Fill
         setNamaPengurus('')
@@ -31,6 +44,13 @@ export default function ModalPengurus({ show, setShow, getData }) {
         setImagePengurus(null)
         setShow(false)
     }
+
+    useEffect(() => {
+        setNamaPengurus(currentData?.nama)
+        setJabatanPengurus(currentData?.jabatan)
+        setSocmedPengurus(currentData?.socmed)
+        setImagePengurus(currentData?.image)
+    }, [currentData])
 
     return (
         <Modal
@@ -65,7 +85,7 @@ export default function ModalPengurus({ show, setShow, getData }) {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Foto Pengurus</Form.Label>
-                        <InputImage getData={setImagePengurus} label="Upload Foto Pengurus" />
+                        <InputImage getData={setImagePengurus} label="Upload Foto Pengurus" currentData={imagePengurus} />
                     </Form.Group>
                     <div className="form-cta">
                         <button className="form-submit-button" type="submit">Simpan</button>

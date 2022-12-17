@@ -7,30 +7,44 @@ import ModalDivisi from './ModalDivisi'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormBidang({ getData }) {
-    const [namaBidang, setNamaBidang] = useState('')
-    const [kepanjanganBidang, setKepanjanganBidang] = useState('')
-    const [logoBidang, setLogoBidang] = useState('')
-    const [deskripsiBidang, setDeskripsiBidang] = useState('')
-    const [listPengurusBidang, setListPengurusBidang] = useState([])
-    const [listDivisiBidang, setListDivisiBidang] = useState([])
+export default function FormBidang({ addData, editData, currentData }) {
+    const [namaBidang, setNamaBidang] = useState(currentData?.bidang)
+    const [kepanjanganBidang, setKepanjanganBidang] = useState(currentData?.kepanjangan)
+    const [logoBidang, setLogoBidang] = useState(currentData?.logo)
+    const [deskripsiBidang, setDeskripsiBidang] = useState(currentData?.deskripsi)
+    const [listPengurusBidang, setListPengurusBidang] = useState(currentData?.pengurus || [])
+    const [listDivisiBidang, setListDivisiBidang] = useState(currentData?.divisi || [])
 
     const [showPengurusModal, setShowPengurusModal] = useState(false)
     const [showDivisiModal, setShowDivisiModal] = useState(false)
 
-    function handleAddBidang(e) {
-        e.preventDefault()
+    const [selectedData, setSelectedData] = useState(null)
 
-        const id = Math.floor(Math.random() * 100001)
-        getData({
-            id,
-            bidang: namaBidang,
-            kepanjangan: kepanjanganBidang,
-            logo: logoBidang,
-            deskripsi: deskripsiBidang,
-            pengurus: listPengurusBidang,
-            divisi: listDivisiBidang
-        })
+    function handleManageBidang(e) {
+        e.preventDefault()
+        if (currentData !== null) {
+            editData({
+                id: currentData.id,
+                bidang: namaBidang,
+                kepanjangan: kepanjanganBidang,
+                logo: logoBidang,
+                deskripsi: deskripsiBidang,
+                pengurus: listPengurusBidang,
+                divisi: listDivisiBidang
+            })
+        } else {
+            const id = Math.floor(Math.random() * 100001)
+            addData({
+                id,
+                bidang: namaBidang,
+                kepanjangan: kepanjanganBidang,
+                logo: logoBidang,
+                deskripsi: deskripsiBidang,
+                pengurus: listPengurusBidang,
+                divisi: listDivisiBidang
+            })
+        }
+
     }
 
     function addPengurus(data) {
@@ -39,6 +53,28 @@ export default function FormBidang({ getData }) {
 
     function addDivisi(data) {
         setListDivisiBidang([...listDivisiBidang, data])
+    }
+
+    function editDivisi(data) {
+        const newData = listDivisiBidang.map(divisi => {
+            if (divisi.id === data.id) {
+                return data
+            } else {
+                return divisi
+            }
+        })
+        setListDivisiBidang(newData)
+    }
+
+    function editPengurus(data) {
+        const newData = listPengurusBidang.map(pengurus => {
+            if (pengurus.id === data.id) {
+                return data
+            } else {
+                return pengurus
+            }
+        })
+        setListPengurusBidang(newData)
     }
 
     function deletePengurus(id) {
@@ -53,7 +89,7 @@ export default function FormBidang({ getData }) {
 
     return (
         <>
-            <Form onSubmit={(e) => handleAddBidang(e)}>
+            <Form onSubmit={(e) => handleManageBidang(e)}>
                 <Form.Group>
                     <Form.Label>Nama Bidang</Form.Label>
                     <Form.Control required value={namaBidang} onChange={(e) => setNamaBidang(e.target.value)} />
@@ -64,7 +100,7 @@ export default function FormBidang({ getData }) {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Logo</Form.Label>
-                    <InputImage getData={setLogoBidang} label="Upload Logo Bidang" />
+                    <InputImage getData={setLogoBidang} label="Upload Logo Bidang" currentData={logoBidang} />
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Deskripsi</Form.Label>
@@ -89,8 +125,8 @@ export default function FormBidang({ getData }) {
                                 <td>{divisi.nama}</td>
                                 <td className="table-cta">
                                     <div className="table-cta-container">
-                                        <button onClick={() => deleteDivisi(divisi.id)} className="section-delete-btn">Delete</button>
-                                        <button className="section-edit-btn">Edit</button>
+                                        <button type="button" onClick={() => { setShowDivisiModal(true); setSelectedData(divisi) }} className="section-edit-btn">Edit</button>
+                                        <button type="button" onClick={() => deleteDivisi(divisi.id)} className="section-delete-btn">Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -118,8 +154,8 @@ export default function FormBidang({ getData }) {
                                 <td>{pengurus.jabatan}</td>
                                 <td className="table-cta">
                                     <div className="table-cta-container">
-                                        <button className="section-delete-btn" onClick={() => deletePengurus(pengurus.id)}>Delete</button>
-                                        <button className="section-edit-btn">Edit</button>
+                                        <button type="button" onClick={() => { setShowPengurusModal(true); setSelectedData(pengurus) }} className="section-edit-btn">Edit</button>
+                                        <button type="button" className="section-delete-btn" onClick={() => deletePengurus(pengurus.id)}>Delete</button>
                                     </div>
                                 </td>
                             </tr>
@@ -130,8 +166,8 @@ export default function FormBidang({ getData }) {
                     <button className="form-submit-button" type="submit">Simpan</button>
                 </div>
             </Form>
-            <ModalDivisi show={showDivisiModal} setShow={setShowDivisiModal} getData={addDivisi} />
-            <ModalPengurus show={showPengurusModal} setShow={setShowPengurusModal} getData={addPengurus} />
+            <ModalDivisi show={showDivisiModal} setShow={setShowDivisiModal} addData={addDivisi} editData={editDivisi} currentData={selectedData} />
+            <ModalPengurus show={showPengurusModal} setShow={setShowPengurusModal} addData={addPengurus} editData={editPengurus} currentData={selectedData} />
         </>
 
     )

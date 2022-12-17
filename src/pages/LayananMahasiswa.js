@@ -49,6 +49,8 @@ export default function LayananMahasiswa() {
     const [dataLink, setDataLink] = useState(plainDataLink)
     const [listFAQ, setListFAQ] = useState(plainDataFAQ)
 
+    const [selectedData, setSelectedData] = useState(null)
+
     function handleAddFAQ(data) {
         setListFAQ([...listFAQ, data])
         setShowAddFAQForm(false)
@@ -59,25 +61,37 @@ export default function LayananMahasiswa() {
         setShowAddLinkForm(false)
     }
 
-    function handleDeleteFAQ(id) {
+    function editLink(data) {
+        const newData = dataLink.map((link) => {
+            if (data.id === link.id) {
+                return data
+            }
+            return link
+        })
+        setDataLink(newData)
+        setShowAddLinkForm(false)
+    }
+
+    function editFAQ(data) {
+        const newData = listFAQ.map((faq) => {
+            if (data.id === faq.id) {
+                return data
+            }
+            return faq
+        })
+        setDataLink(newData)
+        setShowAddFAQForm(false)
+    }
+
+    function deleteFAQ(id) {
         const newData = listFAQ.filter(FAQ => FAQ.id !== id)
         setListFAQ(newData)
     }
 
-    function deleteDataLink(id) {
+    function deleteLink(id) {
         const newData = dataLink.filter((link) => link.id !== id)
         setDataLink(newData)
     }
-
-    // function changeData(data) {
-    //   const newData = dataLink.map((link) => {
-    //     if (data.id === link.id) {
-    //       return data
-    //     }
-    //     return link
-    //   })
-    //   setDataLink(newData)
-    // }
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -90,10 +104,10 @@ export default function LayananMahasiswa() {
                 <section className="content-section">
                     <div className="section-header-container">
                         <h4 className="section-header">Tambah Link</h4>
-                        <button onClick={() => setShowAddLinkForm(false)} className="section-add-btn">-</button>
+                        <button onClick={() => { setShowAddLinkForm(false); setSelectedData(null) }} className="section-add-btn">-</button>
                     </div>
                     <div className="section-body">
-                        <FormAddLink getData={addDataLink} />
+                        <FormAddLink addData={addDataLink} editData={editLink} currentData={selectedData} />
                     </div>
                 </section>
             </main>
@@ -107,10 +121,10 @@ export default function LayananMahasiswa() {
                 <section className="content-section">
                     <div className="section-header-container">
                         <h4 className="section-header">Tambah FAQ</h4>
-                        <button onClick={() => setShowAddFAQForm(false)} className="section-add-btn">-</button>
+                        <button onClick={() => { setShowAddFAQForm(false); setSelectedData(null) }} className="section-add-btn">-</button>
                     </div>
                     <div className="section-body">
-                        <FormAddFAQ getData={handleAddFAQ} />
+                        <FormAddFAQ addData={handleAddFAQ} editData={editFAQ} currentData={selectedData} />
                     </div>
                 </section>
             </main>
@@ -144,8 +158,8 @@ export default function LayananMahasiswa() {
                                         <td>{link.url}</td>
                                         <td className="table-cta">
                                             <div className="table-cta-container">
-                                                <button onClick={() => deleteDataLink(link.id)} className="section-delete-btn">Delete</button>
-                                                <button className="section-edit-btn">Edit</button>
+                                                <button onClick={() => { setShowAddLinkForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
+                                                <button onClick={() => deleteLink(link.id)} className="section-delete-btn">Delete</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -160,7 +174,7 @@ export default function LayananMahasiswa() {
             <section className="content-section mb-5">
                 <div className="section-header-container">
                     <h4 className="section-header">Database Materi</h4>
-                    <button onClick={() => setShowAddLinkForm(true)} className="section-add-btn">+</button>
+                    <button onClick={() => { setShowAddLinkForm(true); setSelectedData(null) }} className="section-add-btn">+</button>
                 </div>
                 <div className="section-body">
                     <table>
@@ -179,8 +193,8 @@ export default function LayananMahasiswa() {
                                         <td>{link.url}</td>
                                         <td className="table-cta">
                                             <div className="table-cta-container">
-                                                <button onClick={() => deleteDataLink(link.id)} className="section-delete-btn">Delete</button>
-                                                <button className="section-edit-btn">Edit</button>
+                                                <button onClick={() => { setShowAddLinkForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
+                                                <button onClick={() => deleteLink(link.id)} className="section-delete-btn">Delete</button>
                                             </div>
                                         </td>
                                     </tr>
@@ -212,7 +226,8 @@ export default function LayananMahasiswa() {
                                 <td>{FAQ.answer}</td>
                                 <td className="table-cta">
                                     <div className="table-cta-container">
-                                        <button onClick={() => handleDeleteFAQ(FAQ.id)} className="section-delete-btn">Delete</button>
+                                        <button onClick={() => { setShowAddFAQForm(true); setSelectedData(FAQ) }} className="section-edit-btn">Edit</button>
+                                        <button onClick={() => deleteFAQ(FAQ.id)} className="section-delete-btn">Delete</button>
                                     </div>
                                 </td>
                             </tr>

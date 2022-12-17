@@ -12,7 +12,8 @@ export default function ProgramKerja() {
 
   const [detailBidang, setDetailBidang] = useState(null)
   const [selectedDivisi, setSelectedDivisi] = useState(null)
-  // const [selectedProker, setSelectedProker] = useState(null)
+
+  const [selectedData, setSelectedData] = useState(null)
 
   useEffect(() => {
     HIMSI.forEach(HIMSIbidang => {
@@ -35,6 +36,21 @@ export default function ProgramKerja() {
         }
       }
       return divisi
+    })
+    setDetailBidang({ ...detailBidang, divisi: newData })
+    setShowAddProkerForm(false)
+  }
+
+  function editProker(data, idDivisi) {
+    const newData = detailBidang.divisi.map((divisi) => {
+      if (divisi.id === idDivisi) {
+        return {
+          ...divisi,
+          proker: divisi.proker.map((proker) => proker.id === data.id ? data : proker)
+        }
+      } else {
+        return divisi
+      }
     })
     setDetailBidang({ ...detailBidang, divisi: newData })
     setShowAddProkerForm(false)
@@ -72,10 +88,10 @@ export default function ProgramKerja() {
         <section className="content-section">
           <div className="section-header-container">
             <h4 className="section-header">Tambah Program Kerja</h4>
-            <button onClick={() => setShowAddProkerForm(false)} className="section-add-btn">-</button>
+            <button onClick={() => { setShowAddProkerForm(false); setSelectedData(null); setSelectedDivisi(null); }} className="section-add-btn">-</button>
           </div>
           <div className="section-body">
-            <FormAddProker getData={addProker} idDivisi={selectedDivisi} />
+            <FormAddProker addData={addProker} editData={editProker} idDivisi={selectedDivisi} currentData={selectedData} />
           </div>
         </section>
       </main>
@@ -98,7 +114,7 @@ export default function ProgramKerja() {
         <section className="content-section mb-5">
           <div className="section-header-container">
             <h4 className="section-header">Divisi {divisi.nama}</h4>
-            <button onClick={() => { setShowAddProkerForm(true); setSelectedDivisi(divisi.id); }} className="section-add-btn">+</button>
+            <button onClick={() => { setShowAddProkerForm(true); setSelectedData(null); setSelectedDivisi(divisi.id); }} className="section-add-btn">+</button>
           </div>
           <div className="section-body">
             {/* Display Program Kerja per Divisi */}
@@ -115,7 +131,7 @@ export default function ProgramKerja() {
                   <td className="table-cta">
                     <div className="table-cta-container">
                       <button onClick={() => deleteProker(proker.id, divisi.id)} className="section-delete-btn">Delete</button>
-                      <button className="section-edit-btn">Edit</button>
+                      <button onClick={() => { setShowAddProkerForm(true); setSelectedData(proker); setSelectedDivisi(divisi.id); }} className="section-edit-btn">Edit</button>
                     </div>
                   </td>
                 </tr>

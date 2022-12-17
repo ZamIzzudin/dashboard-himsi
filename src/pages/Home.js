@@ -11,69 +11,6 @@ export default function Home() {
   const [showPartnerForm, setPartnerForm] = useState(false)
   const [showSocmedForm, setSocmedForm] = useState(false)
 
-  const listSlider = [
-    {
-      id: 3423234,
-      title: 'MeetUp 13.0',
-      img: 'gambar.png',
-      url: '///'
-    },
-    {
-      id: 3233234,
-      title: 'Lomba Milad Himsi',
-      img: 'gambar.png',
-      url: '///'
-    },
-    {
-      id: 3423214,
-      title: 'PBAK',
-      img: 'gambar.png',
-      url: '///'
-    }
-  ]
-
-  const upcomingEvent = [
-    {
-      id: 3423234,
-      title: 'MeetUp 13.0',
-      img: 'gambar.png',
-      description: 'loremd sdfljsldkfj sdlfksdklf sldfsldkf slkdflskdjfls sldkfjsdlf',
-      url: '///'
-    },
-    {
-      id: 3233234,
-      title: 'Lomba Milad Himsi',
-      img: 'gambar.png',
-      description: 'loremd sdfljsldkfj sdlfksdklf sldfsldkf slkdflskdjfls sldkfjsdlf',
-      url: '///'
-    },
-    {
-      id: 3423214,
-      title: 'PBAK',
-      img: 'gambar.png',
-      description: 'loremd sdfljsldkfj sdlfksdklf sldfsldkf slkdflskdjfls sldkfjsdlf',
-      url: '///'
-    }
-  ]
-
-  const listPartner = [
-    {
-      id: 3423234,
-      name: 'Gojek',
-      img: 'gambar.png',
-    },
-    {
-      id: 3233234,
-      name: 'Kominfo',
-      img: 'gambar.png',
-    },
-    {
-      id: 3423214,
-      name: 'Tokopedia',
-      img: 'gambar.png',
-    }
-  ]
-
   const listSocmed = [
     {
       id: 3423234,
@@ -112,13 +49,14 @@ export default function Home() {
     }
   ]
 
-  const [listUpcomingData, setListUpcomingData] = useState(upcomingEvent)
-  const [listSliderData, setListSliderData] = useState(listSlider)
-  const [listPartnerData, setListPartnerData] = useState(listPartner)
+  const [listUpcomingData, setListUpcomingData] = useState([])
+  const [listSliderData, setListSliderData] = useState([])
+  const [listPartnerData, setListPartnerData] = useState([])
   const [listSocmedData, setListSocmedData] = useState(listSocmed)
 
   const [selectedData, setSelectedData] = useState(null)
 
+  // Add Function
   function handleAddSlider(data) {
     setListSliderData([...listSliderData, data])
     setSliderForm(false)
@@ -134,6 +72,43 @@ export default function Home() {
     setPartnerForm(false)
   }
 
+  // Edit Function
+  function handleEditSlider(data) {
+    const newData = listSliderData.map((slider) => {
+      if (slider.id === data.id) {
+        return data
+      }
+      return slider
+    })
+    setListSliderData(newData)
+    setSelectedData(null)
+    setSliderForm(false)
+  }
+
+  function handleEditUpcoming(data) {
+    const newData = listUpcomingData.map((upcoming) => {
+      if (upcoming.id === data.id) {
+        return data
+      }
+      return upcoming
+    })
+    setListUpcomingData(newData)
+    setSelectedData(null)
+    setUpcomingForm(false)
+  }
+
+  function handleEditPartner(data) {
+    const newData = listPartnerData.map((partner) => {
+      if (partner.id === data.id) {
+        return data
+      }
+      return partner
+    })
+    setListPartnerData(newData)
+    setSelectedData(null)
+    setPartnerForm(false)
+  }
+
   function handleEditSocmed(data) {
     const newData = listSocmedData.map((socmed) => {
       if (socmed.id === data.id) {
@@ -146,6 +121,7 @@ export default function Home() {
     setSocmedForm(false)
   }
 
+  // Delete Function
   function handleDeleteSlider(id) {
     const newData = listSliderData.filter((slider) => slider.id !== id)
     setListSliderData(newData)
@@ -172,11 +148,11 @@ export default function Home() {
         <h1 className="page-header">Home</h1>
         <section className="content-section">
           <div className="section-header-container">
-            <h4 className="section-header">Tambah Slider Information</h4>
+            <h4 className="section-header">Manage Slider Information</h4>
             <button onClick={() => setSliderForm(false)} className="section-add-btn">-</button>
           </div>
           <div className="section-body">
-            <FormSlider getData={handleAddSlider} />
+            <FormSlider addData={handleAddSlider} editData={handleEditSlider} currentData={selectedData} />
           </div>
         </section>
       </main>
@@ -190,11 +166,11 @@ export default function Home() {
         <h1 className="page-header">Home</h1>
         <section className="content-section">
           <div className="section-header-container">
-            <h4 className="section-header">Tambah Upcoming Events</h4>
+            <h4 className="section-header">Manage Upcoming Events</h4>
             <button onClick={() => setUpcomingForm(false)} className="section-add-btn">-</button>
           </div>
           <div className="section-body">
-            <FormUpcoming getData={handleAddUpcoming} />
+            <FormUpcoming addData={handleAddUpcoming} editData={handleEditUpcoming} currentData={selectedData} />
           </div>
         </section>
       </main>
@@ -209,10 +185,10 @@ export default function Home() {
         <section className="content-section">
           <div className="section-header-container">
             <h4 className="section-header">Tambah Partner</h4>
-            <button onClick={() => setPartnerForm(false)} className="section-add-btn">-</button>
+            <button onClick={() => { setPartnerForm(false); setSelectedData(null); }} className="section-add-btn">-</button>
           </div>
           <div className="section-body">
-            <FormPartner getData={handleAddPartner} />
+            <FormPartner addData={handleAddPartner} editData={handleEditPartner} currentData={selectedData} />
           </div>
         </section>
       </main>
@@ -243,21 +219,24 @@ export default function Home() {
       <section className="content-section mb-5">
         <div className="section-header-container">
           <h4 className="section-header">Slider Information</h4>
-          <button onClick={() => setSliderForm(true)} className="section-add-btn">+</button>
+          <button onClick={() => { setSliderForm(true); setSelectedData(null) }} className="section-add-btn">+</button>
         </div>
         <div className="section-body">
           <table>
             <tr>
               <th>No.</th>
               <th>Judul</th>
+              <th>Link</th>
               <th className="text-center">Action</th>
             </tr>
-            {listSliderData.map((slider, index) => (
-              <tr>
+            {listSliderData?.map((slider, index) => (
+              <tr key={`${index} slider`}>
                 <td>{index + 1}</td>
                 <td>{slider.title}</td>
+                <td>{slider.url}</td>
                 <td className="table-cta">
                   <div className="table-cta-container">
+                    <button onClick={() => { setSliderForm(true); setSelectedData(slider) }} className="section-edit-btn">Edit</button>
                     <button onClick={() => handleDeleteSlider(slider.id)} className="section-delete-btn">Delete</button>
                   </div>
                 </td>
@@ -271,7 +250,7 @@ export default function Home() {
       <section className="content-section mb-5">
         <div className="section-header-container">
           <h4 className="section-header">Upcoming Event</h4>
-          <button onClick={() => setUpcomingForm(true)} className="section-add-btn">+</button>
+          <button onClick={() => { setUpcomingForm(true); setSelectedData(null); }} className="section-add-btn">+</button>
         </div>
         <div className="section-body">
           <table>
@@ -286,6 +265,7 @@ export default function Home() {
                 <td>{upcoming.title}</td>
                 <td className="table-cta">
                   <div className="table-cta-container">
+                    <button onClick={() => { setUpcomingForm(true); setSelectedData(upcoming) }} className="section-edit-btn">Edit</button>
                     <button onClick={() => handleDeleteUpcoming(upcoming.id)} className="section-delete-btn">Delete</button>
                   </div>
                 </td>
@@ -299,7 +279,7 @@ export default function Home() {
       <section className="content-section mb-5">
         <div className="section-header-container">
           <h4 className="section-header">Partners</h4>
-          <button onClick={() => setPartnerForm(true)} className="section-add-btn">+</button>
+          <button onClick={() => { setPartnerForm(true); setSelectedData(null); }} className="section-add-btn">+</button>
         </div>
         <div className="section-body">
           <table>
@@ -314,6 +294,7 @@ export default function Home() {
                 <td>{partner.name}</td>
                 <td className="table-cta">
                   <div className="table-cta-container">
+                    <button onClick={() => { setPartnerForm(true); setSelectedData(partner) }} className="section-edit-btn">Edit</button>
                     <button onClick={() => handleDeletePartner(partner.id)} className="section-delete-btn">Delete</button>
                   </div>
                 </td>

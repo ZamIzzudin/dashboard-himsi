@@ -3,23 +3,32 @@ import { useState } from 'react'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormAddUser({ getData }) {
-    const [name, setName] = useState('')
-    const [role, setRole] = useState('Super Admin')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+export default function FormAddUser({ addData, editData, currentData }) {
+    const [name, setName] = useState(currentData?.name)
+    const [role, setRole] = useState(currentData?.role)
+    const [email, setEmail] = useState(currentData?.email)
+    const [password, setPassword] = useState(currentData?.password)
 
     function handleAdd(e) {
         e.preventDefault()
-
-        const id = Math.floor(Math.random() * 1001)
-        getData({
-            id,
-            name,
-            role,
-            email,
-            password
-        })
+        if (currentData !== null) {
+            editData({
+                id: currentData.id,
+                name,
+                role,
+                email,
+                password
+            })
+        } else {
+            const id = Math.floor(Math.random() * 1001)
+            addData({
+                id,
+                name,
+                role,
+                email,
+                password
+            })
+        }
     }
 
     return (

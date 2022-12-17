@@ -3,19 +3,27 @@ import { useState } from 'react'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormAddLink({ getData }) {
-    const [linkTitle, setLinkTitle] = useState('')
-    const [linkURL, setLinkURL] = useState('')
+export default function FormAddLink({ addData, editData, currentData }) {
+    const [linkTitle, setLinkTitle] = useState(currentData?.judul)
+    const [linkURL, setLinkURL] = useState(currentData?.url)
 
     function handleAddLink(e) {
         e.preventDefault()
-        const id = Math.floor(Math.random() * 1001)
+        if (currentData !== null) {
+            editData({
+                id: currentData.id,
+                judul: linkTitle,
+                url: linkURL
+            })
+        } else {
+            const id = Math.floor(Math.random() * 1001)
 
-        getData({
-            id,
-            question: linkTitle,
-            answer: linkURL
-        })
+            addData({
+                id,
+                judul: linkTitle,
+                url: linkURL
+            })
+        }
     }
 
     return (

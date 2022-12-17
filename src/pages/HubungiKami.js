@@ -20,14 +20,27 @@ export default function Hubungikami() {
 
     const [listLink, setListLink] = useState(links)
 
-    function handleAddLink(data) {
+    const [selectedData, setSelectedData] = useState(null)
+
+    function AddLink(data) {
         setListLink([...listLink, data])
         setShowAddForm(false)
     }
 
-    function handleDeleteLink(id) {
+    function deleteLink(id) {
         const newData = listLink.filter(link => link.id !== id)
         setListLink(newData)
+    }
+
+    function editLink(data) {
+        const newData = listLink.map(link => {
+            if (link.id === data.id) {
+                return data
+            }
+            return link
+        })
+        setListLink(newData)
+        setShowAddForm(false)
     }
 
     useEffect(() => {
@@ -44,7 +57,7 @@ export default function Hubungikami() {
                         <button onClick={() => setShowAddForm(false)} className="section-add-btn">-</button>
                     </div>
                     <div className="section-body">
-                        <FormAddLink getData={handleAddLink} />
+                        <FormAddLink addData={AddLink} editData={editLink} currentData={selectedData} />
                     </div>
                 </section>
             </main>
@@ -57,7 +70,7 @@ export default function Hubungikami() {
             <section className="content-section">
                 <div className="section-header-container">
                     <h4 className="section-header">Daftar Kontak</h4>
-                    <button onClick={() => setShowAddForm(true)} className="section-add-btn">+</button>
+                    <button onClick={() => { setShowAddForm(true); setSelectedData(null) }} className="section-add-btn">+</button>
                 </div>
                 <div className="section-body">
                     <table>
@@ -74,8 +87,8 @@ export default function Hubungikami() {
                                 <td>{link.url}</td>
                                 <td className="table-cta">
                                     <div className="table-cta-container">
-                                        <button onClick={() => handleDeleteLink(link.id)} className="section-delete-btn">Delete</button>
-                                        <button className="section-edit-btn">Edit</button>
+                                        <button onClick={() => deleteLink(link.id)} className="section-delete-btn">Delete</button>
+                                        <button onClick={() => { setShowAddForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
                                     </div>
                                 </td>
                             </tr>

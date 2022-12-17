@@ -5,26 +5,34 @@ import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormSlider({ getData }) {
-    const [sliderTitle, setSliderTitle] = useState('')
-    const [sliderURL, setSliderURL] = useState('')
-    const [sliderImage, setSliderImage] = useState(null)
+export default function FormSlider({ addData, editData, currentData }) {
+    const [sliderTitle, setSliderTitle] = useState(currentData?.title)
+    const [sliderURL, setSliderURL] = useState(currentData?.url)
+    const [sliderImage, setSliderImage] = useState(currentData?.img)
 
-    function handleAddSlider(e) {
+    function handleManageSlider(e) {
         e.preventDefault()
-        const id = Math.floor(Math.random() * 1001)
-
-        getData({
-            id,
-            title: sliderTitle,
-            img: sliderImage,
-            url: sliderURL
-        })
+        if (currentData !== null) {
+            editData({
+                id: currentData.id,
+                title: sliderTitle,
+                img: sliderImage,
+                url: sliderURL
+            })
+        } else {
+            const id = Math.floor(Math.random() * 1001)
+            addData({
+                id,
+                title: sliderTitle,
+                img: sliderImage,
+                url: sliderURL
+            })
+        }
     }
 
     return (
-        <Form onSubmit={(e) => handleAddSlider(e)}>
-            <InputImage getData={setSliderImage} label="Upload Gambar Slider Information" />
+        <Form onSubmit={(e) => handleManageSlider(e)}>
+            <InputImage getData={setSliderImage} label="Upload Gambar Slider Information" currentData={sliderImage} />
             <Form.Group>
                 <Form.Label>Judul</Form.Label>
                 <Form.Control required value={sliderTitle} onChange={(e) => setSliderTitle(e.target.value)} />

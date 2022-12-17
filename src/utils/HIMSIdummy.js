@@ -6,16 +6,19 @@ const HIMSI = [
         logo: './png',
         deskripsi: 'lorem sdajshdjad aksjdajsd ajsdhajsd asdhajsd ashdajsdasd',
         pengurus: [{
+            id: 132342,
             nama: 'Agus',
             jabatan: 'Ketua Bidang',
             img: './png'
         },
         {
+            id: 13232,
             nama: 'Mulyono',
             jabatan: 'Ketua Divisi',
             img: './png'
         },
         {
+            id: 13342,
             nama: 'Suryani',
             jabatan: 'Bendahara',
             img: './png'
@@ -112,16 +115,19 @@ const HIMSI = [
         logo: './png',
         deskripsi: 'lorem sdajshdjad aksjdajsd ajsdhajsd asdhajsd ashdajsdasd',
         pengurus: [{
+            id: 132342,
             nama: 'Agus',
             jabatan: 'Ketua Bidang',
             img: './png'
         },
         {
+            id: 13232,
             nama: 'Mulyono',
             jabatan: 'Ketua Divisi',
             img: './png'
         },
         {
+            id: 13342,
             nama: 'Suryani',
             jabatan: 'Bendahara',
             img: './png'
@@ -218,16 +224,19 @@ const HIMSI = [
         logo: './png',
         deskripsi: 'lorem sdajshdjad aksjdajsd ajsdhajsd asdhajsd ashdajsdasd',
         pengurus: [{
+            id: 132342,
             nama: 'Agus',
             jabatan: 'Ketua Bidang',
             img: './png'
         },
         {
+            id: 13232,
             nama: 'Mulyono',
             jabatan: 'Ketua Divisi',
             img: './png'
         },
         {
+            id: 13342,
             nama: 'Suryani',
             jabatan: 'Bendahara',
             img: './png'
@@ -324,16 +333,19 @@ const HIMSI = [
         logo: './png',
         deskripsi: 'lorem sdajshdjad aksjdajsd ajsdhajsd asdhajsd ashdajsdasd',
         pengurus: [{
+            id: 132342,
             nama: 'Agus',
             jabatan: 'Ketua Bidang',
             img: './png'
         },
         {
+            id: 13232,
             nama: 'Mulyono',
             jabatan: 'Ketua Divisi',
             img: './png'
         },
         {
+            id: 13342,
             nama: 'Suryani',
             jabatan: 'Bendahara',
             img: './png'
@@ -430,16 +442,19 @@ const HIMSI = [
         logo: './png',
         deskripsi: 'lorem sdajshdjad aksjdajsd ajsdhajsd asdhajsd ashdajsdasd',
         pengurus: [{
+            id: 132342,
             nama: 'Agus',
             jabatan: 'Ketua Bidang',
             img: './png'
         },
         {
+            id: 13232,
             nama: 'Mulyono',
             jabatan: 'Ketua Divisi',
             img: './png'
         },
         {
+            id: 13342,
             nama: 'Suryani',
             jabatan: 'Bendahara',
             img: './png'
@@ -536,16 +551,19 @@ const HIMSI = [
         logo: './png',
         deskripsi: 'lorem sdajshdjad aksjdajsd ajsdhajsd asdhajsd ashdajsdasd',
         pengurus: [{
+            id: 132342,
             nama: 'Agus',
             jabatan: 'Ketua Bidang',
             img: './png'
         },
         {
+            id: 13232,
             nama: 'Mulyono',
             jabatan: 'Ketua Divisi',
             img: './png'
         },
         {
+            id: 13342,
             nama: 'Suryani',
             jabatan: 'Bendahara',
             img: './png'
@@ -642,16 +660,19 @@ const HIMSI = [
         logo: './png',
         deskripsi: 'lorem sdajshdjad aksjdajsd ajsdhajsd asdhajsd ashdajsdasd',
         pengurus: [{
+            id: 132342,
             nama: 'Agus',
             jabatan: 'Ketua Bidang',
             img: './png'
         },
         {
+            id: 13232,
             nama: 'Mulyono',
             jabatan: 'Ketua Divisi',
             img: './png'
         },
         {
+            id: 13342,
             nama: 'Suryani',
             jabatan: 'Bendahara',
             img: './png'

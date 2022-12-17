@@ -3,25 +3,34 @@ import { useState } from 'react'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormAddLink({ getData }) {
-    const [linkName, setLinkName] = useState('')
-    const [linkURL, setLinkURL] = useState('')
-    const [linkCategory, setLinkCategory] = useState('E-Layanan')
+export default function FormAddLink({ addData, editData, currentData }) {
+    const [linkName, setLinkName] = useState(currentData?.name)
+    const [linkURL, setLinkURL] = useState(currentData?.url)
+    const [linkCategory, setLinkCategory] = useState(currentData.category)
 
-    function handleAddLink(e) {
+    function handleManageLink(e) {
         e.preventDefault()
-        const id = Math.floor(Math.random() * 1001)
+        if (currentData !== null) {
+            editData({
+                id: currentData.id,
+                name: linkName,
+                category: linkCategory,
+                url: linkURL,
+            })
+        } else {
+            const id = Math.floor(Math.random() * 1001)
 
-        getData({
-            id,
-            name: linkName,
-            category: linkCategory,
-            url: linkURL,
-        })
+            addData({
+                id,
+                name: linkName,
+                category: linkCategory,
+                url: linkURL,
+            })
+        }
     }
 
     return (
-        <Form onSubmit={(e) => handleAddLink(e)}>
+        <Form onSubmit={(e) => handleManageLink(e)}>
             <Form.Group>
                 <Form.Label>Nama</Form.Label>
                 <Form.Control required value={linkName} onChange={(e) => setLinkName(e.target.value)} />
