@@ -40,12 +40,12 @@ export default function FormVisiMisi() {
     }
 
     return (
-        <div>
+        <Form>
             <Form.Group>
                 <Form.Label>Visi</Form.Label>
                 <InputGroup>
-                    <Form.Control required value={visi} onChange={(e) => setVisi(e.target.value)} />
-                    <button className="section-add-btn" onClick={() => addVisi()}>+</button>
+                    <Form.Control value={visi} onChange={(e) => setVisi(e.target.value)} />
+                    <button type="button" className="section-add-btn" onClick={() => addVisi()}>+</button>
                 </InputGroup>
             </Form.Group>
             {/* Visi Tabel */}
@@ -62,7 +62,7 @@ export default function FormVisiMisi() {
                             <td>{item}</td>
                             <td className="table-cta">
                                 <div className="table-cta-container">
-                                    <button onClick={() => deleteVisi(item)} className="section-delete-btn">Delete</button>
+                                    <button type="button" onClick={() => deleteVisi(item)} className="section-delete-btn">Delete</button>
                                 </div>
                             </td>
                         </tr>
@@ -72,8 +72,8 @@ export default function FormVisiMisi() {
             <Form.Group>
                 <Form.Label>Misi</Form.Label>
                 <InputGroup>
-                    <Form.Control required value={misi} onChange={(e) => setMisi(e.target.value)} />
-                    <button className="section-add-btn" onClick={() => addMisi()}>+</button>
+                    <Form.Control value={misi} onChange={(e) => setMisi(e.target.value)} />
+                    <button type="button" className="section-add-btn" onClick={() => addMisi()}>+</button>
                 </InputGroup>
             </Form.Group>
             {/* Visi Tabel */}
@@ -90,7 +90,7 @@ export default function FormVisiMisi() {
                             <td>{item}</td>
                             <td className="table-cta">
                                 <div className="table-cta-container">
-                                    <button onClick={() => deleteMisi(item)} className="section-delete-btn">Delete</button>
+                                    <button type="button" onClick={() => deleteMisi(item)} className="section-delete-btn">Delete</button>
                                 </div>
                             </td>
                         </tr>
@@ -100,7 +100,7 @@ export default function FormVisiMisi() {
             <div className="form-cta">
                 <button onClick={() => editVisiMisi()} className="form-submit-button" type="submit">Simpan</button>
             </div>
-        </div>
+        </Form>
 
     )
 }
