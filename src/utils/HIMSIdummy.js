@@ -426,7 +426,7 @@ const HIMSI = [
     {
         id: 1257,
         bidang: 'PERHUB',
-        kepanjangan: 'Penrhubungan',
+        kepanjangan: 'Perhubungan Eksternal',
         logo: './png',
         deskripsi: 'lorem sdajshdjad aksjdajsd ajsdhajsd asdhajsd ashdajsdasd',
         pengurus: [{
@@ -532,7 +532,7 @@ const HIMSI = [
     {
         id: 3233,
         bidang: 'ADKESMA',
-        kepanjangan: 'Advokasi dan Kesejahteraan Mahasiswa',
+        kepanjangan: 'Advokasi Kesejahteraan Mahasiswa',
         logo: './png',
         deskripsi: 'lorem sdajshdjad aksjdajsd ajsdhajsd asdhajsd ashdajsdasd',
         pengurus: [{

@@ -12,7 +12,7 @@ export default function ProgramKerja() {
 
   const [detailBidang, setDetailBidang] = useState(null)
   const [selectedDivisi, setSelectedDivisi] = useState(null)
-  const [selectedProker, setSelectedProker] = useState(null)
+  // const [selectedProker, setSelectedProker] = useState(null)
 
   useEffect(() => {
     HIMSI.forEach(HIMSIbidang => {
@@ -54,6 +54,10 @@ export default function ProgramKerja() {
     setDetailBidang({ ...detailBidang, divisi: newData })
   }
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [showAddProkerForm]);
+
   if (showAddProkerForm) {
     return (
       <main>
@@ -67,7 +71,7 @@ export default function ProgramKerja() {
         </section>
         <section className="content-section">
           <div className="section-header-container">
-            <h4 className="section-header">Tambah FAQ</h4>
+            <h4 className="section-header">Tambah Program Kerja</h4>
             <button onClick={() => setShowAddProkerForm(false)} className="section-add-btn">-</button>
           </div>
           <div className="section-body">

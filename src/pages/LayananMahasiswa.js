@@ -1,6 +1,6 @@
 import FormAddLink from '../components/LayananMahasiswa/FormAddLink'
 import FormAddFAQ from '../components/LayananMahasiswa/FormAddFAQ'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function LayananMahasiswa() {
     const [showAddLinkForm, setShowAddLinkForm] = useState(false)
@@ -78,6 +78,10 @@ export default function LayananMahasiswa() {
     //   })
     //   setDataLink(newData)
     // }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [showAddLinkForm, showAddFAQForm]);
 
     if (showAddLinkForm) {
         return (

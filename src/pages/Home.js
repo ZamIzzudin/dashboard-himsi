@@ -1,10 +1,9 @@
+import { useState, useEffect } from "react";
+
 import FormSlider from "../components/Home/FormSlider";
 import FormUpcoming from "../components/Home/FormUpcoming";
 import FormPartner from "../components/Home/FormPartner";
 import FormSocmed from "../components/Home/FormSocmed";
-import { useState } from "react";
-
-import "../styles/pages/Home.css";
 
 export default function Home() {
   const [showSliderForm, setSliderForm] = useState(false)
@@ -161,6 +160,10 @@ export default function Home() {
     const newData = listPartnerData.filter((partner) => partner.id !== id)
     setListPartnerData(newData)
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [showSliderForm, showUpcomingForm, showPartnerForm, showSocmedForm]);
 
   // Slider Information Form
   if (showSliderForm) {

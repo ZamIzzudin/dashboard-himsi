@@ -52,7 +52,6 @@ export default function Router() {
         return (
             <BrowserRouter>
                 <Route exact path="/" component={Login} />
-                <Route exact path="*" component={Home} />
             </BrowserRouter>
         )
     }

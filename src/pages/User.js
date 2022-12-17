@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import FormAddUser from '../components/User/FormAddUser'
 
@@ -33,6 +33,10 @@ export default function User() {
         const newData = listUser.filter(link => link.id !== id)
         setListUser(newData)
     }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [showAddForm]);
 
     if (showAddForm) {
         return (
