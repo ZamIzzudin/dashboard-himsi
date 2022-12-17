@@ -1,16 +1,17 @@
 import { Form } from 'react-bootstrap'
-import { useState, useRef } from 'react'
+import { useState } from 'react'
+
+import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
 
 export default function FormUpcoming({ getData }) {
     const [eventTitle, setEventTitle] = useState('')
+    const [eventTanggal, setEventTanggal] = useState('')
     const [eventDescription, setEventDescription] = useState('')
     const [eventURL, setEventURL] = useState('')
     const [eventImage, setEventImage] = useState(null)
-    const [showImage, setShowImage] = useState(null)
 
-    const fileInputRef = useRef(null);
 
     function handleAddSlider(e) {
         e.preventDefault()
@@ -20,67 +21,22 @@ export default function FormUpcoming({ getData }) {
             id,
             title: eventTitle,
             description: eventDescription,
+            tanggal: eventTanggal,
             img: eventImage,
             url: eventURL
         })
     }
 
-    const handleDrop = (e) => {
-        e.preventDefault();
-        const file = e.dataTransfer.files[0];
-        setEventImage(file);
-
-        if (file !== undefined) {
-            const reader = new FileReader();
-            reader.onload = function () {
-                const { result } = reader;
-                const detail = {
-                    src: result,
-                    name: file.name,
-                };
-
-                setShowImage(detail);
-            };
-            reader.readAsDataURL(file);
-        }
-    };
-
-    const handleDragOver = (e) => {
-        e.preventDefault();
-    };
-
-    const addImageButton = () => {
-        fileInputRef.current.click();
-    };
-
     return (
         <Form onSubmit={(e) => handleAddSlider(e)}>
-            <Form.Group>
-                <div
-                    onDrop={handleDrop}
-                    onDragOver={handleDragOver}
-                    className="form-image"
-                >
-                    <Form.Label className="text-org">Upload Gambar Card Preview</Form.Label>
-                    <input
-                        ref={fileInputRef}
-                        type="file"
-                        style={{ display: 'none' }}
-                        onChange={handleDrop}
-                    />
-                    <div className="form-drag-drop-area">{
-                        showImage !== null ? (
-                            <img src={showImage.src} width="100%" alt="uploaded data" />
-                        ) : (
-                            "Drag n Drop here"
-                        )
-                    }</div>
-                    <button className="form-image-btn" onClick={addImageButton}>Select file</button>
-                </div>
-            </Form.Group>
+            <InputImage getData={setEventImage} label="Upload Gambar Card Preview" />
             <Form.Group>
                 <Form.Label>Judul</Form.Label>
                 <Form.Control required value={eventTitle} onChange={(e) => setEventTitle(e.target.value)} />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Tanggal</Form.Label>
+                <Form.Control type="date" required value={eventTanggal} onChange={(e) => setEventTanggal(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Deskripsi Singkat</Form.Label>

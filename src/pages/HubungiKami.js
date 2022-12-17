@@ -1,9 +1,9 @@
 import FormAddLink from '../components/HubungiKami/FormAddLink'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function Hubungikami() {
-    const [showAddModal, setShowAddForm] = useState(false)
+    const [showAddForm, setShowAddForm] = useState(false)
 
     const links = [
         {
@@ -30,7 +30,11 @@ export default function Hubungikami() {
         setListLink(newData)
     }
 
-    if (showAddModal) {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [showAddForm]);
+
+    if (showAddForm) {
         return (
             <main>
                 <h1 className="page-header">User</h1>
