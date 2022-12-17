@@ -39,7 +39,7 @@ export default function FormAddProker({ addData, editData, idDivisi, currentData
 
     return (
         <Form onSubmit={(e) => handleAddProker(e)}>
-            <InputImage getData={setHeaderImgProker} label="Upload Gambar Heading" />
+            <InputImage getData={setHeaderImgProker} label="Upload Gambar Heading" currentData={headerImageProker} />
             <Form.Group>
                 <Form.Label>Judul</Form.Label>
                 <Form.Control required value={namaProker} onChange={(e) => setNamaProker(e.target.value)} />
@@ -52,7 +52,7 @@ export default function FormAddProker({ addData, editData, idDivisi, currentData
                 <Form.Label>Deskripsi</Form.Label>
                 <textarea className="semi-text-area" required value={deskripsiProker} onChange={(e) => setDeskripsiProker(e.target.value)} />
             </Form.Group>
-            <InputImage getData={setDokumentasiProker} label="Upload Dokumentasi" />
+            <InputImage getData={setDokumentasiProker} label="Upload Dokumentasi" currentData={dokumentasiProker} />
             <div className="form-cta">
                 <button className="form-submit-button" type="submit">Simpan</button>
             </div>

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import '../../styles/components/FormLayout.css'
 
 export default function ModalDivisi({ show, setShow, addData, editData, currentData }) {
-    const [namaDivisi, setNamaDivisi] = useState(currentData?.nama)
+    const [namaDivisi, setNamaDivisi] = useState('')
 
     function addDivisi(e) {
         e.preventDefault()
@@ -34,7 +34,7 @@ export default function ModalDivisi({ show, setShow, addData, editData, currentD
     }
 
     useEffect(() => {
-        setNamaDivisi(currentData?.nama)
+        setNamaDivisi(currentData?.nama || '')
     }, [currentData])
 
     return (

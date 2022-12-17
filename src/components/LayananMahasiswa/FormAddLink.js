@@ -6,7 +6,7 @@ import '../../styles/components/FormLayout.css'
 export default function FormAddLink({ addData, editData, currentData }) {
     const [linkName, setLinkName] = useState(currentData?.name)
     const [linkURL, setLinkURL] = useState(currentData?.url)
-    const [linkCategory, setLinkCategory] = useState(currentData.category)
+    const [linkCategory, setLinkCategory] = useState(currentData?.category || 'E-Layanan')
 
     function handleManageLink(e) {
         e.preventDefault()

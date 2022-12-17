@@ -63,6 +63,7 @@ export default function FormBidang({ addData, editData, currentData }) {
                 return divisi
             }
         })
+        setSelectedData(null)
         setListDivisiBidang(newData)
     }
 
@@ -74,6 +75,7 @@ export default function FormBidang({ addData, editData, currentData }) {
                 return pengurus
             }
         })
+        setSelectedData(null)
         setListPengurusBidang(newData)
     }
 
@@ -111,7 +113,7 @@ export default function FormBidang({ addData, editData, currentData }) {
                 <Form.Group>
                     <div className="label-cta">
                         <Form.Label>Divisi</Form.Label>
-                        <button onClick={() => setShowDivisiModal(true)} type="button" className="label-cta-btn">+</button>
+                        <button onClick={() => { setShowDivisiModal(true); setSelectedData(null) }} type="button" className="label-cta-btn">+</button>
                     </div>
                     <table>
                         <tr>
@@ -138,7 +140,7 @@ export default function FormBidang({ addData, editData, currentData }) {
                 <Form.Group>
                     <div className="label-cta">
                         <Form.Label>Pengurus</Form.Label>
-                        <button onClick={() => setShowPengurusModal(true)} type="button" className="label-cta-btn">+</button>
+                        <button onClick={() => { setShowPengurusModal(true); setSelectedData(null) }} type="button" className="label-cta-btn">+</button>
                     </div>
                     <table>
                         <tr>

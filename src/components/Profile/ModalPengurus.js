@@ -6,10 +6,10 @@ import InputImage from '../InputImage'
 import '../../styles/components/FormLayout.css'
 
 export default function ModalPengurus({ show, setShow, addData, editData, currentData }) {
-    const [namaPengurus, setNamaPengurus] = useState(currentData?.nama)
-    const [jabatanPengurus, setJabatanPengurus] = useState(currentData?.jabatan)
-    const [socmedPengurus, setSocmedPengurus] = useState(currentData?.socmed)
-    const [imagePengurus, setImagePengurus] = useState(currentData?.image)
+    const [namaPengurus, setNamaPengurus] = useState('')
+    const [jabatanPengurus, setJabatanPengurus] = useState('')
+    const [socmedPengurus, setSocmedPengurus] = useState('')
+    const [imagePengurus, setImagePengurus] = useState(null)
 
     function addPengurus(e) {
         e.preventDefault()
@@ -19,7 +19,7 @@ export default function ModalPengurus({ show, setShow, addData, editData, curren
                 nama: namaPengurus,
                 jabatan: jabatanPengurus,
                 socmed: socmedPengurus,
-                image: imagePengurus,
+                img: imagePengurus,
             }
 
             editData(data)
@@ -31,7 +31,7 @@ export default function ModalPengurus({ show, setShow, addData, editData, curren
                 nama: namaPengurus,
                 jabatan: jabatanPengurus,
                 socmed: socmedPengurus,
-                image: imagePengurus,
+                img: imagePengurus,
             }
 
             addData(data)
@@ -46,10 +46,10 @@ export default function ModalPengurus({ show, setShow, addData, editData, curren
     }
 
     useEffect(() => {
-        setNamaPengurus(currentData?.nama)
-        setJabatanPengurus(currentData?.jabatan)
-        setSocmedPengurus(currentData?.socmed)
-        setImagePengurus(currentData?.image)
+        setNamaPengurus(currentData?.nama || '')
+        setJabatanPengurus(currentData?.jabatan || '')
+        setSocmedPengurus(currentData?.socmed || '')
+        setImagePengurus(currentData?.img || null)
     }, [currentData])
 
     return (

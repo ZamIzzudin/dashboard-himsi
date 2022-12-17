@@ -139,7 +139,7 @@ export default function LayananMahasiswa() {
             <section className="content-section mb-5">
                 <div className="section-header-container">
                     <h4 className="section-header">E-Layanan Mahasiswa</h4>
-                    <button onClick={() => setShowAddLinkForm(true)} className="section-add-btn">+</button>
+                    <button onClick={() => { setShowAddLinkForm(true); setSelectedData(null); }} className="section-add-btn">+</button>
                 </div>
                 <div className="section-body">
                     <table>
@@ -174,7 +174,7 @@ export default function LayananMahasiswa() {
             <section className="content-section mb-5">
                 <div className="section-header-container">
                     <h4 className="section-header">Database Materi</h4>
-                    <button onClick={() => { setShowAddLinkForm(true); setSelectedData(null) }} className="section-add-btn">+</button>
+                    <button onClick={() => { setShowAddLinkForm(true); setSelectedData(null); }} className="section-add-btn">+</button>
                 </div>
                 <div className="section-body">
                     <table>

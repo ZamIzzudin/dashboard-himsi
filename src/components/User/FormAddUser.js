@@ -5,7 +5,7 @@ import '../../styles/components/FormLayout.css'
 
 export default function FormAddUser({ addData, editData, currentData }) {
     const [name, setName] = useState(currentData?.name)
-    const [role, setRole] = useState(currentData?.role)
+    const [role, setRole] = useState(currentData?.role || 'Super Admin')
     const [email, setEmail] = useState(currentData?.email)
     const [password, setPassword] = useState(currentData?.password)
 
@@ -39,7 +39,7 @@ export default function FormAddUser({ addData, editData, currentData }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Role</Form.Label>
-                <Form.Select value={role}>onChange={(e) => setRole(e.target.value)}
+                <Form.Select value={role} onChange={(e) => setRole(e.target.value)}>
                     <option value="Super Admin">Super Admin</option>
                     <option value="Admin">Admin</option>
                 </Form.Select>
