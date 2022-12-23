@@ -9,7 +9,7 @@ const api = (() => {
     axios.defaults.withCredentials = true
 
     async function Login(email, password) {
-        const url = baseUrl + '/login'
+        // const url = baseUrl + '/login'
 
         form.append('email', email)
         form.append('password', password)
