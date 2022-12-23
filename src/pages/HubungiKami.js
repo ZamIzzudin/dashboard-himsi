@@ -1,5 +1,6 @@
 import FormAddLink from '../components/HubungiKami/FormAddLink'
 
+import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 import { useState, useEffect } from 'react'
 
 export default function Hubungikami() {
@@ -87,8 +88,8 @@ export default function Hubungikami() {
                                 <td>{link.url}</td>
                                 <td className="table-cta">
                                     <div className="table-cta-container">
-                                        <button onClick={() => deleteLink(link.id)} className="section-delete-btn">Delete</button>
                                         <button onClick={() => { setShowAddForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
+                                        <button onClick={() => deleteLink(link.id)} className="section-delete-btn"><Delete /></button>
                                     </div>
                                 </td>
                             </tr>

@@ -50,20 +50,26 @@
 .login-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 30px;
 }
 
-.login-form input {
-    border: none;
-    border-radius: 0;
-    border-bottom: 2px solid #828282;
-    padding-left: 0;
-    padding-right: 0;
+.input-login {
+    border: none !important;
+    border-bottom: 2px solid #828282 !important;
     font-size: 1.8em;
+    margin-bottom: 0 !important;
 }
 
-.login-form input:focus {
-    box-shadow: none;
+.input-login:focus {
+    box-shadow: none !important;
+    border: none !important;
+    border-bottom: 2px solid #828282 !important;
+}
+
+.hide-pass-button {
+    width: 50px;
     border: none;
     border-bottom: 2px solid #828282;
+    font-size: 1.8em;
+    background-color: transparent;
 }

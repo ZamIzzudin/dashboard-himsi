@@ -4,6 +4,7 @@ import FormHimpunan from '../components/Profile/FormHimpunan'
 import FormBidang from '../components/Profile/FormBidang'
 import FormVisiMisi from '../components/Profile/FormVisiMisi'
 import FormStruktur from '../components/Profile/FormStruktur'
+import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
 import HIMSI from '../utils/HIMSIdummy'
 
@@ -104,7 +105,7 @@ export default function Profile() {
                 <td className="table-cta">
                   <div className="table-cta-container">
                     <button onClick={() => { setShowBidangForm(true); setSelectedData(bidang); }} className="section-edit-btn">Edit</button>
-                    <button onClick={() => deleteBidang(bidang.id)} className="section-delete-btn">Delete</button>
+                    <button onClick={() => deleteBidang(bidang.id)} className="section-delete-btn"><Delete /></button>
                   </div>
                 </td>
               </tr>

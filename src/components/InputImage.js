@@ -1,6 +1,9 @@
 import { Form } from 'react-bootstrap'
 import { useState, useRef } from 'react'
 
+import { ReactComponent as FileOrg } from '../assets/icons/file-org.svg'
+import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
+
 import '../styles/components/FormLayout.css'
 
 export default function InputImage({ getData, label, currentData }) {
@@ -70,10 +73,12 @@ export default function InputImage({ getData, label, currentData }) {
                 {showImage !== undefined ? (
                     <div className="image-display-card">
                         <span>
-                            <img src={showImage?.src} width="10%" alt="uploaded data" />
+                            <FileOrg />
                             {showImage?.name}
                         </span>
-                        <button onClick={() => deleteImage()}>X</button>
+                        <button onClick={() => deleteImage()}>
+                            <Delete />
+                        </button>
                     </div>
                 ) : (
                     <div className="non-image-display-card" onClick={addImageButton}>

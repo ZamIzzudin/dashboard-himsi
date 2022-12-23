@@ -7,8 +7,7 @@
 }
 
 .form-control,
-.form-select,
-textarea {
+.form-select {
     font-size: 1.6em !important;
     padding: 6px 10px !important;
     box-sizing: border-box;
@@ -19,20 +18,6 @@ textarea {
 .form-select option {
     font-size: .9em !important;
     padding: 10px !important;
-}
-
-.semi-text-area {
-    width: 100%;
-    min-height: 150px;
-    border-radius: 4px;
-}
-
-.semi-text-area:focus {
-    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
-}
-
-.semi-text-area:focus-visible {
-    outline: none;
 }
 
 .form-cta {
@@ -103,15 +88,11 @@ textarea {
     color: var(--primaryColor2);
     font-weight: 600;
     font-size: 1.5em;
+    padding: 10px 20px;
 }
 
 .image-display-card button {
-    border-radius: 100%;
-    padding: 4px 10px;
-    font-size: 1.3em;
-    font-weight: 700;
-    color: var(--stateColorError);
-    border: 2px solid var(--stateColorError);
+    border: none;
     background-color: transparent;
 }
 
@@ -207,4 +188,8 @@ textarea {
     height: 20px;
     border-radius: 100%;
     background-color: transparent;
+}
+
+.cke {
+    margin-bottom: 20px !important;
 }

@@ -1,6 +1,8 @@
 import { Form, InputGroup } from 'react-bootstrap'
 import { useState } from 'react'
 
+import { ReactComponent as Delete } from '../../assets/icons/Delete.svg'
+
 import '../../styles/components/FormLayout.css'
 
 export default function FormVisiMisi() {
@@ -62,7 +64,7 @@ export default function FormVisiMisi() {
                             <td>{item}</td>
                             <td className="table-cta">
                                 <div className="table-cta-container">
-                                    <button type="button" onClick={() => deleteVisi(item)} className="section-delete-btn">Delete</button>
+                                    <button type="button" onClick={() => deleteVisi(item)} className="section-delete-btn"><Delete /></button>
                                 </div>
                             </td>
                         </tr>
@@ -90,7 +92,7 @@ export default function FormVisiMisi() {
                             <td>{item}</td>
                             <td className="table-cta">
                                 <div className="table-cta-container">
-                                    <button type="button" onClick={() => deleteMisi(item)} className="section-delete-btn">Delete</button>
+                                    <button type="button" onClick={() => deleteMisi(item)} className="section-delete-btn"><Delete /></button>
                                 </div>
                             </td>
                         </tr>

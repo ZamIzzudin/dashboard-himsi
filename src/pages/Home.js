@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 
+import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 import FormSlider from "../components/Home/FormSlider";
 import FormUpcoming from "../components/Home/FormUpcoming";
 import FormPartner from "../components/Home/FormPartner";
@@ -237,7 +238,7 @@ export default function Home() {
                 <td className="table-cta">
                   <div className="table-cta-container">
                     <button onClick={() => { setSliderForm(true); setSelectedData(slider) }} className="section-edit-btn">Edit</button>
-                    <button onClick={() => handleDeleteSlider(slider.id)} className="section-delete-btn">Delete</button>
+                    <button onClick={() => handleDeleteSlider(slider.id)} className="section-delete-btn"><Delete /></button>
                   </div>
                 </td>
               </tr>
@@ -266,7 +267,7 @@ export default function Home() {
                 <td className="table-cta">
                   <div className="table-cta-container">
                     <button onClick={() => { setUpcomingForm(true); setSelectedData(upcoming) }} className="section-edit-btn">Edit</button>
-                    <button onClick={() => handleDeleteUpcoming(upcoming.id)} className="section-delete-btn">Delete</button>
+                    <button onClick={() => handleDeleteUpcoming(upcoming.id)} className="section-delete-btn"><Delete /></button>
                   </div>
                 </td>
               </tr>
@@ -295,7 +296,7 @@ export default function Home() {
                 <td className="table-cta">
                   <div className="table-cta-container">
                     <button onClick={() => { setPartnerForm(true); setSelectedData(partner) }} className="section-edit-btn">Edit</button>
-                    <button onClick={() => handleDeletePartner(partner.id)} className="section-delete-btn">Delete</button>
+                    <button onClick={() => handleDeletePartner(partner.id)} className="section-delete-btn"><Delete /></button>
                   </div>
                 </td>
               </tr>

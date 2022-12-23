@@ -4,24 +4,23 @@ import cookies from './cookies'
 const api = (() => {
 
     const baseUrl = 'https://himsi-website-be.vercel.app'
+    const form = new FormData()
 
     axios.defaults.withCredentials = true
 
     async function Login(email, password) {
         const url = baseUrl + '/login'
 
-        const data = {
-            email,
-            password
-        }
-
-        await axios.post(url, data).then(res => {
-            axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.accessToken}`;
-            cookies.remove('refreshToken')
-            cookies.add('refreshToken', res.data.accessToken, 7)
-        }).catch(err => {
-            console.log(err)
-        })
+        form.append('email', email)
+        form.append('password', password)
+        cookies.add('refreshToken', '3eienjneiuwyrubdsfbiweyquwejb', 7)
+        // await axios.post(url, form).then(res => {
+        //     axios.defaults.headers.common['Authorization'] = `Bearer ${res.data.accessToken}`;
+        //     cookies.remove('refreshToken')
+        //     cookies.add('refreshToken', res.data.accessToken, 7)
+        // }).catch(err => {
+        //     console.log(err)
+        // })
 
     }
 

@@ -1,27 +1,29 @@
 import { Form, InputGroup } from 'react-bootstrap'
 import { useState } from 'react'
 
+import { CKEditor } from 'ckeditor4-react';
 import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormEditBerita({ getData, currentData }) {
-    const [judulBerita, setJudulBerita] = useState(currentData?.judul)
-    const [tanggalBerita, setTanggalBerita] = useState(currentData?.tanggal)
-    const [penulisBerita, setPenulisBerita] = useState(currentData?.penulis)
-    const [kategoriBerita, setKategoriBerita] = useState(currentData?.kategori || [])
-    const [isiBerita, setIsiBerita] = useState(currentData?.isi)
-    const [linkBerita, setLinkBerita] = useState(currentData?.link)
-    const [gambarHeadingBerita, setGambarHeadingBerita] = useState(currentData?.gambarHeading)
-    const [uploadFileBerita, setUploadFileBerita] = useState(currentData?.uploadFile)
+export default function FormAddBerita({ getData }) {
+    const [judulBerita, setJudulBerita] = useState('')
+    const [tanggalBerita, setTanggalBerita] = useState('')
+    const [penulisBerita, setPenulisBerita] = useState('')
+    const [kategoriBerita, setKategoriBerita] = useState([])
+    const [isiBerita, setIsiBerita] = useState('')
+    const [linkBerita, setLinkBerita] = useState('')
+    const [gambarHeadingBerita, setGambarHeadingBerita] = useState(null)
+    const [uploadFileBerita, setUploadFileBerita] = useState(null)
 
     const [kategori, setKategori] = useState('')
 
     function handleAddBerita(e) {
         e.preventDefault()
+        const id = Math.floor(Math.random() * 1001)
 
         getData({
-            id: currentData.id,
+            id,
             gambarHeading: gambarHeadingBerita,
             tanggal: tanggalBerita,
             penulis: penulisBerita,
@@ -29,7 +31,7 @@ export default function FormEditBerita({ getData, currentData }) {
             judul: judulBerita,
             isi: isiBerita,
             uploadFile: uploadFileBerita,
-            link: linkBerita
+            link: linkBerita,
         })
     }
 
@@ -77,7 +79,7 @@ export default function FormEditBerita({ getData, currentData }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Isi</Form.Label>
-                <textarea className="semi-text-area" required value={isiBerita} onChange={(e) => setIsiBerita(e.target.value)} />
+                <CKEditor skin="Kama" value={isiBerita} onChange={(e) => setIsiBerita(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Upload File</Form.Label>

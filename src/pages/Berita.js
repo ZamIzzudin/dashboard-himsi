@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import FormAddBerita from "../components/BeritaComponents/FormAddBerita";
-import FormEditBerita from "../components/BeritaComponents/FormEditBerita";
+
+import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
+import FormAddBerita from "../components/Berita/FormAddBerita";
+import FormEditBerita from "../components/Berita/FormEditBerita";
 
 const Berita = () => {
   const [showAddBeritaForm, setShowAddBeritaForm] = useState(false);
@@ -91,7 +93,7 @@ const Berita = () => {
                 <td className="table-cta">
                   <div className="table-cta-container">
                     <button onClick={() => { setShowEditBeritaForm(true); setSelectedData(data) }} className="section-edit-btn">Edit</button>
-                    <button onClick={() => handleDeleteBerita(data.id)} className="section-delete-btn">Delete</button>
+                    <button onClick={() => handleDeleteBerita(data.id)} className="section-delete-btn"><Delete /></button>
                   </div>
                 </td>
               </tr>

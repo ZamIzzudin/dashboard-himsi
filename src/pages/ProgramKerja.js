@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import FormAddProker from "../components/ProgramKerja/FormAddProker";
-
+import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 import HIMSI_LOGO from '../assets/HIMSI_LOGO.png'
 import HIMSI from '../utils/HIMSIdummy'
 
@@ -130,8 +130,8 @@ export default function ProgramKerja() {
                   <td>{proker.nama}</td>
                   <td className="table-cta">
                     <div className="table-cta-container">
-                      <button onClick={() => deleteProker(proker.id, divisi.id)} className="section-delete-btn">Delete</button>
                       <button onClick={() => { setShowAddProkerForm(true); setSelectedData(proker); setSelectedDivisi(divisi.id); }} className="section-edit-btn">Edit</button>
+                      <button onClick={() => deleteProker(proker.id, divisi.id)} className="section-delete-btn"><Delete /></button>
                     </div>
                   </td>
                 </tr>

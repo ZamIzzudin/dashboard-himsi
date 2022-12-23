@@ -1,9 +1,10 @@
-import { Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col, InputGroup } from 'react-bootstrap'
 import { useState } from 'react'
+import api from '../utils/api'
 
 import ErrorMsg from '../components/ErrorMsg'
 import HIMSILogo from '../assets/HIMSI_LOGO.png'
-import api from '../utils/api'
+import { ReactComponent as EyeIcon } from '../assets/icons/Eye-on.svg'
 import { Ring } from '@uiball/loaders'
 
 import '../styles/pages/Login.css'
@@ -16,11 +17,14 @@ export default function Login() {
     const [onLoad, setOnLoad] = useState(false)
     const [errorMsg, setErrorMsg] = useState(false)
 
+    const [showPass, setShowPass] = useState(false)
+
     async function handleLogin(e) {
         e.preventDefault()
         setOnLoad(true)
         try {
-            await api.Login(email, pass)
+            // await api.Login(email, pass)
+            api.Login(email, pass)
             setOnLoad(false)
             window.location.reload()
         } catch (err) {
@@ -39,10 +43,15 @@ export default function Login() {
                         <ErrorMsg title="Cannot Login" />
                     )}
                     <Form.Group>
-                        <Form.Control placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} type="email" required />
+                        <Form.Control className="input-login" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} type="email" required />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Control placeholder="Password" value={pass} onChange={(e) => setPass(e.target.value)} type="password" required />
+                        <InputGroup>
+                            <Form.Control className="input-login" placeholder="Password" value={pass} onChange={(e) => setPass(e.target.value)} type={showPass ? 'text' : 'password'} required />
+                            <button onClick={() => setShowPass(!showPass)} type="button" className="hide-pass-button">
+                                <EyeIcon />
+                            </button>
+                        </InputGroup>
                     </Form.Group>
                     <Row>
                         <Col className="cta-container">

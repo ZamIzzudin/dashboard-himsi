@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react'
+
 import FormAddLink from '../components/LayananMahasiswa/FormAddLink'
 import FormAddFAQ from '../components/LayananMahasiswa/FormAddFAQ'
-import { useState, useEffect } from 'react'
+import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
 export default function LayananMahasiswa() {
     const [showAddLinkForm, setShowAddLinkForm] = useState(false)
@@ -159,7 +161,7 @@ export default function LayananMahasiswa() {
                                         <td className="table-cta">
                                             <div className="table-cta-container">
                                                 <button onClick={() => { setShowAddLinkForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
-                                                <button onClick={() => deleteLink(link.id)} className="section-delete-btn">Delete</button>
+                                                <button onClick={() => deleteLink(link.id)} className="section-delete-btn"><Delete /></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -194,7 +196,7 @@ export default function LayananMahasiswa() {
                                         <td className="table-cta">
                                             <div className="table-cta-container">
                                                 <button onClick={() => { setShowAddLinkForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
-                                                <button onClick={() => deleteLink(link.id)} className="section-delete-btn">Delete</button>
+                                                <button onClick={() => deleteLink(link.id)} className="section-delete-btn"><Delete /></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -227,7 +229,7 @@ export default function LayananMahasiswa() {
                                 <td className="table-cta">
                                     <div className="table-cta-container">
                                         <button onClick={() => { setShowAddFAQForm(true); setSelectedData(FAQ) }} className="section-edit-btn">Edit</button>
-                                        <button onClick={() => deleteFAQ(FAQ.id)} className="section-delete-btn">Delete</button>
+                                        <button onClick={() => deleteFAQ(FAQ.id)} className="section-delete-btn"><Delete /></button>
                                     </div>
                                 </td>
                             </tr>

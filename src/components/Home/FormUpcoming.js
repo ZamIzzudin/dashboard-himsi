@@ -1,6 +1,7 @@
 import { Form } from 'react-bootstrap'
 import { useState } from 'react'
 
+import { CKEditor } from 'ckeditor4-react';
 import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
@@ -51,7 +52,7 @@ export default function FormUpcoming({ addData, editData, currentData }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Deskripsi Singkat</Form.Label>
-                <textarea className="semi-text-area" required value={eventDescription} onChange={(e) => setEventDescription(e.target.value)} />
+                <CKEditor skin="Kama" value={eventDescription} onChange={(e) => setEventDescription(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Link</Form.Label>

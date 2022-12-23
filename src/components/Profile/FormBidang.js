@@ -1,9 +1,12 @@
 import { Form } from 'react-bootstrap'
 import { useState } from 'react'
 
+import { CKEditor } from 'ckeditor4-react';
 import InputImage from '../InputImage'
 import ModalPengurus from './ModalPengurus'
 import ModalDivisi from './ModalDivisi'
+
+import { ReactComponent as Delete } from '../../assets/icons/Delete.svg'
 
 import '../../styles/components/FormLayout.css'
 
@@ -106,7 +109,7 @@ export default function FormBidang({ addData, editData, currentData }) {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Deskripsi</Form.Label>
-                    <textarea className="semi-text-area" required value={deskripsiBidang} onChange={(e) => setDeskripsiBidang(e.target.value)} />
+                    <CKEditor skin="Kama" value={deskripsiBidang} onChange={(e) => setDeskripsiBidang(e.target.value)} />
                 </Form.Group>
 
                 {/* Divisi */}
@@ -128,7 +131,7 @@ export default function FormBidang({ addData, editData, currentData }) {
                                 <td className="table-cta">
                                     <div className="table-cta-container">
                                         <button type="button" onClick={() => { setShowDivisiModal(true); setSelectedData(divisi) }} className="section-edit-btn">Edit</button>
-                                        <button type="button" onClick={() => deleteDivisi(divisi.id)} className="section-delete-btn">Delete</button>
+                                        <button type="button" onClick={() => deleteDivisi(divisi.id)} className="section-delete-btn"><Delete /></button>
                                     </div>
                                 </td>
                             </tr>
@@ -157,7 +160,7 @@ export default function FormBidang({ addData, editData, currentData }) {
                                 <td className="table-cta">
                                     <div className="table-cta-container">
                                         <button type="button" onClick={() => { setShowPengurusModal(true); setSelectedData(pengurus) }} className="section-edit-btn">Edit</button>
-                                        <button type="button" className="section-delete-btn" onClick={() => deletePengurus(pengurus.id)}>Delete</button>
+                                        <button type="button" className="section-delete-btn" onClick={() => deletePengurus(pengurus.id)}><Delete /></button>
                                     </div>
                                 </td>
                             </tr>

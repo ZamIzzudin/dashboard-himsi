@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 
 import FormAddUser from '../components/User/FormAddUser'
+import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
 export default function User() {
     const [showAddForm, setShowAddForm] = useState(false)
@@ -94,7 +95,7 @@ export default function User() {
                                 <td className="table-cta">
                                     <div className="table-cta-container">
                                         <button onClick={() => { setShowAddForm(true); setSelectedData(link); }} className="section-edit-btn">Edit</button>
-                                        <button onClick={() => handleDeleteUser(link.id)} className="section-delete-btn">Delete</button>
+                                        <button onClick={() => handleDeleteUser(link.id)} className="section-delete-btn"><Delete /></button>
                                     </div>
                                 </td>
                             </tr>
