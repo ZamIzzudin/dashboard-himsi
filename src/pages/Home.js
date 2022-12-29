@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import { useState, useEffect } from "react";
 
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'

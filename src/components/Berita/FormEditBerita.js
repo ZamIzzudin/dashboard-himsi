@@ -1,12 +1,16 @@
 import { Form, InputGroup } from 'react-bootstrap'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { AsyncCreateBerita, AsyncEditBerita } from '../../state/berita/middleware'
 
-import { CKEditor } from 'ckeditor4-react';
+import Editor from '../Editor'
 import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormEditBerita({ getData, currentData }) {
+export default function FormEditBerita({ currentData, showForm }) {
+    const dispatch = useDispatch()
+
     const [judulBerita, setJudulBerita] = useState(currentData?.judul)
     const [tanggalBerita, setTanggalBerita] = useState(currentData?.tanggal)
     const [penulisBerita, setPenulisBerita] = useState(currentData?.penulis)
@@ -18,20 +22,34 @@ export default function FormEditBerita({ getData, currentData }) {
 
     const [kategori, setKategori] = useState('')
 
-    function handleAddBerita(e) {
+    function handleManageBerita(e) {
         e.preventDefault()
-
-        getData({
-            id: currentData.id,
-            gambarHeading: gambarHeadingBerita,
-            tanggal: tanggalBerita,
-            penulis: penulisBerita,
-            kategori: kategoriBerita,
-            judul: judulBerita,
-            isi: isiBerita,
-            uploadFile: uploadFileBerita,
-            link: linkBerita
-        })
+        if (currentData !== null) {
+            dispatch(AsyncEditBerita({
+                _id: currentData._id,
+                header_berita: gambarHeadingBerita,
+                tanggal_berita: tanggalBerita,
+                penulis_berita: penulisBerita,
+                kategori_berita: kategoriBerita,
+                judul_berita: judulBerita,
+                isi_berita: isiBerita,
+                gambar_berita: uploadFileBerita,
+                link_berita: linkBerita
+            }))
+            showForm(false)
+        } else {
+            dispatch(AsyncCreateBerita({
+                header_berita: gambarHeadingBerita,
+                tanggal_berita: tanggalBerita,
+                penulis_berita: penulisBerita,
+                kategori_berita: kategoriBerita,
+                judul_berita: judulBerita,
+                isi_berita: isiBerita,
+                gambar_berita: uploadFileBerita,
+                link_berita: linkBerita
+            }))
+            showForm(false)
+        }
     }
 
     function addKategori() {
@@ -45,7 +63,7 @@ export default function FormEditBerita({ getData, currentData }) {
     }
 
     return (
-        <Form onSubmit={(e) => handleAddBerita(e)}>
+        <Form onSubmit={(e) => handleManageBerita(e)}>
             <Form.Group>
                 <InputImage getData={setGambarHeadingBerita} label="Upload Gambar Heading" currentData={gambarHeadingBerita} />
             </Form.Group>
@@ -78,7 +96,7 @@ export default function FormEditBerita({ getData, currentData }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Isi</Form.Label>
-                <CKEditor skin="Kama" value={isiBerita} onChange={(e) => setIsiBerita(e.target.value)} />
+                <Editor defaultData={isiBerita} setData={setIsiBerita} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Upload File</Form.Label>

@@ -1,68 +1,38 @@
-import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { AsyncGetAllBerita, AsyncRemoveBerita } from '../state/berita/middleware'
 
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
-import FormAddBerita from "../components/Berita/FormAddBerita";
 import FormEditBerita from "../components/Berita/FormEditBerita";
 
 const Berita = () => {
-  const [showAddBeritaForm, setShowAddBeritaForm] = useState(false);
-  const [showEditBeritaForm, setShowEditBeritaForm] = useState(false);
+  const { berita = [] } = useSelector(states => states)
+  const dispatch = useDispatch()
 
-  const [listDataBerita, setListDataBerita] = useState([]);
+  const [showEditBeritaForm, setShowEditBeritaForm] = useState(false);
 
   const [selectedData, setSelectedData] = useState(null)
 
-  function handleAddBerita(data) {
-    setListDataBerita([...listDataBerita, data])
-    setShowAddBeritaForm(false)
-  }
+  useEffect(() => {
+    dispatch(AsyncGetAllBerita())
+  }, [dispatch])
+
 
   function handleDeleteBerita(id) {
-    const newData = listDataBerita.filter((berita) => berita.id !== id)
-    setListDataBerita(newData)
-  }
-
-  function handleEditBerita(data) {
-    const newData = listDataBerita.map((berita) => {
-      if (berita.id === data.id) {
-        return data
-      }
-      return berita
-    })
-    setListDataBerita(newData)
-    setSelectedData(null)
-    setShowEditBeritaForm(false)
-  }
-
-  if (showAddBeritaForm) {
-    return (
-      <main>
-        <h1 className="page-header">Tambah Berita</h1>
-        <section className="content-section">
-          <div className="section-header-container">
-            <h4 className="section-header">Tambah Berita</h4>
-            <button onClick={() => setShowAddBeritaForm(false)} className="section-add-btn">-</button>
-          </div>
-          <div className="section-body">
-            <FormAddBerita getData={handleAddBerita} />
-          </div>
-        </section>
-      </main>
-    )
+    dispatch(AsyncRemoveBerita(id))
   }
 
   if (showEditBeritaForm) {
     return (
       <main>
-        <h1 className="page-header">Edit Berita</h1>
+        <h1 className="page-header">Manage Berita</h1>
         <section className="content-section">
           <div className="section-header-container">
-            <h4 className="section-header">Edit Berita</h4>
+            <h4 className="section-header">Manage Berita</h4>
             <button onClick={() => setShowEditBeritaForm(false)} className="section-add-btn">-</button>
           </div>
           <div className="section-body">
-            <FormEditBerita getData={handleEditBerita} currentData={selectedData} />
+            <FormEditBerita showForm={setShowEditBeritaForm} currentData={selectedData} />
           </div>
         </section>
       </main>
@@ -75,7 +45,7 @@ const Berita = () => {
       <section className="content-section mb-5">
         <div className="section-header-container">
           <h4 className="section-header">Berita</h4>
-          <button onClick={() => setShowAddBeritaForm(true)} className="section-add-btn">+</button>
+          <button onClick={() => { setShowEditBeritaForm(true); setSelectedData(null) }} className="section-add-btn">+</button>
         </div>
         <div className="section-body">
           <table>
@@ -85,15 +55,15 @@ const Berita = () => {
               <th>Judul</th>
               <th className="text-center">Action</th>
             </tr>
-            {listDataBerita.map((data, index) => (
+            {berita.map((data, index) => (
               <tr>
                 <td>{index + 1}</td>
-                <td>{data.tanggal}</td>
-                <td>{data.judul}</td>
+                <td>{data.tanggal_berita}</td>
+                <td>{data.judul_berita}</td>
                 <td className="table-cta">
                   <div className="table-cta-container">
                     <button onClick={() => { setShowEditBeritaForm(true); setSelectedData(data) }} className="section-edit-btn">Edit</button>
-                    <button onClick={() => handleDeleteBerita(data.id)} className="section-delete-btn"><Delete /></button>
+                    <button onClick={() => handleDeleteBerita(data._id)} className="section-delete-btn"><Delete /></button>
                   </div>
                 </td>
               </tr>

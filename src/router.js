@@ -1,75 +1,62 @@
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { useState, useEffect } from 'react'
-// import api from './utils/api'
-import cookies from './utils/cookies'
+import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { useEffect } from 'react'
+import { asyncRefreshToken } from './state/auth/middleware'
+import { useSelector, useDispatch } from 'react-redux'
 
 import Home from './pages/Home'
 import Profile from './pages/Profile'
-import Berita from "./pages/Berita";
-import Hubungikami from "./pages/HubungiKami";
-import LayananMahasiswa from "./pages/LayananMahasiswa";
-import ProgramKerja from "./pages/ProgramKerja";
-import User from "./pages/User";
+import Berita from "./pages/Berita"
+import Hubungikami from "./pages/HubungiKami"
+import LayananMahasiswa from "./pages/LayananMahasiswa"
+import ProgramKerja from "./pages/ProgramKerja"
+import User from "./pages/User"
 import Login from './pages/Login'
 
+import Loading from './components/Loading'
 import Sidebar from './components/Sidebar'
 import Header from './components/Header'
 
 export default function Router() {
-    const [userData, setUserData] = useState(null)
+    const { auth = {} } = useSelector(states => states)
 
-    // useEffect(() => {
-    //     if (userData !== null) {
-    //         try {
-    //             const refreshToken = async () => {
-    //                 const { accessToken } = await api.Refresh()
-    //                 setUserData(accessToken)
-    //                 console.log(accessToken)
-    //                 cookies.remove('refreshToken')
-    //                 cookies.add('refreshToken', accessToken, 1)
-    //             }
-
-    //             const interval = setInterval(() => {
-    //                 refreshToken();
-    //             }, 15000);
-
-    //             return () => clearInterval(interval);
-    //         } catch (err) {
-    //             setUserData(null)
-    //             cookies.remove('refreshToken')
-    //             window.location.href = '/'
-    //             window.location.reload()
-    //         }
-    //     }
-    // }, [userData])
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        const user = cookies.get('refreshToken')
-        setUserData(user)
-    }, [])
+        if (auth.token !== undefined) {
+            try {
+                const interval = setInterval(() => {
+                    dispatch(asyncRefreshToken())
+                }, 10000);
 
-    if (userData === null) {
-        return (
-            <BrowserRouter>
-                <Route exact path="/" component={Login} />
-            </BrowserRouter>
-        )
-    }
+                return () => clearInterval(interval);
+            } catch (err) {
+                console.log(err)
+            }
+        }
+    }, [auth, dispatch])
+
 
     return (
         <BrowserRouter>
-            <Header />
-            <Sidebar />
-            <Switch>
-                <Route exact path="/" component={Home} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/program-kerja/:bidang" component={ProgramKerja} />
-                <Route path="/berita" component={Berita} />
-                <Route path="/layanan-mahasiswa" component={LayananMahasiswa} />
-                <Route path="/hubungi-kami" component={Hubungikami} />
-                <Route path="/user" component={User} />
-                <Route exact path="*" component={Home} />
-            </Switch>
+            <Loading />
+            {auth.token === undefined ? (
+                <Route exact path="/" component={Login} />
+            ) : (
+                <>
+                    <Header />
+                    <Sidebar />
+                    <Switch>
+                        <Route exact path="/" component={Home} />
+                        <Route path="/profile" component={Profile} />
+                        <Route path="/program-kerja/:bidang" component={ProgramKerja} />
+                        <Route path="/berita" component={Berita} />
+                        <Route path="/layanan-mahasiswa" component={LayananMahasiswa} />
+                        <Route path="/hubungi-kami" component={Hubungikami} />
+                        <Route path="/user" component={User} />
+                        <Route exact path="*" component={Home} />
+                    </Switch>
+                </>
+            )}
         </BrowserRouter>
     )
 }

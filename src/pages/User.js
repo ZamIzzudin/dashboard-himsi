@@ -1,10 +1,18 @@
 import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { AsyncGetAllUser } from '../state/user/middleware'
 
 import FormAddUser from '../components/User/FormAddUser'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
 export default function User() {
     const [showAddForm, setShowAddForm] = useState(false)
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(AsyncGetAllUser())
+    }, [dispatch])
 
     const users = [
         {

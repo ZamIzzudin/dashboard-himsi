@@ -1,6 +1,7 @@
 import { Form, Row, Col, InputGroup } from 'react-bootstrap'
 import { useState } from 'react'
-import api from '../utils/api'
+import { useDispatch } from 'react-redux'
+import { asyncLogin } from '../state/auth/middleware'
 
 import ErrorMsg from '../components/ErrorMsg'
 import HIMSILogo from '../assets/HIMSI_LOGO.png'
@@ -19,14 +20,14 @@ export default function Login() {
 
     const [showPass, setShowPass] = useState(false)
 
+    const dispatch = useDispatch()
+
     async function handleLogin(e) {
         e.preventDefault()
         setOnLoad(true)
         try {
-            // await api.Login(email, pass)
-            api.Login(email, pass)
+            dispatch(asyncLogin(email, pass))
             setOnLoad(false)
-            window.location.reload()
         } catch (err) {
             setErrorMsg(true)
             setOnLoad(false)

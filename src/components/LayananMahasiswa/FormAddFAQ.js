@@ -1,26 +1,29 @@
 import { Form } from 'react-bootstrap'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { AsyncCreateFAQ, AsyncEditFAQ } from '../../state/faq/middleware'
 
-export default function FormAddFAQ({ addData, editData, currentData }) {
-    const [question, setQuestion] = useState(currentData?.question)
-    const [answer, setAnswer] = useState(currentData?.answer)
+export default function FormAddFAQ({ currentData, showForm }) {
+    const dispatch = useDispatch()
+
+    const [question, setQuestion] = useState(currentData?.pertanyaan)
+    const [answer, setAnswer] = useState(currentData?.jawaban)
 
     function handleManageFAQ(e) {
         e.preventDefault()
         if (currentData !== null) {
-            editData({
-                id: currentData.id,
-                question,
-                answer
-            })
+            dispatch(AsyncEditFAQ({
+                _id: currentData._id,
+                pertanyaan: question,
+                jawaban: answer
+            }))
+            showForm(false)
         } else {
-            const id = Math.floor(Math.random() * 1001)
-
-            addData({
-                id,
-                question,
-                answer
-            })
+            dispatch(AsyncCreateFAQ({
+                pertanyaan: question,
+                jawaban: answer
+            }))
+            showForm(false)
         }
     }
 

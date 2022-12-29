@@ -52,6 +52,7 @@ body {
     background-image: url(../assets/siluet.png);
     background-position: center;
     background-size: cover;
+    overflow-x: hidden;
 }
 
 main {
@@ -252,4 +253,10 @@ th:nth-child(2) {
 
 .hidden {
     opacity: 0;
+}
+
+.loading {
+    position: fixed;
+    width: 105vw;
+    top: 0;
 }

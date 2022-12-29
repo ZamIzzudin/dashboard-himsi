@@ -1,9 +1,13 @@
 import { Form } from 'react-bootstrap'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { AsyncCreateLink, AsyncEditLink } from '../../state/collageLink/middleware'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormAddLink({ addData, editData, currentData }) {
+export default function FormAddLink({ currentData, showForm }) {
+    const dispatch = useDispatch()
+
     const [linkName, setLinkName] = useState(currentData?.name)
     const [linkURL, setLinkURL] = useState(currentData?.url)
     const [linkCategory, setLinkCategory] = useState(currentData?.category || 'E-Layanan')
@@ -11,21 +15,20 @@ export default function FormAddLink({ addData, editData, currentData }) {
     function handleManageLink(e) {
         e.preventDefault()
         if (currentData !== null) {
-            editData({
-                id: currentData.id,
+            dispatch(AsyncEditLink({
+                _id: currentData._id,
                 name: linkName,
                 category: linkCategory,
                 url: linkURL,
-            })
+            }))
+            showForm(false)
         } else {
-            const id = Math.floor(Math.random() * 1001)
-
-            addData({
-                id,
+            dispatch(AsyncCreateLink({
                 name: linkName,
                 category: linkCategory,
                 url: linkURL,
-            })
+            }))
+            showForm(false)
         }
     }
 

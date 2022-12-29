@@ -1,18 +1,21 @@
-import cookies from '../utils/cookies'
+import { useDispatch } from 'react-redux'
+import { asyncLogout } from '../state/auth/middleware'
 
+import Loading from './Loading'
 import HIMSILogo from '../assets/HIMSI_LOGO.png'
 import { ReactComponent as Logout } from '../assets/icons/logout.svg'
 import '../styles/components/Header.css'
 
 export default function Header() {
+    const dispatch = useDispatch()
 
     function handleLogout() {
-        cookies.remove('refreshToken')
-        window.location.assign("/")
-        window.location.reload()
+        dispatch(asyncLogout())
     }
+
     return (
         <header>
+            <Loading />
             <section className="header-cta">
                 <img src={HIMSILogo} width="60px" alt="Logo HIMSI" />
                 <span className="role-name">Super Admin</span>

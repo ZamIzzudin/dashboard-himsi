@@ -1,103 +1,38 @@
 import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { AsyncGetAllFAQ, AsyncRemoveFAQ } from '../state/faq/middleware'
+import { AsyncGetAllLink, AsyncRemoveLink } from '../state/collageLink/middleware'
 
 import FormAddLink from '../components/LayananMahasiswa/FormAddLink'
 import FormAddFAQ from '../components/LayananMahasiswa/FormAddFAQ'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
 export default function LayananMahasiswa() {
+    const { faq = [], collageLink = [] } = useSelector(states => states)
+    const dispatch = useDispatch()
+
     const [showAddLinkForm, setShowAddLinkForm] = useState(false)
     const [showAddFAQForm, setShowAddFAQForm] = useState(false)
 
-    const plainDataLink = [
-        {
-            id: 1,
-            name: 'Database Himsi',
-            category: 'E-Layanan',
-            url: '/',
-        },
-        {
-            id: 2,
-            name: 'Data Dosen',
-            category: 'E-Layanan',
-            url: '/',
-        },
-        {
-            id: 3,
-            name: 'Instagram HIMSI',
-            category: 'Database Materi',
-            url: '/',
-        },
-        {
-            id: 4,
-            name: 'AIS',
-            category: 'Database Materi',
-            url: '/',
-        }
-    ]
-
-    const plainDataFAQ = [
-        {
-            id: 1,
-            question: 'ban apa yang menguasai negara?',
-            answer: 'banteng mer....'
-        },
-        {
-            id: 2,
-            question: 'nilai satuan apa yang lebih berkuasa daripada presiden?',
-            answer: 'megawat....'
-        }
-    ]
-
-    const [dataLink, setDataLink] = useState(plainDataLink)
-    const [listFAQ, setListFAQ] = useState(plainDataFAQ)
-
     const [selectedData, setSelectedData] = useState(null)
 
-    function handleAddFAQ(data) {
-        setListFAQ([...listFAQ, data])
-        setShowAddFAQForm(false)
-    }
-
-    function addDataLink(data) {
-        setDataLink([...dataLink, data])
-        setShowAddLinkForm(false)
-    }
-
-    function editLink(data) {
-        const newData = dataLink.map((link) => {
-            if (data.id === link.id) {
-                return data
-            }
-            return link
-        })
-        setDataLink(newData)
-        setShowAddLinkForm(false)
-    }
-
-    function editFAQ(data) {
-        const newData = listFAQ.map((faq) => {
-            if (data.id === faq.id) {
-                return data
-            }
-            return faq
-        })
-        setDataLink(newData)
-        setShowAddFAQForm(false)
-    }
-
-    function deleteFAQ(id) {
-        const newData = listFAQ.filter(FAQ => FAQ.id !== id)
-        setListFAQ(newData)
-    }
-
-    function deleteLink(id) {
-        const newData = dataLink.filter((link) => link.id !== id)
-        setDataLink(newData)
-    }
+    useEffect(() => {
+        dispatch(AsyncGetAllFAQ())
+        dispatch(AsyncGetAllLink())
+    }, [dispatch])
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [showAddLinkForm, showAddFAQForm]);
+
+
+    function deleteFAQ(id) {
+        dispatch(AsyncRemoveFAQ(id))
+    }
+
+    function deleteLink(id) {
+        dispatch(AsyncRemoveLink(id))
+    }
 
     if (showAddLinkForm) {
         return (
@@ -109,7 +44,7 @@ export default function LayananMahasiswa() {
                         <button onClick={() => { setShowAddLinkForm(false); setSelectedData(null) }} className="section-add-btn">-</button>
                     </div>
                     <div className="section-body">
-                        <FormAddLink addData={addDataLink} editData={editLink} currentData={selectedData} />
+                        <FormAddLink currentData={selectedData} showForm={setShowAddLinkForm} />
                     </div>
                 </section>
             </main>
@@ -126,7 +61,7 @@ export default function LayananMahasiswa() {
                         <button onClick={() => { setShowAddFAQForm(false); setSelectedData(null) }} className="section-add-btn">-</button>
                     </div>
                     <div className="section-body">
-                        <FormAddFAQ addData={handleAddFAQ} editData={editFAQ} currentData={selectedData} />
+                        <FormAddFAQ currentData={selectedData} showForm={setShowAddFAQForm} />
                     </div>
                 </section>
             </main>
@@ -151,7 +86,7 @@ export default function LayananMahasiswa() {
                             <th>URL</th>
                             <th className="text-center">Action</th>
                         </tr>
-                        {dataLink.map((link, index) => {
+                        {collageLink.map((link, index) => {
                             return (
                                 link.category === 'E-Layanan' && (
                                     <tr>
@@ -186,7 +121,7 @@ export default function LayananMahasiswa() {
                             <th>URL</th>
                             <th className="text-center">Action</th>
                         </tr>
-                        {dataLink.map((link, index) => {
+                        {collageLink.map((link, index) => {
                             return (
                                 link.category === 'Database Materi' && (
                                     <tr>
@@ -221,15 +156,15 @@ export default function LayananMahasiswa() {
                             <th>Link</th>
                             <th className="text-center">Action</th>
                         </tr>
-                        {listFAQ.map((FAQ, index) => (
+                        {faq.map((FAQ, index) => (
                             <tr>
                                 <td>{index + 1}</td>
-                                <td>{FAQ.question}</td>
-                                <td>{FAQ.answer}</td>
+                                <td>{FAQ.pertanyaan}</td>
+                                <td>{FAQ.jawaban}</td>
                                 <td className="table-cta">
                                     <div className="table-cta-container">
                                         <button onClick={() => { setShowAddFAQForm(true); setSelectedData(FAQ) }} className="section-edit-btn">Edit</button>
-                                        <button onClick={() => deleteFAQ(FAQ.id)} className="section-delete-btn"><Delete /></button>
+                                        <button onClick={() => deleteFAQ(FAQ._id)} className="section-delete-btn"><Delete /></button>
                                     </div>
                                 </td>
                             </tr>
