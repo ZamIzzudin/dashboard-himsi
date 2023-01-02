@@ -11,7 +11,9 @@ export default function FormAddFAQ({ currentData, showForm }) {
 
     function handleManageFAQ(e) {
         e.preventDefault()
+        // checking ? action with current data
         if (currentData !== null) {
+            // handle edit FAQ 
             dispatch(AsyncEditFAQ({
                 _id: currentData._id,
                 pertanyaan: question,
@@ -19,6 +21,7 @@ export default function FormAddFAQ({ currentData, showForm }) {
             }))
             showForm(false)
         } else {
+            // handle add FAQ
             dispatch(AsyncCreateFAQ({
                 pertanyaan: question,
                 jawaban: answer

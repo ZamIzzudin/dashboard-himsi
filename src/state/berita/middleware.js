@@ -19,52 +19,51 @@ function AsyncGetAllBerita() {
 
 function AsyncCreateBerita(data) {
     return async dispatch => {
+        dispatch(showLoading())
         try {
-            dispatch(showLoading())
-
             await api.CreateBerita(data);
 
             const response = await api.GetAllBerita();
             dispatch(CreateBeritaAction(response))
-
-            dispatch(hideLoading())
         } catch (err) {
             alert(err.message)
         }
+
+        dispatch(hideLoading())
     }
 }
 
 function AsyncEditBerita(data) {
     return async dispatch => {
-        try {
-            dispatch(showLoading())
+        dispatch(showLoading())
 
+        try {
             await api.EditBerita(data);
 
             const response = await api.GetAllBerita();
             dispatch(EditBeritaAction(response))
-
-            dispatch(hideLoading())
         } catch (err) {
             alert(err.message)
         }
+
+        dispatch(hideLoading())
     }
 }
 
 function AsyncRemoveBerita(id) {
     return async dispatch => {
-        try {
-            dispatch(showLoading())
+        dispatch(showLoading())
 
+        try {
             await api.RemoveBerita(id);
 
             const response = await api.GetAllBerita();
             dispatch(RemoveBeritaAction(response))
-
-            dispatch(hideLoading())
         } catch (err) {
             alert(err.message)
         }
+
+        dispatch(hideLoading())
     }
 }
 

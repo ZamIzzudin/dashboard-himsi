@@ -1,18 +1,26 @@
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+
 
 import FormHimpunan from '../components/Profile/FormHimpunan'
 import FormBidang from '../components/Profile/FormBidang'
 import FormVisiMisi from '../components/Profile/FormVisiMisi'
-import FormStruktur from '../components/Profile/FormStruktur'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
 import HIMSI from '../utils/HIMSIdummy'
 
 export default function Profile() {
+  const { himpunan = {} } = useSelector(states => states)
+  // const dispatch = useDispatch()
+
   const [listBidang, setListBidang] = useState(HIMSI)
   const [showBidangForm, setShowBidangForm] = useState(false)
 
   const [selectedData, setSelectedData] = useState(null)
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [showBidangForm]);
 
   function addBidang(data) {
     setListBidang([...listBidang, data])
@@ -35,10 +43,6 @@ export default function Profile() {
     const newData = listBidang.filter(bidang => bidang.id !== id)
     setListBidang(newData)
   }
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [showBidangForm]);
 
   if (showBidangForm) {
     return (
@@ -68,7 +72,7 @@ export default function Profile() {
           <button className="section-add-btn hidden">+</button>
         </div>
         <div className="section-body">
-          <FormHimpunan />
+          <FormHimpunan currentData={himpunan} />
         </div>
       </section>
 
@@ -111,17 +115,6 @@ export default function Profile() {
               </tr>
             ))}
           </table>
-        </div>
-      </section>
-
-      {/* Struktur */}
-      <section className="content-section">
-        <div className="section-header-container">
-          <h4 className="section-header">Struktur</h4>
-          <button className="section-add-btn hidden">+</button>
-        </div>
-        <div className="section-body">
-          <FormStruktur />
         </div>
       </section>
 

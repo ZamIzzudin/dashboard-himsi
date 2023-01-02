@@ -7,7 +7,7 @@ import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 import '../styles/components/FormLayout.css'
 
 export default function InputImage({ getData, label, currentData }) {
-    const [showImage, setShowImage] = useState(currentData?.detail)
+    const [showImage, setShowImage] = useState(currentData?.detail || currentData)
 
     const fileInputRef = useRef(null);
 
@@ -74,7 +74,7 @@ export default function InputImage({ getData, label, currentData }) {
                     <div className="image-display-card">
                         <span>
                             <FileOrg />
-                            {showImage?.name}
+                            {showImage?.name || showImage}
                         </span>
                         <button onClick={() => deleteImage()}>
                             <Delete />

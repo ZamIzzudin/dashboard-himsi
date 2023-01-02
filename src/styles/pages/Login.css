@@ -10,7 +10,7 @@
 .login-card {
     background-color: var(--white);
     width: 550px;
-    height: 536px;
+    padding: 25px 0 40px 0;
     display: flex;
     flex-direction: column;
     align-items: center;

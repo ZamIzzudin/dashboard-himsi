@@ -18,10 +18,11 @@ import Header from './components/Header'
 
 export default function Router() {
     const { auth = {} } = useSelector(states => states)
-
     const dispatch = useDispatch()
 
+    // Refresh Token Cycle
     useEffect(() => {
+        // do refresh token where token is'nt undefined
         if (auth.token !== undefined) {
             try {
                 const interval = setInterval(() => {
@@ -32,16 +33,19 @@ export default function Router() {
             } catch (err) {
                 console.log(err)
             }
+        } else {
+            // Try Tto get token from cookie
         }
     }, [auth, dispatch])
-
 
     return (
         <BrowserRouter>
             <Loading />
             {auth.token === undefined ? (
+                // Route if user doesnt Login
                 <Route exact path="/" component={Login} />
             ) : (
+                // Route if user already Login
                 <>
                     <Header />
                     <Sidebar />
@@ -53,7 +57,7 @@ export default function Router() {
                         <Route path="/layanan-mahasiswa" component={LayananMahasiswa} />
                         <Route path="/hubungi-kami" component={Hubungikami} />
                         <Route path="/user" component={User} />
-                        <Route exact path="*" component={Home} />
+                        <Route path="*" component={Home} />
                     </Switch>
                 </>
             )}

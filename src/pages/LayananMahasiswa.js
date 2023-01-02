@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { AsyncGetAllFAQ, AsyncRemoveFAQ } from '../state/faq/middleware'
-import { AsyncGetAllLink, AsyncRemoveLink } from '../state/collageLink/middleware'
+import { AsyncRemoveFAQ } from '../state/faq/middleware'
+import { AsyncRemoveLink } from '../state/collageLink/middleware'
 
 import FormAddLink from '../components/LayananMahasiswa/FormAddLink'
 import FormAddFAQ from '../components/LayananMahasiswa/FormAddFAQ'
@@ -11,20 +11,16 @@ export default function LayananMahasiswa() {
     const { faq = [], collageLink = [] } = useSelector(states => states)
     const dispatch = useDispatch()
 
+    // parameter to handle showed form
     const [showAddLinkForm, setShowAddLinkForm] = useState(false)
     const [showAddFAQForm, setShowAddFAQForm] = useState(false)
 
     const [selectedData, setSelectedData] = useState(null)
 
-    useEffect(() => {
-        dispatch(AsyncGetAllFAQ())
-        dispatch(AsyncGetAllLink())
-    }, [dispatch])
-
+    // scroll top
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [showAddLinkForm, showAddFAQForm]);
-
 
     function deleteFAQ(id) {
         dispatch(AsyncRemoveFAQ(id))
@@ -34,13 +30,14 @@ export default function LayananMahasiswa() {
         dispatch(AsyncRemoveLink(id))
     }
 
+    // Form that shown when parameter (true)
     if (showAddLinkForm) {
         return (
             <main>
                 <h1 className="page-header">Layanan Mahasiswa</h1>
                 <section className="content-section">
                     <div className="section-header-container">
-                        <h4 className="section-header">Tambah Link</h4>
+                        <h4 className="section-header">Manage Link</h4>
                         <button onClick={() => { setShowAddLinkForm(false); setSelectedData(null) }} className="section-add-btn">-</button>
                     </div>
                     <div className="section-body">
@@ -57,7 +54,7 @@ export default function LayananMahasiswa() {
                 <h1 className="page-header">Layanan Mahasiswa</h1>
                 <section className="content-section">
                     <div className="section-header-container">
-                        <h4 className="section-header">Tambah FAQ</h4>
+                        <h4 className="section-header">Manage FAQ</h4>
                         <button onClick={() => { setShowAddFAQForm(false); setSelectedData(null) }} className="section-add-btn">-</button>
                     </div>
                     <div className="section-body">
@@ -72,7 +69,7 @@ export default function LayananMahasiswa() {
         <main>
             <h1 className="page-header">Layanan Mahasiswa</h1>
 
-            {/* E-Layanan Display */}
+            {/* E-Layanan Display **possible to be component** */}
             <section className="content-section mb-5">
                 <div className="section-header-container">
                     <h4 className="section-header">E-Layanan Mahasiswa</h4>
@@ -88,15 +85,15 @@ export default function LayananMahasiswa() {
                         </tr>
                         {collageLink.map((link, index) => {
                             return (
-                                link.category === 'E-Layanan' && (
+                                link.kategori === 'e-layanan' && (
                                     <tr>
                                         <td>{index + 1}</td>
-                                        <td>{link.name}</td>
+                                        <td>{link.nama_link}</td>
                                         <td>{link.url}</td>
                                         <td className="table-cta">
                                             <div className="table-cta-container">
                                                 <button onClick={() => { setShowAddLinkForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
-                                                <button onClick={() => deleteLink(link.id)} className="section-delete-btn"><Delete /></button>
+                                                <button onClick={() => deleteLink(link._id)} className="section-delete-btn"><Delete /></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -107,7 +104,7 @@ export default function LayananMahasiswa() {
                 </div>
             </section >
 
-            {/* Database Materi Display */}
+            {/* Database Materi Display **possible to be component** */}
             <section className="content-section mb-5">
                 <div className="section-header-container">
                     <h4 className="section-header">Database Materi</h4>
@@ -123,15 +120,15 @@ export default function LayananMahasiswa() {
                         </tr>
                         {collageLink.map((link, index) => {
                             return (
-                                link.category === 'Database Materi' && (
+                                link.kategori === 'database-materi' && (
                                     <tr>
                                         <td>{index + 1}</td>
-                                        <td>{link.name}</td>
+                                        <td>{link.nama_link}</td>
                                         <td>{link.url}</td>
                                         <td className="table-cta">
                                             <div className="table-cta-container">
                                                 <button onClick={() => { setShowAddLinkForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
-                                                <button onClick={() => deleteLink(link.id)} className="section-delete-btn"><Delete /></button>
+                                                <button onClick={() => deleteLink(link._id)} className="section-delete-btn"><Delete /></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -142,7 +139,7 @@ export default function LayananMahasiswa() {
                 </div>
             </section >
 
-            {/* FAQ Display */}
+            {/* FAQ Display **possible to be component** */}
             <section className="content-section mb-5">
                 <div className="section-header-container">
                     <h4 className="section-header">FAQ</h4>

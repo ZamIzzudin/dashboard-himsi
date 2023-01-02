@@ -1,37 +1,29 @@
 import { Form, Row, Col, InputGroup } from 'react-bootstrap'
 import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { asyncLogin } from '../state/auth/middleware'
 
 import ErrorMsg from '../components/ErrorMsg'
 import HIMSILogo from '../assets/HIMSI_LOGO.png'
 import { ReactComponent as EyeIcon } from '../assets/icons/Eye-on.svg'
-import { Ring } from '@uiball/loaders'
 
 import '../styles/pages/Login.css'
 
 export default function Login() {
+    const { error = { status: false } } = useSelector(states => states)
+    const dispatch = useDispatch()
 
-    const [email, setEmail] = useState('')
+    const [username, setUsername] = useState('')
     const [pass, setPass] = useState('')
-
-    const [onLoad, setOnLoad] = useState(false)
-    const [errorMsg, setErrorMsg] = useState(false)
 
     const [showPass, setShowPass] = useState(false)
 
-    const dispatch = useDispatch()
-
+    // Handle Login and Call Action to Redux
     async function handleLogin(e) {
         e.preventDefault()
-        setOnLoad(true)
-        try {
-            dispatch(asyncLogin(email, pass))
-            setOnLoad(false)
-        } catch (err) {
-            setErrorMsg(true)
-            setOnLoad(false)
-        }
+        // Middleware pass
+        dispatch(asyncLogin(username, pass))
+
     }
 
     return (
@@ -39,12 +31,16 @@ export default function Login() {
             <section className="login-card">
                 <img src={HIMSILogo} width="120px" height="auto" alt="Logo HIMSI" />
                 <h2 className="login-title">Login Admin</h2>
+
+                {/* Error Display */}
+                {error.status && (
+                    <ErrorMsg title={error.message} />
+                )}
+
+                {/* Form Login Card **posible to be component** */}
                 <Form className="login-form" onSubmit={(e) => handleLogin(e)}>
-                    {errorMsg && (
-                        <ErrorMsg title="Cannot Login" />
-                    )}
                     <Form.Group>
-                        <Form.Control className="input-login" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} type="email" required />
+                        <Form.Control className="input-login" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} type="text" required />
                     </Form.Group>
                     <Form.Group>
                         <InputGroup>
@@ -56,21 +52,11 @@ export default function Login() {
                     </Form.Group>
                     <Row>
                         <Col className="cta-container">
-                            <button type="submit" className="login-btn">
-                                {onLoad ? (
-                                    <Ring
-                                        size={40}
-                                        lineWeight={5}
-                                        speed={2}
-                                        color="white"
-                                    />
-                                ) : (
-                                    "Login"
-                                )}
-                            </button>
+                            <button type="submit" className="login-btn">Login</button>
                         </Col>
                     </Row>
                 </Form>
+
             </section>
         </main>
     )

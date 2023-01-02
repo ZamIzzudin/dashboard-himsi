@@ -10,22 +10,25 @@ export default function FormAddLink({ currentData, showForm }) {
 
     const [linkName, setLinkName] = useState(currentData?.name)
     const [linkURL, setLinkURL] = useState(currentData?.url)
-    const [linkCategory, setLinkCategory] = useState(currentData?.category || 'E-Layanan')
+    const [linkCategory, setLinkCategory] = useState(currentData?.category || 'e-layanan')
 
     function handleManageLink(e) {
         e.preventDefault()
+        // checking ? action with current data
         if (currentData !== null) {
+            // handle edit Link
             dispatch(AsyncEditLink({
                 _id: currentData._id,
-                name: linkName,
-                category: linkCategory,
+                nama_link: linkName,
+                kategori: linkCategory,
                 url: linkURL,
             }))
             showForm(false)
         } else {
+            // handle add Link
             dispatch(AsyncCreateLink({
-                name: linkName,
-                category: linkCategory,
+                nama_link: linkName,
+                kategori: linkCategory,
                 url: linkURL,
             }))
             showForm(false)
@@ -41,8 +44,8 @@ export default function FormAddLink({ currentData, showForm }) {
             <Form.Group>
                 <Form.Label>Kategori</Form.Label>
                 <Form.Select required value={linkCategory} onChange={(e) => setLinkCategory(e.target.value)}>
-                    <option value="E-Layanan">E-Layanan Mahasiswa</option>
-                    <option value="Database Materi">Database Materi</option>
+                    <option value="e-layanan">E-Layanan Mahasiswa</option>
+                    <option value="database-materi">Database Materi</option>
                 </Form.Select>
             </Form.Group>
             <Form.Group>

@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { AsyncGetAllBerita, AsyncRemoveBerita } from '../state/berita/middleware'
+import { AsyncRemoveBerita } from '../state/berita/middleware'
 
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 import FormEditBerita from "../components/Berita/FormEditBerita";
@@ -12,11 +12,6 @@ const Berita = () => {
   const [showEditBeritaForm, setShowEditBeritaForm] = useState(false);
 
   const [selectedData, setSelectedData] = useState(null)
-
-  useEffect(() => {
-    dispatch(AsyncGetAllBerita())
-  }, [dispatch])
-
 
   function handleDeleteBerita(id) {
     dispatch(AsyncRemoveBerita(id))

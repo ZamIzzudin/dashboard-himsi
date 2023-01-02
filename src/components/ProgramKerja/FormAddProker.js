@@ -1,7 +1,7 @@
 import { Form } from 'react-bootstrap'
 import { useState } from 'react'
 
-import { CKEditor } from 'ckeditor4-react';
+import Editor from '../Editor'
 import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
@@ -51,7 +51,7 @@ export default function FormAddProker({ addData, editData, idDivisi, currentData
             </Form.Group>
             <Form.Group>
                 <Form.Label>Deskripsi</Form.Label>
-                <CKEditor skin="Kama" value={deskripsiProker} onChange={(e) => setDeskripsiProker(e.target.value)} />
+                <Editor data={deskripsiProker} setData={setDeskripsiProker} />
             </Form.Group>
             <InputImage getData={setDokumentasiProker} label="Upload Dokumentasi" currentData={dokumentasiProker} />
             <div className="form-cta">

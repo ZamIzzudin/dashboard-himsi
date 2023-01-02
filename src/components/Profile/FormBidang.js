@@ -1,7 +1,7 @@
 import { Form } from 'react-bootstrap'
 import { useState } from 'react'
 
-import { CKEditor } from 'ckeditor4-react';
+import Editor from '../Editor'
 import InputImage from '../InputImage'
 import ModalPengurus from './ModalPengurus'
 import ModalDivisi from './ModalDivisi'
@@ -109,7 +109,7 @@ export default function FormBidang({ addData, editData, currentData }) {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Deskripsi</Form.Label>
-                    <CKEditor skin="Kama" value={deskripsiBidang} onChange={(e) => setDeskripsiBidang(e.target.value)} />
+                    <Editor data={deskripsiBidang} setData={setDeskripsiBidang} />
                 </Form.Group>
 
                 {/* Divisi */}

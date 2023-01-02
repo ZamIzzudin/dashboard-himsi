@@ -1,33 +1,41 @@
 import { Form } from 'react-bootstrap'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+
+import { AsyncCreateUser, AsyncEditUser } from '../../state/user/middleware'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormAddUser({ addData, editData, currentData }) {
-    const [name, setName] = useState(currentData?.name)
+export default function FormAddUser({ showForm, currentData }) {
+    const dispatch = useDispatch()
+
+    const [nama, setName] = useState(currentData?.nama)
     const [role, setRole] = useState(currentData?.role || 'Super Admin')
-    const [email, setEmail] = useState(currentData?.email)
+    const [username, setUsername] = useState(currentData?.username)
     const [password, setPassword] = useState(currentData?.password)
 
     function handleAdd(e) {
         e.preventDefault()
+        // // checking ? action with current data
         if (currentData !== null) {
-            editData({
-                id: currentData.id,
-                name,
+            // handle edit user
+            dispatch(AsyncEditUser({
+                _id: currentData._id,
+                nama,
                 role,
-                email,
+                username,
                 password
-            })
+            }))
+            showForm(false)
         } else {
-            const id = Math.floor(Math.random() * 1001)
-            addData({
-                id,
-                name,
+            // handle add user
+            dispatch(AsyncCreateUser({
+                nama,
                 role,
-                email,
+                username,
                 password
-            })
+            }))
+            showForm(false)
         }
     }
 
@@ -35,18 +43,18 @@ export default function FormAddUser({ addData, editData, currentData }) {
         <Form onSubmit={(e) => handleAdd(e)}>
             <Form.Group>
                 <Form.Label>Nama</Form.Label>
-                <Form.Control value={name} onChange={(e) => setName(e.target.value)} />
+                <Form.Control value={nama} onChange={(e) => setName(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Role</Form.Label>
                 <Form.Select value={role} onChange={(e) => setRole(e.target.value)}>
-                    <option value="Super Admin">Super Admin</option>
-                    <option value="Admin">Admin</option>
+                    <option value="super admin">Super Admin</option>
+                    <option value="admin">Admin</option>
                 </Form.Select>
             </Form.Group>
             <Form.Group>
-                <Form.Label>Email</Form.Label>
-                <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} />
+                <Form.Label>Username</Form.Label>
+                <Form.Control value={username} onChange={(e) => setUsername(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Password</Form.Label>

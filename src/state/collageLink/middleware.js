@@ -4,67 +4,61 @@ import { GetAllLinkAction, CreateLinkAction, EditLinkAction, RemoveLinkAction } 
 
 function AsyncGetAllLink() {
     return async dispatch => {
+        dispatch(showLoading())
         try {
-            dispatch(showLoading())
-
             const response = await api.GetAllLink()
             dispatch(GetAllLinkAction(response))
 
-            dispatch(hideLoading())
+
         } catch (err) {
             alert(err.message)
         }
+        dispatch(hideLoading())
     }
 }
 
 function AsyncCreateLink(data) {
     return async dispatch => {
+        dispatch(showLoading())
         try {
-            dispatch(showLoading())
-
             await api.CreateLink(data);
 
             const response = await api.GetAllLink();
             dispatch(CreateLinkAction(response))
-
-            dispatch(hideLoading())
         } catch (err) {
             alert(err.message)
         }
+        dispatch(hideLoading())
     }
 }
 
 function AsyncEditLink(data) {
     return async dispatch => {
+        dispatch(showLoading())
         try {
-            dispatch(showLoading())
-
             await api.EditLink(data);
 
             const response = await api.GetAllLink();
             dispatch(EditLinkAction(response))
-
-            dispatch(hideLoading())
         } catch (err) {
             alert(err.message)
         }
+        dispatch(hideLoading())
     }
 }
 
 function AsyncRemoveLink(id) {
     return async dispatch => {
+        dispatch(showLoading())
         try {
-            dispatch(showLoading())
-
             await api.RemoveLink(id);
 
             const response = await api.GetAllFAQ();
             dispatch(RemoveLinkAction(response))
-
-            dispatch(hideLoading())
         } catch (err) {
             alert(err.message)
         }
+        dispatch(hideLoading())
     }
 }
 

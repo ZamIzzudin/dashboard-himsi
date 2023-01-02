@@ -5,20 +5,21 @@ import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormHimpunan() {
-    const [himpunanNama, setHimpunanNama] = useState("Himpunan Mahasiswa Sistem Informasi")
-    const [himpunanUniversitas, setHimpunanUniversitas] = useState("Universitas Islam Syarif Hidayatullah Jakarta")
-    const [himpunanLogo, setHimpunanLogo] = useState(null)
+export default function FormHimpunan({ currentData }) {
+    const [himpunanNama, setHimpunanNama] = useState(currentData?.nama_himpunan)
+    const [himpunanUniversitas, setHimpunanUniversitas] = useState(currentData?.nama_universitas)
+    const [himpunanLogo, setHimpunanLogo] = useState(currentData?.logo_himpunan.url)
+    const [gambarStruktur, setGambarStruktur] = useState(currentData?.gambar_struktur.url)
 
     function editDataHimpunan(e) {
         e.preventDefault()
 
         const data = {
-            himpinan: himpunanNama,
-            universitas: himpunanUniversitas,
-            logo: himpunanLogo
+            nama_himpunan: himpunanNama,
+            nama_Universitas: himpunanUniversitas,
+            logo_himpunan: himpunanLogo,
+            gambar_struktur: gambarStruktur
         }
-
         console.log(data)
     }
 
@@ -32,7 +33,14 @@ export default function FormHimpunan() {
                 <Form.Label>Nama Universitas</Form.Label>
                 <Form.Control required value={himpunanUniversitas} onChange={(e) => setHimpunanUniversitas(e.target.value)} />
             </Form.Group>
-            <InputImage label="Upload File" getData={setHimpunanLogo} />
+            <Form.Group>
+                <Form.Label>Logo Himpunan</Form.Label>
+                <InputImage label="Upload File" getData={setHimpunanLogo} currentData={himpunanLogo} />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Gambar Struktur</Form.Label>
+                <InputImage label="Upload File" getData={setGambarStruktur} currentData={gambarStruktur} />
+            </Form.Group>
             <div className="form-cta">
                 <button className="form-submit-button" type="submit">Simpan</button>
             </div>

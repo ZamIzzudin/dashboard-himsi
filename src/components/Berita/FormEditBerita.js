@@ -1,4 +1,4 @@
-import { Form, InputGroup } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { AsyncCreateBerita, AsyncEditBerita } from '../../state/berita/middleware'
@@ -11,29 +11,27 @@ import '../../styles/components/FormLayout.css'
 export default function FormEditBerita({ currentData, showForm }) {
     const dispatch = useDispatch()
 
-    const [judulBerita, setJudulBerita] = useState(currentData?.judul)
-    const [tanggalBerita, setTanggalBerita] = useState(currentData?.tanggal)
-    const [penulisBerita, setPenulisBerita] = useState(currentData?.penulis)
-    const [kategoriBerita, setKategoriBerita] = useState(currentData?.kategori || [])
-    const [isiBerita, setIsiBerita] = useState(currentData?.isi)
-    const [linkBerita, setLinkBerita] = useState(currentData?.link)
-    const [gambarHeadingBerita, setGambarHeadingBerita] = useState(currentData?.gambarHeading)
-    const [uploadFileBerita, setUploadFileBerita] = useState(currentData?.uploadFile)
-
-    const [kategori, setKategori] = useState('')
+    const [judulBerita, setJudulBerita] = useState(currentData?.judul_berita)
+    const [tanggalBerita, setTanggalBerita] = useState(currentData?.tanggal_berita)
+    const [penulisBerita, setPenulisBerita] = useState(currentData?.penulis_berita)
+    const [kategoriBerita, setKategoriBerita] = useState(currentData?.kategori_berita || 'Beasiswa')
+    const [isiBerita, setIsiBerita] = useState(currentData?.isi_berita)
+    const [linkBerita, setLinkBerita] = useState(currentData?.link_berita)
+    const [gambarHeadingBerita, setGambarHeadingBerita] = useState(currentData?.header_berita.url)
+    const [uploadFileBerita, setUploadFileBerita] = useState(currentData?.gambar_berita.url)
 
     function handleManageBerita(e) {
         e.preventDefault()
         if (currentData !== null) {
             dispatch(AsyncEditBerita({
                 _id: currentData._id,
-                header_berita: gambarHeadingBerita,
                 tanggal_berita: tanggalBerita,
                 penulis_berita: penulisBerita,
                 kategori_berita: kategoriBerita,
                 judul_berita: judulBerita,
                 isi_berita: isiBerita,
-                gambar_berita: uploadFileBerita,
+                gambar_berita: uploadFileBerita || currentData?.gambar_berita.url,
+                header_berita: gambarHeadingBerita || currentData?.header_berita.url,
                 link_berita: linkBerita
             }))
             showForm(false)
@@ -52,16 +50,6 @@ export default function FormEditBerita({ currentData, showForm }) {
         }
     }
 
-    function addKategori() {
-        setKategoriBerita([...kategoriBerita, kategori])
-        setKategori('')
-    }
-
-    function deleteKategori(data) {
-        const newData = kategoriBerita.filter(item => item !== data)
-        setKategoriBerita(newData)
-    }
-
     return (
         <Form onSubmit={(e) => handleManageBerita(e)}>
             <Form.Group>
@@ -69,7 +57,7 @@ export default function FormEditBerita({ currentData, showForm }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Tanggal</Form.Label>
-                <Form.Control required value={tanggalBerita} type="date" onChange={(e) => setTanggalBerita(e.target.value)} />
+                <Form.Control required value={tanggalBerita?.toString().substring(0, 10)} type="date" onChange={(e) => setTanggalBerita(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Penulis</Form.Label>
@@ -77,18 +65,12 @@ export default function FormEditBerita({ currentData, showForm }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Kategori</Form.Label>
-                <div className="display-list-bubble">
-                    {kategoriBerita.map(item => (
-                        <div className="bubble-item">
-                            {item}
-                            <button onClick={() => deleteKategori(item)}>X</button>
-                        </div>
-                    ))}
-                </div>
-                <InputGroup>
-                    <Form.Control value={kategori} onChange={(e) => setKategori(e.target.value)} />
-                    <button type="button" className="section-add-btn" onClick={() => addKategori()}>+</button>
-                </InputGroup>
+                <Form.Select value={kategoriBerita} onChange={(e) => setKategoriBerita(e.target.value)}>
+                    <option value="Beasiswa">Beasiswa</option>
+                    <option value="Beasiswa">Info Perkuliahan</option>
+                    <option value="Beasiswa">Info Magang</option>
+                    <option value="Beasiswa">Info Lomba</option>
+                </Form.Select>
             </Form.Group>
             <Form.Group>
                 <Form.Label>Judul</Form.Label>

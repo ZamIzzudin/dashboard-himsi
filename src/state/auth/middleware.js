@@ -1,30 +1,34 @@
 import { LoginAction, RefreshTokenAction, LogoutAction } from './action'
+import { ShowError, HideError } from '../error/middleware'
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import api from '../../utils/api'
 import cookies from '../../utils/cookies'
 
 function asyncLogin(email, password) {
     return async dispatch => {
-        try {
-            dispatch(showLoading())
+        dispatch(showLoading())
 
+        try {
+            // Fetch Login
             const response = await api.Login(email, password)
 
+            //Setup Cookies 
             cookies.remove('refreshToken')
             cookies.add('refreshToken', response.data.accessToken, 7)
 
             const data = {
-                role: 'Super Admin',
+                role: response.data.role,
                 token: response.data.accessToken,
             }
 
+            // Pass to Action
             dispatch(LoginAction(data))
-
-            dispatch(hideLoading())
-
+            dispatch(HideError())
         } catch (err) {
-            console.log(err)
+            dispatch(ShowError('Cannot Login'))
         }
+
+        dispatch(hideLoading())
     }
 }
 
@@ -45,17 +49,19 @@ function asyncRefreshToken() {
 
 function asyncLogout() {
     return dispatch => {
-        try {
-            dispatch(showLoading())
+        dispatch(showLoading())
 
+        try {
             dispatch(LogoutAction())
-            window.location.assign("/")
             cookies.remove('refreshToken')
 
-            dispatch(hideLoading())
+            // Set Route to default
+            window.location.assign("/")
         } catch (err) {
             console.log(err)
         }
+
+        dispatch(hideLoading())
     }
 }
 

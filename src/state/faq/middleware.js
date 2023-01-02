@@ -4,67 +4,68 @@ import { GetAllFAQAction, CreateFAQAction, EditFAQAction, RemoveFAQAction } from
 
 function AsyncGetAllFAQ() {
     return async dispatch => {
-        try {
-            dispatch(showLoading())
+        dispatch(showLoading())
 
+        try {
             const response = await api.GetAllFAQ();
             dispatch(GetAllFAQAction(response))
 
-            dispatch(hideLoading())
         } catch (err) {
             alert(err.message)
         }
+
+        dispatch(hideLoading())
     }
 }
 
 function AsyncCreateFAQ(data) {
     return async dispatch => {
-        try {
-            dispatch(showLoading())
+        dispatch(showLoading())
 
+        try {
             await api.CreateFAQ(data);
 
             const response = await api.GetAllFAQ();
             dispatch(CreateFAQAction(response))
-
-            dispatch(hideLoading())
         } catch (err) {
             alert(err.message)
         }
+
+        dispatch(hideLoading())
     }
 }
 
 function AsyncEditFAQ(id) {
     return async dispatch => {
-        try {
-            dispatch(showLoading())
+        dispatch(showLoading())
 
+        try {
             await api.EditFAQ(id);
 
             const response = await api.GetAllFAQ();
             dispatch(EditFAQAction(response))
-
-            dispatch(hideLoading())
         } catch (err) {
             alert(err.message)
         }
+
+        dispatch(hideLoading())
     }
 }
 
 function AsyncRemoveFAQ(_id) {
     return async dispatch => {
-        try {
-            dispatch(showLoading())
+        dispatch(showLoading())
 
+        try {
             await api.RemoveFAQ(_id);
 
             const response = await api.GetAllFAQ();
             dispatch(RemoveFAQAction(response))
-
-            dispatch(hideLoading())
         } catch (err) {
             alert(err.message)
         }
+
+        dispatch(hideLoading())
     }
 }
 
