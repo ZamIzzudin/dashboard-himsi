@@ -2,7 +2,9 @@ import axios from 'axios'
 
 const api = (() => {
 
-    const baseUrl = process.env.REACT_APP_API_ENDPOINT
+    // const baseUrl = process.env.REACT_APP_API_ENDPOINT
+    const baseUrl = "https://himsi-website-be.vercel.app"
+
 
     axios.defaults.withCredentials = true
 
