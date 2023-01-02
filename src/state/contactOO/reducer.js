@@ -1,6 +1,6 @@
 import { ActionType } from "./action";
 
-export default function VisiMisiReducer(contact = {}, action = {}) {
+export default function ContactReducer(contact = {}, action = {}) {
     switch (action.type) {
         case ActionType.GET_CONTACT:
             return contact = action.payload.contact

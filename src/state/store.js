@@ -8,7 +8,7 @@ import CollageLinkReducer from "./collageLink/reducer"
 import BeritaReducer from "./berita/reducer"
 import HimpunanReducer from "./himpunan/reducer"
 import VisiMisiReducer from "./visiMisi/reducer"
-import ContactReducer from "./contact/reducer"
+// import ContactReducer from "./contact/reducer"
 
 const store = configureStore({
     reducer: {
@@ -21,7 +21,7 @@ const store = configureStore({
         berita: BeritaReducer,
         himpunan: HimpunanReducer,
         visiMisi: VisiMisiReducer,
-        contact: ContactReducer,
+        // contact: ContactReducer,
     },
 });
 
