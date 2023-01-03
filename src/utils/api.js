@@ -67,10 +67,18 @@ const api = (() => {
 
     // Link (Layanan Mahasiswa)
     async function GetAllLink() {
-        const url = baseUrl + '/link'
+        const url = baseUrl + '/link?kategori=e-layanan'
+        const url2 = baseUrl + '/link?kategori=database-materi'
 
         const response = await axios.get(url)
-        return response.data.data
+        const response2 = await axios.get(url2)
+
+        const data = {
+            e_layanan: response.data.data,
+            database_materi: response2.data.data
+        }
+
+        return data
     }
 
     async function CreateLink(data) {
@@ -195,9 +203,9 @@ const api = (() => {
         const form = new FormData()
 
         form.append('nama_himpunan', data.nama_himpunan)
-        form.append('nama_universitas', data.nama_universitas.file)
-        form.append('logo_himpunan', data.logo_himpunan.file)
-        form.append('gambar_struktur', data.gambar_struktur.file)
+        form.append('nama_universitas', data.nama_universitas)
+        // form.append('logo_himpunan', data.logo_himpunan.file || undefined)
+        // form.append('gambar_struktur', data.gambar_struktur.file || undefined)
 
         const response = await axios.put(url, form)
         return response.data.data

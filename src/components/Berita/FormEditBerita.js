@@ -67,9 +67,9 @@ export default function FormEditBerita({ currentData, showForm }) {
                 <Form.Label>Kategori</Form.Label>
                 <Form.Select value={kategoriBerita} onChange={(e) => setKategoriBerita(e.target.value)}>
                     <option value="Beasiswa">Beasiswa</option>
-                    <option value="Beasiswa">Info Perkuliahan</option>
-                    <option value="Beasiswa">Info Magang</option>
-                    <option value="Beasiswa">Info Lomba</option>
+                    <option value="Info Perkuliahan">Info Perkuliahan</option>
+                    <option value="Info Magang">Info Magang</option>
+                    <option value="Info Lomba">Info Lomba</option>
                 </Form.Select>
             </Form.Group>
             <Form.Group>

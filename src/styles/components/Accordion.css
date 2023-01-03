@@ -6,6 +6,13 @@
     border-radius: 8px;
 }
 
+.accordion-header a {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 15px;
+}
+
 .accordion-body {
     height: 0;
     overflow: hidden;

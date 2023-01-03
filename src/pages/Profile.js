@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-
 
 import FormHimpunan from '../components/Profile/FormHimpunan'
 import FormBidang from '../components/Profile/FormBidang'
@@ -10,9 +8,6 @@ import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 import HIMSI from '../utils/HIMSIdummy'
 
 export default function Profile() {
-  const { himpunan = {} } = useSelector(states => states)
-  // const dispatch = useDispatch()
-
   const [listBidang, setListBidang] = useState(HIMSI)
   const [showBidangForm, setShowBidangForm] = useState(false)
 
@@ -72,7 +67,7 @@ export default function Profile() {
           <button className="section-add-btn hidden">+</button>
         </div>
         <div className="section-body">
-          <FormHimpunan currentData={himpunan} />
+          <FormHimpunan />
         </div>
       </section>
 

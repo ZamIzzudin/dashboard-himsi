@@ -53,7 +53,7 @@ const Berita = () => {
             {berita.map((data, index) => (
               <tr>
                 <td>{index + 1}</td>
-                <td>{data.tanggal_berita}</td>
+                <td>{data.tanggal_berita.slice(0, 10)}</td>
                 <td>{data.judul_berita}</td>
                 <td className="table-cta">
                   <div className="table-cta-container">

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
+import { ReactComponent as Arrow } from '../assets/icons/arrow.svg'
 import '../styles/components/Accordion.css'
 
 export default function Accordion({ isActive }) {
@@ -15,7 +16,10 @@ export default function Accordion({ isActive }) {
     return (
         <div className="accordion">
             <div className={`accordion-header ${expanded && ('active')}`} onClick={() => setSelected('BPH')}>
-                <Link to='/program-kerja/BPH' as="button" onClick={() => setExpanded(true)}>Program Kerja</Link>
+                <Link to='/program-kerja/BPH' as="button" onClick={() => setExpanded(true)}>
+                    Program Kerja
+                    <Arrow />
+                </Link>
             </div>
             <div className={`accordion-body ${expanded && ('expand')}`}>
                 <ul>

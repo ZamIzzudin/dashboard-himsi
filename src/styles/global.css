@@ -58,12 +58,13 @@ body {
 main {
     position: relative;
     box-sizing: border-box;
-    width: 72vw;
+    width: 70vw;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 0 20px;
     gap: 10px;
+    margin-right: 20px;
     margin-top: 80px;
 }
 
@@ -153,15 +154,10 @@ main {
     padding: 5px;
 }
 
-.section-delete-btn:hover {
-    background-color: transparent;
-    color: var(--stateColorError)
-}
-
 .section-edit-btn {
     font-size: 1.8em;
-    background-color: var(--stateColorWarning);
-    border: 2px solid var(--stateColorWarning);
+    background-color: var(--primaryColor2);
+    border: 2px solid var(--primaryColor2);
     box-sizing: border-box;
     color: var(--white);
     border-radius: 8px;
@@ -173,7 +169,7 @@ main {
 
 .section-edit-btn:hover {
     background-color: transparent;
-    color: var(--stateColorWarning)
+    color: var(--primaryColor2)
 }
 
 table {

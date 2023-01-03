@@ -53,7 +53,7 @@ function AsyncRemoveLink(id) {
         try {
             await api.RemoveLink(id);
 
-            const response = await api.GetAllFAQ();
+            const response = await api.GetAllLink();
             dispatch(RemoveLinkAction(response))
         } catch (err) {
             alert(err.message)

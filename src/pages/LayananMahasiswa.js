@@ -4,6 +4,7 @@ import { AsyncRemoveFAQ } from '../state/faq/middleware'
 import { AsyncRemoveLink } from '../state/collageLink/middleware'
 
 import FormAddLink from '../components/LayananMahasiswa/FormAddLink'
+import FormAddDBMateri from '../components/LayananMahasiswa/FormAddDBMateri'
 import FormAddFAQ from '../components/LayananMahasiswa/FormAddFAQ'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
@@ -14,6 +15,7 @@ export default function LayananMahasiswa() {
     // parameter to handle showed form
     const [showAddLinkForm, setShowAddLinkForm] = useState(false)
     const [showAddFAQForm, setShowAddFAQForm] = useState(false)
+    const [showAddDBMateriForm, setSowAddDBMateriForm] = useState(false)
 
     const [selectedData, setSelectedData] = useState(null)
 
@@ -37,11 +39,28 @@ export default function LayananMahasiswa() {
                 <h1 className="page-header">Layanan Mahasiswa</h1>
                 <section className="content-section">
                     <div className="section-header-container">
-                        <h4 className="section-header">Manage Link</h4>
+                        <h4 className="section-header">Manage E-Layanan</h4>
                         <button onClick={() => { setShowAddLinkForm(false); setSelectedData(null) }} className="section-add-btn">-</button>
                     </div>
                     <div className="section-body">
                         <FormAddLink currentData={selectedData} showForm={setShowAddLinkForm} />
+                    </div>
+                </section>
+            </main>
+        )
+    }
+
+    if (showAddDBMateriForm) {
+        return (
+            <main>
+                <h1 className="page-header">Layanan Mahasiswa</h1>
+                <section className="content-section">
+                    <div className="section-header-container">
+                        <h4 className="section-header">Manage Database Materi</h4>
+                        <button onClick={() => { setSowAddDBMateriForm(false); setSelectedData(null) }} className="section-add-btn">-</button>
+                    </div>
+                    <div className="section-body">
+                        <FormAddDBMateri currentData={selectedData} showForm={setSowAddDBMateriForm} />
                     </div>
                 </section>
             </main>
@@ -83,21 +102,19 @@ export default function LayananMahasiswa() {
                             <th>URL</th>
                             <th className="text-center">Action</th>
                         </tr>
-                        {collageLink.map((link, index) => {
+                        {collageLink.e_layanan.map((link, index) => {
                             return (
-                                link.kategori === 'e-layanan' && (
-                                    <tr>
-                                        <td>{index + 1}</td>
-                                        <td>{link.nama_link}</td>
-                                        <td>{link.url}</td>
-                                        <td className="table-cta">
-                                            <div className="table-cta-container">
-                                                <button onClick={() => { setShowAddLinkForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
-                                                <button onClick={() => deleteLink(link._id)} className="section-delete-btn"><Delete /></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
+                                <tr>
+                                    <td>{index + 1}</td>
+                                    <td>{link.nama_link}</td>
+                                    <td>{link.url}</td>
+                                    <td className="table-cta">
+                                        <div className="table-cta-container">
+                                            <button onClick={() => { setShowAddLinkForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
+                                            <button onClick={() => deleteLink(link._id)} className="section-delete-btn"><Delete /></button>
+                                        </div>
+                                    </td>
+                                </tr>
                             )
                         })}
                     </table>
@@ -108,7 +125,7 @@ export default function LayananMahasiswa() {
             <section className="content-section mb-5">
                 <div className="section-header-container">
                     <h4 className="section-header">Database Materi</h4>
-                    <button onClick={() => { setShowAddLinkForm(true); setSelectedData(null); }} className="section-add-btn">+</button>
+                    <button onClick={() => { setSowAddDBMateriForm(true); setSelectedData(null); }} className="section-add-btn">+</button>
                 </div>
                 <div className="section-body">
                     <table>
@@ -118,21 +135,19 @@ export default function LayananMahasiswa() {
                             <th>URL</th>
                             <th className="text-center">Action</th>
                         </tr>
-                        {collageLink.map((link, index) => {
+                        {collageLink.database_materi.map((link, index) => {
                             return (
-                                link.kategori === 'database-materi' && (
-                                    <tr>
-                                        <td>{index + 1}</td>
-                                        <td>{link.nama_link}</td>
-                                        <td>{link.url}</td>
-                                        <td className="table-cta">
-                                            <div className="table-cta-container">
-                                                <button onClick={() => { setShowAddLinkForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
-                                                <button onClick={() => deleteLink(link._id)} className="section-delete-btn"><Delete /></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
+                                <tr>
+                                    <td>{index + 1}</td>
+                                    <td>{link.nama_link}</td>
+                                    <td>{link.url}</td>
+                                    <td className="table-cta">
+                                        <div className="table-cta-container">
+                                            <button onClick={() => { setSowAddDBMateriForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
+                                            <button onClick={() => deleteLink(link._id)} className="section-delete-btn"><Delete /></button>
+                                        </div>
+                                    </td>
+                                </tr>
                             )
                         })}
                     </table>

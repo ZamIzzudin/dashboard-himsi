@@ -19,7 +19,7 @@ export default function FormAddLink({ currentData, showForm }) {
             dispatch(AsyncEditLink({
                 _id: currentData._id,
                 nama_link: linkName,
-                kategori: 'e-layanan',
+                kategori: 'database-materi',
                 url: linkURL,
             }))
             showForm(false)
@@ -27,7 +27,7 @@ export default function FormAddLink({ currentData, showForm }) {
             // handle add Link
             dispatch(AsyncCreateLink({
                 nama_link: linkName,
-                kategori: 'e-layanan',
+                kategori: 'database-materi',
                 url: linkURL,
             }))
             showForm(false)
