@@ -3,13 +3,11 @@ import { useState, useEffect } from "react";
 
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 import FormSlider from "../components/Home/FormSlider";
-import FormUpcoming from "../components/Home/FormUpcoming";
 import FormPartner from "../components/Home/FormPartner";
 import FormSocmed from "../components/Home/FormSocmed";
 
 export default function Home() {
   const [showSliderForm, setSliderForm] = useState(false)
-  const [showUpcomingForm, setUpcomingForm] = useState(false)
   const [showPartnerForm, setPartnerForm] = useState(false)
   const [showSocmedForm, setSocmedForm] = useState(false)
 
@@ -51,7 +49,6 @@ export default function Home() {
     }
   ]
 
-  const [listUpcomingData, setListUpcomingData] = useState([])
   const [listSliderData, setListSliderData] = useState([])
   const [listPartnerData, setListPartnerData] = useState([])
   const [listSocmedData, setListSocmedData] = useState(listSocmed)
@@ -62,11 +59,6 @@ export default function Home() {
   function handleAddSlider(data) {
     setListSliderData([...listSliderData, data])
     setSliderForm(false)
-  }
-
-  function handleAddUpcoming(data) {
-    setListUpcomingData([...listUpcomingData, data])
-    setUpcomingForm(false)
   }
 
   function handleAddPartner(data) {
@@ -85,18 +77,6 @@ export default function Home() {
     setListSliderData(newData)
     setSelectedData(null)
     setSliderForm(false)
-  }
-
-  function handleEditUpcoming(data) {
-    const newData = listUpcomingData.map((upcoming) => {
-      if (upcoming.id === data.id) {
-        return data
-      }
-      return upcoming
-    })
-    setListUpcomingData(newData)
-    setSelectedData(null)
-    setUpcomingForm(false)
   }
 
   function handleEditPartner(data) {
@@ -129,11 +109,6 @@ export default function Home() {
     setListSliderData(newData)
   }
 
-  function handleDeleteUpcoming(id) {
-    const newData = listUpcomingData.filter((upcoming) => upcoming.id !== id)
-    setListUpcomingData(newData)
-  }
-
   function handleDeletePartner(id) {
     const newData = listPartnerData.filter((partner) => partner.id !== id)
     setListPartnerData(newData)
@@ -141,7 +116,7 @@ export default function Home() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [showSliderForm, showUpcomingForm, showPartnerForm, showSocmedForm]);
+  }, [showSliderForm, showPartnerForm, showSocmedForm]);
 
   // Slider Information Form
   if (showSliderForm) {
@@ -155,24 +130,6 @@ export default function Home() {
           </div>
           <div className="section-body">
             <FormSlider addData={handleAddSlider} editData={handleEditSlider} currentData={selectedData} />
-          </div>
-        </section>
-      </main>
-    )
-  }
-
-  // Upcoming Form
-  if (showUpcomingForm) {
-    return (
-      <main>
-        <h1 className="page-header">Home</h1>
-        <section className="content-section">
-          <div className="section-header-container">
-            <h4 className="section-header">Manage Upcoming Events</h4>
-            <button onClick={() => setUpcomingForm(false)} className="section-add-btn">-</button>
-          </div>
-          <div className="section-body">
-            <FormUpcoming addData={handleAddUpcoming} editData={handleEditUpcoming} currentData={selectedData} />
           </div>
         </section>
       </main>
@@ -240,35 +197,6 @@ export default function Home() {
                   <div className="table-cta-container">
                     <button onClick={() => { setSliderForm(true); setSelectedData(slider) }} className="section-edit-btn">Edit</button>
                     <button onClick={() => handleDeleteSlider(slider.id)} className="section-delete-btn"><Delete /></button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </table>
-        </div>
-      </section >
-
-      {/* Upcoming Event Display */}
-      <section className="content-section mb-5">
-        <div className="section-header-container">
-          <h4 className="section-header">Upcoming Event</h4>
-          <button onClick={() => { setUpcomingForm(true); setSelectedData(null); }} className="section-add-btn">+</button>
-        </div>
-        <div className="section-body">
-          <table>
-            <tr>
-              <th>No.</th>
-              <th>Judul</th>
-              <th className="text-center">Action</th>
-            </tr>
-            {listUpcomingData.map((upcoming, index) => (
-              <tr>
-                <td>{index + 1}</td>
-                <td>{upcoming.title}</td>
-                <td className="table-cta">
-                  <div className="table-cta-container">
-                    <button onClick={() => { setUpcomingForm(true); setSelectedData(upcoming) }} className="section-edit-btn">Edit</button>
-                    <button onClick={() => handleDeleteUpcoming(upcoming.id)} className="section-delete-btn"><Delete /></button>
                   </div>
                 </td>
               </tr>

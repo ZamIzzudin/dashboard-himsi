@@ -20,10 +20,10 @@ const Berita = () => {
   if (showEditBeritaForm) {
     return (
       <main>
-        <h1 className="page-header">Manage Berita</h1>
+        <h1 className="page-header">Manage Article</h1>
         <section className="content-section">
           <div className="section-header-container">
-            <h4 className="section-header">Manage Berita</h4>
+            <h4 className="section-header">Manage Article</h4>
             <button onClick={() => setShowEditBeritaForm(false)} className="section-add-btn">-</button>
           </div>
           <div className="section-body">
@@ -36,10 +36,10 @@ const Berita = () => {
 
   return (
     <main>
-      <h1 className="page-header">Berita</h1>
+      <h1 className="page-header">Articles</h1>
       <section className="content-section mb-5">
         <div className="section-header-container">
-          <h4 className="section-header">Berita</h4>
+          <h4 className="section-header">Articles</h4>
           <button onClick={() => { setShowEditBeritaForm(true); setSelectedData(null) }} className="section-add-btn">+</button>
         </div>
         <div className="section-body">

@@ -15,6 +15,8 @@ export default function FormVisiMisi() {
     const [misi, setMisi] = useState('')
     const [listMisi, setListMisi] = useState(visiMisi?.misi)
 
+    const [showMisiForm, setShowMisiForm] = useState(false)
+
     function editVisiMisi(e) {
         e.preventDefault()
         const data = {
@@ -40,16 +42,13 @@ export default function FormVisiMisi() {
             <Form.Group>
                 <Form.Label>Visi</Form.Label>
                 <InputGroup>
-                    <Form.Control value={visi} onChange={(e) => setVisi(e.target.value)} />
+                    <textarea value={visi} onChange={(e) => setVisi(e.target.value)} />
                 </InputGroup>
             </Form.Group>
-            <Form.Group>
+            <div className="corner-cta">
                 <Form.Label>Misi</Form.Label>
-                <InputGroup>
-                    <Form.Control value={misi} onChange={(e) => setMisi(e.target.value)} />
-                    <button type="button" className="section-add-btn" onClick={() => addMisi()}>+</button>
-                </InputGroup>
-            </Form.Group>
+                <button type="button" className="section-add-btn" onClick={() => setShowMisiForm(true)}>+</button>
+            </div>
             {/* Visi Tabel */}
             <Form.Group>
                 <table>
@@ -69,6 +68,19 @@ export default function FormVisiMisi() {
                             </td>
                         </tr>
                     ))}
+                    {showMisiForm && (
+                        <tr>
+                            <td>{listMisi.length + 1}</td>
+                            <td>
+                                <input className="invisable-form" placeholder="Masukkan Text" type="text" onChange={(e) => setMisi(e.target.value)} />
+                            </td>
+                            <td className="table-cta">
+                                <div className="table-cta-container">
+                                    <button type="button" onClick={() => { addMisi(); setShowMisiForm(false); }} className="section-edit-btn">Simpan</button>
+                                </div>
+                            </td>
+                        </tr>
+                    )}
                 </table>
             </Form.Group>
             <div className="form-cta">

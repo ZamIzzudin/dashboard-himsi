@@ -21,10 +21,10 @@ export default function Sidebar() {
                     <Link to='/profile' className={location === '/profile' ? 'active' : null}>Profile</Link>
                 </li>
                 <li className="navbar-link-item">
-                    <Accordion isActive={location.includes('/program-kerja/') ? true : false} />
+                    <Accordion isActive={location.includes('/events/') ? true : false} />
                 </li>
                 <li className="navbar-link-item">
-                    <Link to='/berita' className={location === '/berita' ? 'active' : null}>Berita</Link>
+                    <Link to='/articles' className={location === '/articles' ? 'active' : null}>Articles</Link>
                 </li>
                 <li className="navbar-link-item">
                     <Link to='/layanan-mahasiswa' className={location === '/layanan-mahasiswa' ? 'active' : null}>Layanan Mahasiswa</Link>
@@ -34,6 +34,9 @@ export default function Sidebar() {
                 </li>
                 <li className="navbar-link-item">
                     <Link to='/user' className={location === '/user' ? 'active' : null}>User</Link>
+                </li>
+                <li className="navbar-link-item">
+                    <Link to='/footer' className={location === '/footer' ? 'active' : null}>Footer</Link>
                 </li>
             </ul>
         </nav>

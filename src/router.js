@@ -10,6 +10,7 @@ import Hubungikami from "./pages/HubungiKami"
 import LayananMahasiswa from "./pages/LayananMahasiswa"
 import ProgramKerja from "./pages/ProgramKerja"
 import User from "./pages/User"
+import Footer from './pages/Footer'
 import Login from './pages/Login'
 
 import Loading from './components/Loading'
@@ -52,11 +53,12 @@ export default function Router() {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route path="/profile" component={Profile} />
-                        <Route path="/program-kerja/:bidang" component={ProgramKerja} />
-                        <Route path="/berita" component={Berita} />
+                        <Route path="/events/:bidang" component={ProgramKerja} />
+                        <Route path="/articles" component={Berita} />
                         <Route path="/layanan-mahasiswa" component={LayananMahasiswa} />
                         <Route path="/hubungi-kami" component={Hubungikami} />
                         <Route path="/user" component={User} />
+                        <Route path="/footer" component={Footer} />
                         <Route path="*" component={Home} />
                     </Switch>
                 </>

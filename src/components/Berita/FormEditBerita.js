@@ -1,4 +1,4 @@
-import { Form } from 'react-bootstrap'
+import { Form, Accordion } from 'react-bootstrap'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { AsyncCreateBerita, AsyncEditBerita } from '../../state/berita/middleware'
@@ -14,11 +14,29 @@ export default function FormEditBerita({ currentData, showForm }) {
     const [judulBerita, setJudulBerita] = useState(currentData?.judul_berita)
     const [tanggalBerita, setTanggalBerita] = useState(currentData?.tanggal_berita)
     const [penulisBerita, setPenulisBerita] = useState(currentData?.penulis_berita)
-    const [kategoriBerita, setKategoriBerita] = useState(currentData?.kategori_berita || 'Beasiswa')
+    const [kategoriBerita, setKategoriBerita] = useState(currentData?.kategori_berita || [])
     const [isiBerita, setIsiBerita] = useState(currentData?.isi_berita)
     const [linkBerita, setLinkBerita] = useState(currentData?.link_berita)
     const [gambarHeadingBerita, setGambarHeadingBerita] = useState(currentData?.header_berita.url)
     const [uploadFileBerita, setUploadFileBerita] = useState(currentData?.gambar_berita.url)
+
+    function addKategori(newKategori) {
+        let pre = [...kategoriBerita]
+        if (kategoriBerita.length === 0) {
+            pre.push(newKategori)
+        } else {
+            if (!kategoriBerita.includes(newKategori)) {
+                pre.push(newKategori)
+            }
+        }
+
+        setKategoriBerita(pre)
+    }
+
+    function deleteKategori(selectedKategori) {
+        const pre = kategoriBerita.filter(item => item !== selectedKategori)
+        setKategoriBerita(pre)
+    }
 
     function handleManageBerita(e) {
         e.preventDefault()
@@ -65,13 +83,39 @@ export default function FormEditBerita({ currentData, showForm }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Kategori</Form.Label>
-                <Form.Select value={kategoriBerita} onChange={(e) => setKategoriBerita(e.target.value)}>
-                    <option value="Beasiswa">Beasiswa</option>
-                    <option value="Info Perkuliahan">Info Perkuliahan</option>
-                    <option value="Info Magang">Info Magang</option>
-                    <option value="Info Lomba">Info Lomba</option>
-                </Form.Select>
+
             </Form.Group>
+            <Accordion className="mb-4">
+                <Accordion.Item>
+                    <Accordion.Header className="filter-header">{kategoriBerita.length === 0 ? ('Choose Kategori') : (
+                        kategoriBerita.map(item =>
+                            <span className="filter-item">
+                                {item}
+                                <button type="button" onClick={() => deleteKategori(item)}>X</button>
+                            </span>)
+                    )}</Accordion.Header>
+                    <Accordion.Body className="filter-body">
+                        <ul>
+                            <li>
+                                <button onClick={() => addKategori('Info Beasiswa')} type="button">+</button>
+                                Info Beasiswa
+                            </li>
+                            <li>
+                                <button onClick={() => addKategori('Info Perkuliahan')} type="button">+</button>
+                                Info Perkuliahan
+                            </li>
+                            <li>
+                                <button onClick={() => addKategori('Info Magang')} type="button">+</button>
+                                Info Magang
+                            </li>
+                            <li>
+                                <button onClick={() => addKategori('Info Lomba')} type="button">+</button>
+                                Info Lomba
+                            </li>
+                        </ul>
+                    </Accordion.Body>
+                </Accordion.Item>
+            </Accordion>
             <Form.Group>
                 <Form.Label>Judul</Form.Label>
                 <Form.Control required value={judulBerita} onChange={(e) => setJudulBerita(e.target.value)} />
@@ -83,6 +127,10 @@ export default function FormEditBerita({ currentData, showForm }) {
             <Form.Group>
                 <Form.Label>Upload File</Form.Label>
                 <InputImage getData={setUploadFileBerita} label="Upload Gambar Berita" currentData={uploadFileBerita} />
+            </Form.Group>
+            <Form.Group>
+                <Form.Label>Link PDF</Form.Label>
+                <Form.Control required />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Link</Form.Label>

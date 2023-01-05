@@ -13,7 +13,7 @@
     padding-right: 15px;
 }
 
-.accordion-body {
+.accordion-content {
     height: 0;
     overflow: hidden;
     transition: .4s;
@@ -23,7 +23,7 @@
     padding: 0 !important;
 }
 
-.accordion-body ul {
+.accordion-content ul {
     border-left: 2px solid var(--white);
     display: flex;
     flex-direction: column;
@@ -31,7 +31,7 @@
     gap: 2px;
 }
 
-.accordion-body ul li {
+.accordion-content ul li {
     list-style: none;
     font-size: 1em;
     cursor: pointer;
@@ -40,12 +40,12 @@
     padding: 0;
 }
 
-.accordion-body ul li a {
+.accordion-content ul li a {
     padding: 0;
     opacity: .5;
 }
 
-.accordion-body ul li a:hover {
+.accordion-content ul li a:hover {
     opacity: 1;
     background-color: transparent;
     font-weight: bold;

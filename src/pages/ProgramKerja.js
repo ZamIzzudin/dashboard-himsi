@@ -77,7 +77,7 @@ export default function ProgramKerja() {
   if (showAddProkerForm) {
     return (
       <main>
-        <h1 className="page-header">Program Kerja</h1>
+        <h1 className="page-header">Events</h1>
         <section className="page-header-group">
           <img src={HIMSI_LOGO} alt="logo bidang" width="100" />
           <div>
@@ -100,7 +100,7 @@ export default function ProgramKerja() {
 
   return (
     <main>
-      <h1 className="page-header">Program Kerja</h1>
+      <h1 className="page-header">Events</h1>
       <section className="page-header-group">
         <img src={HIMSI_LOGO} alt="logo bidang" width="100" />
         <div>

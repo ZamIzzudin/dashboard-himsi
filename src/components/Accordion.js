@@ -16,33 +16,33 @@ export default function Accordion({ isActive }) {
     return (
         <div className="accordion">
             <div className={`accordion-header ${expanded && ('active')}`} onClick={() => setSelected('BPH')}>
-                <Link to='/program-kerja/BPH' as="button" onClick={() => setExpanded(true)}>
-                    Program Kerja
+                <Link to='/events/BPH' as="button" onClick={() => setExpanded(true)}>
+                    Events
                     <Arrow />
                 </Link>
             </div>
-            <div className={`accordion-body ${expanded && ('expand')}`}>
+            <div className={`accordion-content ${expanded && ('expand')}`}>
                 <ul>
                     <li onClick={() => setSelected('BPH')}>
-                        <Link className={`${selected === 'BPH' && ('selected')}`} to='/program-kerja/BPH'>BPH</Link>
+                        <Link className={`${selected === 'BPH' && ('selected')}`} to='/events/BPH'>BPH</Link>
                     </li>
                     <li onClick={() => setSelected('PSDM')}>
-                        <Link className={`${selected === 'PSDM' && ('selected')}`} to='/program-kerja/PSDM'>PSDM</Link>
+                        <Link className={`${selected === 'PSDM' && ('selected')}`} to='/events/PSDM'>PSDM</Link>
                     </li>
                     <li onClick={() => setSelected('URT')}>
-                        <Link className={`${selected === 'URT' && ('selected')}`} to='/program-kerja/URT'>URT</Link>
+                        <Link className={`${selected === 'URT' && ('selected')}`} to='/events/URT'>URT</Link>
                     </li>
                     <li onClick={() => setSelected('DIKTI')}>
-                        <Link className={`${selected === 'DIKTI' && ('selected')}`} to='/program-kerja/DIKTI'>DIKTI</Link>
+                        <Link className={`${selected === 'DIKTI' && ('selected')}`} to='/events/DIKTI'>DIKTI</Link>
                     </li>
                     <li onClick={() => setSelected('PERHUB')}>
-                        <Link className={`${selected === 'PERHUB' && ('selected')}`} to='/program-kerja/PERHUB'>PERHUB</Link>
+                        <Link className={`${selected === 'PERHUB' && ('selected')}`} to='/events/PERHUB'>PERHUB</Link>
                     </li>
                     <li onClick={() => setSelected('ADKESMA')}>
-                        <Link className={`${selected === 'ADKESMA' && ('selected')}`} to='/program-kerja/ADKESMA'>ADKESMA</Link>
+                        <Link className={`${selected === 'ADKESMA' && ('selected')}`} to='/events/ADKESMA'>ADKESMA</Link>
                     </li>
                     <li onClick={() => setSelected('MEDKOM')}>
-                        <Link className={`${selected === 'MEDKOM' && ('selected')}`} to='/program-kerja/MEDKOM'>MEDKOM</Link>
+                        <Link className={`${selected === 'MEDKOM' && ('selected')}`} to='/events/MEDKOM'>MEDKOM</Link>
                     </li>
                 </ul>
             </div>

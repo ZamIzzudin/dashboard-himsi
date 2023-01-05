@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { asyncLogout } from '../state/auth/middleware'
 
 import { useEffect } from 'react'
@@ -17,6 +17,7 @@ import { AsyncGetVisiMisi } from '../state/visiMisi/middleware'
 // import { AsyncGetContact } from '../state/contact/middleware'
 
 export default function Header() {
+    const { auth = {} } = useSelector(states => states)
     const dispatch = useDispatch()
 
     function handleLogout() {
@@ -37,8 +38,8 @@ export default function Header() {
         <header>
             <Loading />
             <section className="header-cta">
+                <span className="role-name">{auth.role}</span>
                 <img src={HIMSILogo} width="60px" alt="Logo HIMSI" />
-                <span className="role-name">Super Admin</span>
                 <button onClick={() => handleLogout()} className="logout-button"><Logout /></button>
             </section>
         </header>
