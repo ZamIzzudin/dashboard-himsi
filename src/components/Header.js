@@ -14,6 +14,7 @@ import { AsyncGetAllUser } from '../state/user/middleware'
 import { AsyncGetAllFAQ } from '../state/faq/middleware'
 import { AsyncGetAllLink } from '../state/collageLink/middleware'
 import { AsyncGetVisiMisi } from '../state/visiMisi/middleware'
+import { AsyncGetAllBidang } from '../state/bidang/middleware'
 // import { AsyncGetContact } from '../state/contact/middleware'
 
 export default function Header() {
@@ -31,6 +32,7 @@ export default function Header() {
         dispatch(AsyncGetAllFAQ())
         dispatch(AsyncGetAllLink())
         dispatch(AsyncGetVisiMisi())
+        dispatch(AsyncGetAllBidang())
         // dispatch(AsyncGetContact())
     }, [dispatch]);
 

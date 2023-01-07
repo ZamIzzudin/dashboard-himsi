@@ -84,16 +84,18 @@ textarea:focus-visible {
 .image-display-card {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 100%;
-    padding-right: 14px;
     box-sizing: border-box;
     border: 2px solid var(--gray4);
 }
 
 .image-display-card span {
+    min-width: 85%;
+    max-width: 90%;
+    overflow: hidden;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 20px;
     color: var(--primaryColor2);
     font-weight: 600;
@@ -282,4 +284,26 @@ textarea:focus-visible {
     border: none;
     display: flex;
     align-items: center;
+}
+
+.form-check {
+    display: flex !important;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 5px !important;
+}
+
+.form-check-input {
+    margin-top: 0 !important;
+    width: 18px !important;
+    height: 18px !important;
+}
+
+.form-check-input:checked {
+    background-color: var(--primaryColor2) !important;
+    border-color: var(--primaryColor2) !important;
+}
+
+.form-check-label {
+    font-size: 1.4em !important;
 }

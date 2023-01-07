@@ -119,8 +119,13 @@ const api = (() => {
         form.append('tanggal_berita', data.tanggal_berita)
         form.append('isi_berita', data.isi_berita)
         form.append('link_berita', data.link_berita)
-        form.append('header_berita', data.header_berita.file)
-        form.append('gambar_berita', data.gambar_berita.file)
+        form.append('link_pdf', data.link_pdf)
+        form.append('header_berita', data.header_berita.file || data.header_berita)
+        form.append('gambar_berita', data.gambar_berita.file || data.gambar_berita)
+
+        data.kategori_berita.forEach(kategori => {
+            form.append('kategori_berita[]', kategori)
+        })
 
         const response = await axios.post(url, form)
         return response.data.data
@@ -136,8 +141,13 @@ const api = (() => {
         form.append('tanggal_berita', data.tanggal_berita)
         form.append('isi_berita', data.isi_berita)
         form.append('link_berita', data.link_berita)
+        form.append('link_pdf', data.link_pdf)
         form.append('header_berita', data.header_berita.file || data.header_berita)
         form.append('gambar_berita', data.gambar_berita.file || data.gambar_berita)
+
+        data.kategori_berita.forEach(kategori => {
+            form.append('kategori_berita[]', kategori)
+        })
 
         const response = await axios.put(url, form)
         return response.data.data
@@ -204,8 +214,8 @@ const api = (() => {
 
         form.append('nama_himpunan', data.nama_himpunan)
         form.append('nama_universitas', data.nama_universitas)
-        // form.append('logo_himpunan', data.logo_himpunan.file || undefined)
-        // form.append('gambar_struktur', data.gambar_struktur.file || undefined)
+        form.append('logo_himpunan', data.logo_himpunan.file || undefined)
+        form.append('gambar_struktur', data.gambar_struktur.file || undefined)
 
         const response = await axios.put(url, form)
         return response.data.data
@@ -229,6 +239,198 @@ const api = (() => {
         const url = baseUrl + '/visi'
 
         const response = await axios.put(url, data)
+        return response.data.data
+    }
+
+    // Bidang
+    async function GetBidang() {
+        const url = baseUrl + '/bidang'
+
+        try {
+            const response = await axios.get(url)
+            return response.data.data
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    async function CreateBidang(data) {
+        const url = baseUrl + '/bidang'
+
+        const form = new FormData()
+
+        form.append('nama_bidang', data.nama_bidang)
+        form.append('kepanjangan_bidang', data.kepanjangan_bidang)
+        form.append('deskripsi_bidang', data.deskripsi_bidang)
+        form.append('logo_bidang', data.logo_bidang.file || undefined)
+
+        const response = await axios.post(url, form)
+        return response.data.data
+    }
+
+    async function EditBidang(data) {
+        const url = baseUrl + '/bidang/' + data._id
+
+        const form = new FormData()
+
+        form.append('nama_bidang', data.nama_bidang)
+        form.append('kepanjangan_bidang', data.kepanjangan_bidang)
+        form.append('deskripsi_bidang', data.deskripsi_bidang)
+        form.append('logo_bidang', data.logo_bidang.file || undefined)
+
+        const response = await axios.put(url, form)
+        return response.data.data
+    }
+
+    async function RemoveBidang(id) {
+        const url = baseUrl + '/bidang/' + id
+
+        const response = await axios.delete(url)
+        return response.data.data
+    }
+
+    // Divisi
+    async function GetDivisi(bidang) {
+        const url = baseUrl + '/divisi?bidang=' + bidang
+
+        try {
+            const response = await axios.get(url)
+            return response.data.data
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    async function CreateDivisi(data) {
+        const url = baseUrl + '/divisi'
+
+        const response = await axios.post(url, data)
+        return response.data.data
+    }
+
+    async function EditDivisi(data) {
+        const url = baseUrl + '/divisi/' + data._id
+
+        const response = await axios.put(url, data)
+        return response.data.data
+    }
+
+    async function RemoveDivisi(id) {
+        const url = baseUrl + '/divisi/' + id
+
+        const response = await axios.delete(url)
+        return response.data.data
+    }
+
+    // Pengurus
+    async function GetPengurus(bidang) {
+        const url = baseUrl + '/pengurus?bidang=' + bidang
+
+        try {
+            const response = await axios.get(url)
+            return response.data.data
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    async function CreatePengurus(data) {
+        const url = baseUrl + '/pengurus'
+
+        const form = new FormData()
+
+        form.append('nama_pengurus', data.nama_pengurus)
+        form.append('jabatan', data.jabatan)
+        form.append('media_social', data.media_social)
+        form.append('id_bidang', data.id_bidang)
+        form.append('foto_pengurus', data.foto_pengurus.file || undefined)
+
+        const response = await axios.post(url, form)
+        return response.data.data
+    }
+
+    async function EditPengurus(data) {
+        const url = baseUrl + '/pengurus/' + data._id
+
+        const form = new FormData()
+
+        form.append('nama_pengurus', data.nama_pengurus)
+        form.append('jabatan', data.jabatan)
+        form.append('media_social', data.media_social)
+        form.append('id_bidang', data.id_bidang)
+        form.append('foto_pengurus', data.foto_pengurus.file || undefined)
+
+        const response = await axios.put(url, form)
+        return response.data.data
+    }
+
+    async function RemovePengurus(id) {
+        const url = baseUrl + '/pengurus/' + id
+
+        const response = await axios.delete(url)
+        return response.data.data
+    }
+
+    // Events
+    async function GetEvent(bidang) {
+        const url = baseUrl + '/event?bidang=' + bidang
+
+        try {
+            const response = await axios.get(url)
+            return response.data.data
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    async function CreateEvent(data) {
+        const url = baseUrl + '/event'
+
+        const form = new FormData()
+
+        form.append('judul_event', data.judul_event)
+        form.append('penulis_event', data.penulis_event)
+        form.append('tanggal_mulai_event', data.tanggal_mulai_event)
+
+        form.append('isi_event', data.isi_event)
+        form.append('status_event', data.status_event)
+        form.append('kategori_event', data.kategori_event)
+        form.append('id_divisi', data.id_divisi)
+        form.append('header_event', data.header_event.file || undefined)
+        form.append('gambar_event', data.gambar_event.file || undefined)
+
+        const response = await axios.post(url, form)
+        return response.data.data
+    }
+
+    async function EditEvent(data) {
+        const url = baseUrl + '/event/' + data._id
+
+        const form = new FormData()
+
+        form.append('judul_event', data.judul_event)
+        form.append('penulis_event', data.penulis_event)
+        form.append('tanggal_mulai_event', data.tanggal_mulai_event)
+        form.append('tanggal_selesai_event', data.tanggal_selesai_event)
+        form.append('isi_event', data.isi_event)
+        form.append('status_event', data.status_event)
+        form.append('kategori_event', data.kategori_event)
+        form.append('id_divisi', data.id_divisi)
+        form.append('header_event', data.header_event.file || undefined)
+        form.append('gambar_event', data.gambar_event.file || undefined)
+
+        const response = await axios.put(url, form)
+        return response.data.data
+    }
+
+    async function RemoveEvent(id) {
+        const url = baseUrl + '/event/' + id
+
+        const response = await axios.delete(url)
         return response.data.data
     }
 
@@ -286,10 +488,6 @@ const api = (() => {
         return response.data.data
     }
 
-    // Bidang
-    // Divisi
-    // Anggota
-    // Program Kerja / Events
     // Partners
     // Upcoming Event
     // Slider Information
@@ -317,12 +515,28 @@ const api = (() => {
         EditDataHimpunan,
         GetVisiMisi,
         EditVisiMisi,
+        GetBidang,
+        CreateBidang,
+        EditBidang,
+        RemoveBidang,
+        GetDivisi,
+        CreateDivisi,
+        EditDivisi,
+        RemoveDivisi,
+        GetPengurus,
+        CreatePengurus,
+        EditPengurus,
+        RemovePengurus,
+        GetEvent,
+        CreateEvent,
+        EditEvent,
+        RemoveEvent,
         GetContact,
         CreateContact,
         EditContact,
         RemoveContact,
         GetSocmed,
-        EditSocmed
+        EditSocmed,
     }
 })()
 

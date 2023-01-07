@@ -1,7 +1,12 @@
-import { Form } from 'react-bootstrap'
-import { useState } from 'react'
+/* eslint-disable react-hooks/exhaustive-deps */
 
-import Editor from '../Editor'
+import { Form } from 'react-bootstrap'
+import { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { AsyncCreateBidang, AsyncEditBidang } from '../../state/bidang/middleware';
+import { AsyncGetAllPengurus, AsyncCreatePengurus, AsyncEditPengurus, AsyncRemovePengurus } from '../../state/pengurus/middleware';
+import { AsyncGetAllDivisi, AsyncCreateDivisi, AsyncEditDivisi, AsyncRemoveDivisi } from '../../state/divisi/middleware';
+
 import InputImage from '../InputImage'
 import ModalPengurus from './ModalPengurus'
 import ModalDivisi from './ModalDivisi'
@@ -10,13 +15,14 @@ import { ReactComponent as Delete } from '../../assets/icons/Delete.svg'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormBidang({ addData, editData, currentData }) {
-    const [namaBidang, setNamaBidang] = useState(currentData?.bidang)
-    const [kepanjanganBidang, setKepanjanganBidang] = useState(currentData?.kepanjangan)
-    const [logoBidang, setLogoBidang] = useState(currentData?.logo)
-    const [deskripsiBidang, setDeskripsiBidang] = useState(currentData?.deskripsi)
-    const [listPengurusBidang, setListPengurusBidang] = useState(currentData?.pengurus || [])
-    const [listDivisiBidang, setListDivisiBidang] = useState(currentData?.divisi || [])
+export default function FormBidang({ currentData, showForm }) {
+    const dispatch = useDispatch()
+    const { pengurus = [], divisi = [] } = useSelector(states => states)
+
+    const [namaBidang, setNamaBidang] = useState(currentData?.nama_bidang)
+    const [kepanjanganBidang, setKepanjanganBidang] = useState(currentData?.kepanjangan_bidang)
+    const [logoBidang, setLogoBidang] = useState(currentData?.logo_bidang.url || null)
+    const [deskripsiBidang, setDeskripsiBidang] = useState(currentData?.deskripsi_bidang)
 
     const [showPengurusModal, setShowPengurusModal] = useState(false)
     const [showDivisiModal, setShowDivisiModal] = useState(false)
@@ -26,71 +32,62 @@ export default function FormBidang({ addData, editData, currentData }) {
     function handleManageBidang(e) {
         e.preventDefault()
         if (currentData !== null) {
-            editData({
-                id: currentData.id,
-                bidang: namaBidang,
-                kepanjangan: kepanjanganBidang,
-                logo: logoBidang,
-                deskripsi: deskripsiBidang,
-                pengurus: listPengurusBidang,
-                divisi: listDivisiBidang
-            })
+            dispatch(AsyncEditBidang({
+                _id: currentData._id,
+                nama_bidang: namaBidang,
+                kepanjangan_bidang: kepanjanganBidang,
+                logo_bidang: logoBidang,
+                deskripsi_bidang: deskripsiBidang
+            }))
+            showForm(false)
         } else {
-            const id = Math.floor(Math.random() * 100001)
-            addData({
-                id,
-                bidang: namaBidang,
-                kepanjangan: kepanjanganBidang,
-                logo: logoBidang,
-                deskripsi: deskripsiBidang,
-                pengurus: listPengurusBidang,
-                divisi: listDivisiBidang
-            })
+            dispatch(AsyncCreateBidang({
+                nama_bidang: namaBidang,
+                kepanjangan_bidang: kepanjanganBidang,
+                logo_bidang: logoBidang,
+                deskripsi_bidang: deskripsiBidang,
+            }))
+            showForm(false)
         }
 
     }
 
     function addPengurus(data) {
-        setListPengurusBidang([...listPengurusBidang, data])
+        data['id_bidang'] = currentData._id
+        dispatch(AsyncCreatePengurus(data, currentData?.nama_bidang))
     }
 
     function addDivisi(data) {
-        setListDivisiBidang([...listDivisiBidang, data])
-    }
-
-    function editDivisi(data) {
-        const newData = listDivisiBidang.map(divisi => {
-            if (divisi.id === data.id) {
-                return data
-            } else {
-                return divisi
-            }
-        })
-        setSelectedData(null)
-        setListDivisiBidang(newData)
+        data['id_bidang'] = currentData._id
+        dispatch(AsyncCreateDivisi(data, currentData?.nama_bidang))
     }
 
     function editPengurus(data) {
-        const newData = listPengurusBidang.map(pengurus => {
-            if (pengurus.id === data.id) {
-                return data
-            } else {
-                return pengurus
-            }
-        })
+        data['id_bidang'] = currentData._id
+        dispatch(AsyncEditPengurus(data, currentData?.nama_bidang))
         setSelectedData(null)
-        setListPengurusBidang(newData)
+    }
+
+    function editDivisi(data) {
+        data['id_bidang'] = currentData._id
+        dispatch(AsyncEditDivisi(data, currentData?.nama_bidang))
+        setSelectedData(null)
     }
 
     function deletePengurus(id) {
-        const newData = listPengurusBidang.filter(pengurus => pengurus.id !== id)
-        setListPengurusBidang(newData)
+        dispatch(AsyncRemovePengurus(id, currentData?.nama_bidang))
     }
 
     function deleteDivisi(id) {
-        const newData = listDivisiBidang.filter(divisi => divisi.id !== id)
-        setListDivisiBidang(newData)
+        dispatch(AsyncRemoveDivisi(id, currentData?.nama_bidang))
     }
+
+    useEffect(() => {
+        if (currentData?.nama_bidang !== undefined) {
+            dispatch(AsyncGetAllPengurus(currentData?.nama_bidang))
+            dispatch(AsyncGetAllDivisi(currentData?.nama_bidang))
+        }
+    }, [])
 
     return (
         <>
@@ -109,64 +106,69 @@ export default function FormBidang({ addData, editData, currentData }) {
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Deskripsi</Form.Label>
-                    <Editor data={deskripsiBidang} setData={setDeskripsiBidang} />
+                    <textarea value={deskripsiBidang} onChange={(e) => setDeskripsiBidang(e.target.value)} />
                 </Form.Group>
 
-                {/* Divisi */}
-                <Form.Group>
-                    <div className="label-cta">
-                        <Form.Label>Divisi</Form.Label>
-                        <button onClick={() => { setShowDivisiModal(true); setSelectedData(null) }} type="button" className="label-cta-btn">+</button>
-                    </div>
-                    <table>
-                        <tr>
-                            <th>No.</th>
-                            <th>Nama</th>
-                            <th className="text-center">Action</th>
-                        </tr>
-                        {listDivisiBidang.map((divisi, index) => (
-                            <tr>
-                                <td>{index + 1}</td>
-                                <td>{divisi.nama}</td>
-                                <td className="table-cta">
-                                    <div className="table-cta-container">
-                                        <button type="button" onClick={() => { setShowDivisiModal(true); setSelectedData(divisi) }} className="section-edit-btn">Edit</button>
-                                        <button type="button" onClick={() => deleteDivisi(divisi.id)} className="section-delete-btn"><Delete /></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </table>
-                </Form.Group>
+                {currentData?.nama_bidang !== undefined && (
+                    <>
+                        {/* Divisi */}
+                        <Form.Group>
+                            <div className="label-cta">
+                                <Form.Label>Divisi</Form.Label>
+                                <button onClick={() => { setShowDivisiModal(true); setSelectedData(null) }} type="button" className="label-cta-btn">+</button>
+                            </div>
+                            <table>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama</th>
+                                    <th className="text-center">Action</th>
+                                </tr>
+                                {divisi.map((item, index) => (
+                                    <tr>
+                                        <td>{index + 1}</td>
+                                        <td>{item.nama_divisi}</td>
+                                        <td className="table-cta">
+                                            <div className="table-cta-container">
+                                                <button type="button" onClick={() => { setShowDivisiModal(true); setSelectedData(item) }} className="section-edit-btn">Edit</button>
+                                                <button type="button" onClick={() => deleteDivisi(item._id)} className="section-delete-btn"><Delete /></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </table>
+                        </Form.Group>
 
-                {/* Pengurus */}
-                <Form.Group>
-                    <div className="label-cta">
-                        <Form.Label>Pengurus</Form.Label>
-                        <button onClick={() => { setShowPengurusModal(true); setSelectedData(null) }} type="button" className="label-cta-btn">+</button>
-                    </div>
-                    <table>
-                        <tr>
-                            <th>No.</th>
-                            <th>Nama</th>
-                            <th>Jabatan</th>
-                            <th className="text-center">Action</th>
-                        </tr>
-                        {listPengurusBidang.map((pengurus, index) => (
-                            <tr>
-                                <td>{index + 1}</td>
-                                <td>{pengurus.nama}</td>
-                                <td>{pengurus.jabatan}</td>
-                                <td className="table-cta">
-                                    <div className="table-cta-container">
-                                        <button type="button" onClick={() => { setShowPengurusModal(true); setSelectedData(pengurus) }} className="section-edit-btn">Edit</button>
-                                        <button type="button" className="section-delete-btn" onClick={() => deletePengurus(pengurus.id)}><Delete /></button>
-                                    </div>
-                                </td>
-                            </tr>
-                        ))}
-                    </table>
-                </Form.Group>
+                        {/* Pengurus */}
+                        <Form.Group>
+                            <div className="label-cta">
+                                <Form.Label>Pengurus</Form.Label>
+                                <button onClick={() => { setShowPengurusModal(true); setSelectedData(null) }} type="button" className="label-cta-btn">+</button>
+                            </div>
+                            <table>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Nama</th>
+                                    <th>Jabatan</th>
+                                    <th className="text-center">Action</th>
+                                </tr>
+                                {pengurus.map((item, index) => (
+                                    <tr>
+                                        <td>{index + 1}</td>
+                                        <td>{item.nama_pengurus}</td>
+                                        <td>{item.jabatan}</td>
+                                        <td className="table-cta">
+                                            <div className="table-cta-container">
+                                                <button type="button" onClick={() => { setShowPengurusModal(true); setSelectedData(item) }} className="section-edit-btn">Edit</button>
+                                                <button type="button" className="section-delete-btn" onClick={() => deletePengurus(item._id)}><Delete /></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </table>
+                        </Form.Group>
+                    </>
+                )}
+
                 <div className="form-cta">
                     <button className="form-submit-button" type="submit">Simpan</button>
                 </div>

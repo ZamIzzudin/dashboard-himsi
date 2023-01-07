@@ -8,10 +8,11 @@ import Profile from './pages/Profile'
 import Berita from "./pages/Berita"
 import Hubungikami from "./pages/HubungiKami"
 import LayananMahasiswa from "./pages/LayananMahasiswa"
-import ProgramKerja from "./pages/ProgramKerja"
+import Event from "./pages/Event"
 import User from "./pages/User"
 import Footer from './pages/Footer'
 import Login from './pages/Login'
+import Page404 from './pages/404'
 
 import Loading from './components/Loading'
 import Sidebar from './components/Sidebar'
@@ -44,7 +45,10 @@ export default function Router() {
             <Loading />
             {auth.token === undefined ? (
                 // Route if user doesnt Login
-                <Route exact path="/" component={Login} />
+                <Switch>
+                    <Route exact path="/" component={Login} />
+                    <Route path="*" component={Page404} />
+                </Switch>
             ) : (
                 // Route if user already Login
                 <>
@@ -53,13 +57,13 @@ export default function Router() {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route path="/profile" component={Profile} />
-                        <Route path="/events/:bidang" component={ProgramKerja} />
+                        <Route path="/events/:namaBidang" component={Event} />
                         <Route path="/articles" component={Berita} />
                         <Route path="/layanan-mahasiswa" component={LayananMahasiswa} />
                         <Route path="/hubungi-kami" component={Hubungikami} />
                         <Route path="/user" component={User} />
                         <Route path="/footer" component={Footer} />
-                        <Route path="*" component={Home} />
+                        <Route path="*" component={Page404} />
                     </Switch>
                 </>
             )}

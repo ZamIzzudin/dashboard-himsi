@@ -15,23 +15,20 @@ export default function ModalPengurus({ show, setShow, addData, editData, curren
         e.preventDefault()
         if (currentData !== null) {
             const data = {
-                id: currentData.id,
-                nama: namaPengurus,
+                _id: currentData._id,
+                nama_pengurus: namaPengurus,
                 jabatan: jabatanPengurus,
-                socmed: socmedPengurus,
-                img: imagePengurus,
+                media_social: socmedPengurus,
+                foto_pengurus: imagePengurus,
             }
 
             editData(data)
         } else {
-            const id = Math.floor(Math.random() * 10001)
-
             const data = {
-                id,
-                nama: namaPengurus,
+                nama_pengurus: namaPengurus,
                 jabatan: jabatanPengurus,
-                socmed: socmedPengurus,
-                img: imagePengurus,
+                media_social: socmedPengurus,
+                foto_pengurus: imagePengurus,
             }
 
             addData(data)
@@ -46,10 +43,10 @@ export default function ModalPengurus({ show, setShow, addData, editData, curren
     }
 
     useEffect(() => {
-        setNamaPengurus(currentData?.nama || '')
-        setJabatanPengurus(currentData?.jabatan || '')
-        setSocmedPengurus(currentData?.socmed || '')
-        setImagePengurus(currentData?.img || null)
+        setNamaPengurus(currentData?.nama_pengurus || '')
+        setJabatanPengurus(currentData?.jabatan || 'Ketua Bidang')
+        setSocmedPengurus(currentData?.media_social || '')
+        setImagePengurus(currentData?.foto_pengurus?.url || null)
     }, [currentData])
 
     return (

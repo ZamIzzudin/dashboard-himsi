@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { AsyncRemoveBidang } from '../state/bidang/middleware';
 
 import FormHimpunan from '../components/Profile/FormHimpunan'
 import FormBidang from '../components/Profile/FormBidang'
 import FormVisiMisi from '../components/Profile/FormVisiMisi'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
-import HIMSI from '../utils/HIMSIdummy'
+// import HIMSI from '../utils/HIMSIdummy'
 
 export default function Profile() {
-  const [listBidang, setListBidang] = useState(HIMSI)
+  const { bidang = [] } = useSelector(states => states)
+  const dispatch = useDispatch()
+
   const [showBidangForm, setShowBidangForm] = useState(false)
 
   const [selectedData, setSelectedData] = useState(null)
@@ -17,26 +21,8 @@ export default function Profile() {
     window.scrollTo(0, 0);
   }, [showBidangForm]);
 
-  function addBidang(data) {
-    setListBidang([...listBidang, data])
-    setShowBidangForm(false)
-  }
-
-  function editBidang(data) {
-    const newData = listBidang.map(bidang => {
-      if (bidang.id === data.id) {
-        return data
-      } else {
-        return bidang
-      }
-    })
-    setListBidang(newData)
-    setShowBidangForm(false)
-  }
-
   function deleteBidang(id) {
-    const newData = listBidang.filter(bidang => bidang.id !== id)
-    setListBidang(newData)
+    dispatch(AsyncRemoveBidang(id))
   }
 
   if (showBidangForm) {
@@ -49,7 +35,7 @@ export default function Profile() {
             <button onClick={() => { setShowBidangForm(false); setSelectedData(null); }} className="section-add-btn">-</button>
           </div>
           <div className="section-body">
-            <FormBidang addData={addBidang} editData={editBidang} currentData={selectedData} />
+            <FormBidang currentData={selectedData} showForm={setShowBidangForm} />
           </div>
         </section>
       </main>
@@ -96,15 +82,15 @@ export default function Profile() {
               <th>Kepanjangan</th>
               <th className="text-center">Action</th>
             </tr>
-            {listBidang.map((bidang, index) => (
+            {bidang.map((item, index) => (
               <tr>
                 <td>{index + 1}</td>
-                <td>{bidang.bidang}</td>
-                <td>{bidang.kepanjangan}</td>
+                <td>{item.nama_bidang}</td>
+                <td>{item.kepanjangan_bidang}</td>
                 <td className="table-cta">
                   <div className="table-cta-container">
-                    <button onClick={() => { setShowBidangForm(true); setSelectedData(bidang); }} className="section-edit-btn">Edit</button>
-                    <button onClick={() => deleteBidang(bidang.id)} className="section-delete-btn"><Delete /></button>
+                    <button onClick={() => { setShowBidangForm(true); setSelectedData(item); }} className="section-edit-btn">Edit</button>
+                    <button onClick={() => deleteBidang(item._id)} className="section-delete-btn"><Delete /></button>
                   </div>
                 </td>
               </tr>

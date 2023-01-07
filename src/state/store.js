@@ -8,6 +8,10 @@ import CollageLinkReducer from "./collageLink/reducer"
 import BeritaReducer from "./berita/reducer"
 import HimpunanReducer from "./himpunan/reducer"
 import VisiMisiReducer from "./visiMisi/reducer"
+import BidangReducer from "./bidang/reducer"
+import DivisiReducer from "./divisi/reducer"
+import PengurusReducer from "./pengurus/reducer"
+import EventReducer from "./event/reducer"
 // import ContactReducer from "./contact/reducer"
 
 const store = configureStore({
@@ -21,6 +25,10 @@ const store = configureStore({
         berita: BeritaReducer,
         himpunan: HimpunanReducer,
         visiMisi: VisiMisiReducer,
+        bidang: BidangReducer,
+        divisi: DivisiReducer,
+        pengurus: PengurusReducer,
+        event: EventReducer,
         // contact: ContactReducer,
     },
 });

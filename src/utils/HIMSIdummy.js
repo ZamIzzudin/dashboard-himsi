@@ -10,102 +10,18 @@ const HIMSI = [
             nama: 'Agus',
             jabatan: 'Ketua Bidang',
             img: './png'
-        },
-        {
-            id: 13232,
-            nama: 'Mulyono',
-            jabatan: 'Ketua Divisi',
-            img: './png'
-        },
-        {
-            id: 13342,
-            nama: 'Suryani',
-            jabatan: 'Bendahara',
-            img: './png'
         }],
         divisi: [{
             id: 32423,
-            nama: 'Kaderisasi',
-            proker: [{
-                id: 32475623,
-                nama: 'Meetup 13.0',
-                tanggal: '7 Desembe 2022',
-                deskripsi: 'lorem kjsadajksd aksdakjsd aksdajksda asdhashd',
-                header: '.png',
-                dokumentas: '.png'
-            },
-            {
-                id: 31234223,
-                nama: 'Meetup 13.0',
-                tanggal: '7 Desembe 2022',
-                deskripsi: 'lorem kjsadajksd aksdakjsd aksdajksda asdhashd',
-                header: '.png',
-                dokumentas: '.png'
-            },
-            {
-                id: 312312423,
-                nama: 'Meetup 13.0',
-                tanggal: '7 Desembe 2022',
-                deskripsi: 'lorem kjsadajksd aksdakjsd aksdajksda asdhashd',
-                header: '.png',
-                dokumentas: '.png'
-            }]
+            nama: 'Kaderisasi'
         },
         {
             id: 32123,
-            nama: 'Minat Bakat',
-            proker: [{
-                id: 272372,
-                nama: 'Meetup 13.0',
-                tanggal: '7 Desembe 2022',
-                deskripsi: 'lorem kjsadajksd aksdakjsd aksdajksda asdhashd',
-                header: '.png',
-                dokumentas: '.png'
-            },
-            {
-                id: 2372372,
-                nama: 'Meetup 13.0',
-                tanggal: '7 Desembe 2022',
-                deskripsi: 'lorem kjsadajksd aksdakjsd aksdajksda asdhashd',
-                header: '.png',
-                dokumentas: '.png'
-            },
-            {
-                id: 237232,
-                nama: 'Meetup 13.0',
-                tanggal: '7 Desembe 2022',
-                deskripsi: 'lorem kjsadajksd aksdakjsd aksdajksda asdhashd',
-                header: '.png',
-                dokumentas: '.png'
-            }]
+            nama: 'Minat Bakat'
         },
         {
             id: 42123,
-            nama: 'Biro Internal',
-            proker: [{
-                id: 5263156,
-                nama: 'Meetup 13.0',
-                tanggal: '7 Desembe 2022',
-                deskripsi: 'lorem kjsadajksd aksdakjsd aksdajksda asdhashd',
-                header: '.png',
-                dokumentas: '.png'
-            },
-            {
-                id: 52315673,
-                nama: 'Meetup 13.0',
-                tanggal: '7 Desembe 2022',
-                deskripsi: 'lorem kjsadajksd aksdakjsd aksdajksda asdhashd',
-                header: '.png',
-                dokumentas: '.png'
-            },
-            {
-                id: 5265673,
-                nama: 'Meetup 13.0',
-                tanggal: '7 Desembe 2022',
-                deskripsi: 'lorem kjsadajksd aksdakjsd aksdajksda asdhashd',
-                header: '.png',
-                dokumentas: '.png'
-            }]
+            nama: 'Biro Internal'
         }]
     },
     {

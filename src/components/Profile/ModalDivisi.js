@@ -10,19 +10,14 @@ export default function ModalDivisi({ show, setShow, addData, editData, currentD
         e.preventDefault()
         if (currentData !== null) {
             const data = {
-                id: currentData.id,
-                nama: namaDivisi,
-                proker: currentData.proker
+                _id: currentData._id,
+                nama_divisi: namaDivisi,
             }
 
             editData(data)
         } else {
-            const id = Math.floor(Math.random() * 10001)
-
             const data = {
-                id,
-                nama: namaDivisi,
-                proker: []
+                nama_divisi: namaDivisi,
             }
 
             addData(data)
@@ -34,7 +29,7 @@ export default function ModalDivisi({ show, setShow, addData, editData, currentD
     }
 
     useEffect(() => {
-        setNamaDivisi(currentData?.nama || '')
+        setNamaDivisi(currentData?.nama_divisi || '')
     }, [currentData])
 
     return (

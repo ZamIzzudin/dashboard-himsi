@@ -16,6 +16,7 @@ export default function FormEditBerita({ currentData, showForm }) {
     const [penulisBerita, setPenulisBerita] = useState(currentData?.penulis_berita)
     const [kategoriBerita, setKategoriBerita] = useState(currentData?.kategori_berita || [])
     const [isiBerita, setIsiBerita] = useState(currentData?.isi_berita)
+    const [linkPDF, setLinkPDF] = useState(currentData?.link_pdf)
     const [linkBerita, setLinkBerita] = useState(currentData?.link_berita)
     const [gambarHeadingBerita, setGambarHeadingBerita] = useState(currentData?.header_berita.url)
     const [uploadFileBerita, setUploadFileBerita] = useState(currentData?.gambar_berita.url)
@@ -50,7 +51,8 @@ export default function FormEditBerita({ currentData, showForm }) {
                 isi_berita: isiBerita,
                 gambar_berita: uploadFileBerita || currentData?.gambar_berita.url,
                 header_berita: gambarHeadingBerita || currentData?.header_berita.url,
-                link_berita: linkBerita
+                link_berita: linkBerita,
+                link_pdf: linkPDF
             }))
             showForm(false)
         } else {
@@ -62,7 +64,8 @@ export default function FormEditBerita({ currentData, showForm }) {
                 judul_berita: judulBerita,
                 isi_berita: isiBerita,
                 gambar_berita: uploadFileBerita,
-                link_berita: linkBerita
+                link_berita: linkBerita,
+                link_pdf: linkPDF
             }))
             showForm(false)
         }
@@ -74,6 +77,10 @@ export default function FormEditBerita({ currentData, showForm }) {
                 <InputImage getData={setGambarHeadingBerita} label="Upload Gambar Heading" currentData={gambarHeadingBerita} />
             </Form.Group>
             <Form.Group>
+                <Form.Label>Judul</Form.Label>
+                <Form.Control required value={judulBerita} onChange={(e) => setJudulBerita(e.target.value)} />
+            </Form.Group>
+            <Form.Group>
                 <Form.Label>Tanggal</Form.Label>
                 <Form.Control required value={tanggalBerita?.toString().substring(0, 10)} type="date" onChange={(e) => setTanggalBerita(e.target.value)} />
             </Form.Group>
@@ -83,7 +90,6 @@ export default function FormEditBerita({ currentData, showForm }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Kategori</Form.Label>
-
             </Form.Group>
             <Accordion className="mb-4">
                 <Accordion.Item>
@@ -117,10 +123,6 @@ export default function FormEditBerita({ currentData, showForm }) {
                 </Accordion.Item>
             </Accordion>
             <Form.Group>
-                <Form.Label>Judul</Form.Label>
-                <Form.Control required value={judulBerita} onChange={(e) => setJudulBerita(e.target.value)} />
-            </Form.Group>
-            <Form.Group>
                 <Form.Label>Isi</Form.Label>
                 <Editor defaultData={isiBerita} setData={setIsiBerita} />
             </Form.Group>
@@ -130,7 +132,7 @@ export default function FormEditBerita({ currentData, showForm }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Link PDF</Form.Label>
-                <Form.Control required />
+                <Form.Control required value={linkPDF} onChange={(e) => setLinkPDF(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Link</Form.Label>

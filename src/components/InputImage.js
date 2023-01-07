@@ -1,5 +1,5 @@
 import { Form } from 'react-bootstrap'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 import { ReactComponent as FileOrg } from '../assets/icons/file-org.svg'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
@@ -7,7 +7,7 @@ import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 import '../styles/components/FormLayout.css'
 
 export default function InputImage({ getData, label, currentData }) {
-    const [showImage, setShowImage] = useState(currentData?.detail || currentData)
+    const [showImage, setShowImage] = useState(currentData?.detail || currentData || null)
 
     const fileInputRef = useRef(null);
 
@@ -42,7 +42,6 @@ export default function InputImage({ getData, label, currentData }) {
                 src: result,
                 name: file.name,
             };
-
             setShowImage(detail);
             getData({
                 file,
@@ -53,8 +52,12 @@ export default function InputImage({ getData, label, currentData }) {
     }
 
     function deleteImage() {
-        setShowImage(undefined);
+        setShowImage(null);
     }
+
+    useEffect(() => {
+        setShowImage(currentData?.detail || currentData || null)
+    }, [currentData])
 
     return (
         <Form.Group>
@@ -70,10 +73,10 @@ export default function InputImage({ getData, label, currentData }) {
                     onChange={handleChange}
                     style={{ display: 'none' }}
                 />
-                {showImage !== undefined ? (
+                {showImage !== null ? (
                     <div className="image-display-card">
+                        <FileOrg />
                         <span>
-                            <FileOrg />
                             {showImage?.name || showImage}
                         </span>
                         <button onClick={() => deleteImage()}>
