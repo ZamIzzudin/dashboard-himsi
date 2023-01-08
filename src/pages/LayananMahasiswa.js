@@ -6,6 +6,8 @@ import { AsyncRemoveLink } from '../state/collageLink/middleware'
 import FormAddLink from '../components/LayananMahasiswa/FormAddLink'
 import FormAddDBMateri from '../components/LayananMahasiswa/FormAddDBMateri'
 import FormAddFAQ from '../components/LayananMahasiswa/FormAddFAQ'
+
+import { ReactComponent as Linking } from '../assets/icons/Link.svg'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
 export default function LayananMahasiswa() {
@@ -107,7 +109,7 @@ export default function LayananMahasiswa() {
                                 <tr>
                                     <td>{index + 1}</td>
                                     <td>{link.nama_link}</td>
-                                    <td>{link.url}</td>
+                                    <td><Linking /> {link.url}</td>
                                     <td className="table-cta">
                                         <div className="table-cta-container">
                                             <button onClick={() => { setShowAddLinkForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
@@ -140,7 +142,7 @@ export default function LayananMahasiswa() {
                                 <tr>
                                     <td>{index + 1}</td>
                                     <td>{link.nama_link}</td>
-                                    <td>{link.url}</td>
+                                    <td><Linking /> {link.url}</td>
                                     <td className="table-cta">
                                         <div className="table-cta-container">
                                             <button onClick={() => { setSowAddDBMateriForm(true); setSelectedData(link) }} className="section-edit-btn">Edit</button>
@@ -164,8 +166,8 @@ export default function LayananMahasiswa() {
                     <table>
                         <tr>
                             <th>No.</th>
-                            <th>Judul</th>
-                            <th>Link</th>
+                            <th>Pertanyaan</th>
+                            <th>Jawaban</th>
                             <th className="text-center">Action</th>
                         </tr>
                         {faq.map((FAQ, index) => (

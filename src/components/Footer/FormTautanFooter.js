@@ -1,6 +1,8 @@
 import { Form } from 'react-bootstrap'
 import { useState } from 'react'
 
+import { ReactComponent as Linking } from '../../assets/icons/Link.svg'
+
 import '../../styles/components/FormLayout.css'
 
 export default function FormTautanFooter({ currentData, showForm }) {
@@ -36,7 +38,7 @@ export default function FormTautanFooter({ currentData, showForm }) {
                 <Form.Control required value={linkTitle} onChange={(e) => setLinkTitle(e.target.value)} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>URL</Form.Label>
+                <Form.Label>URL <Linking /></Form.Label>
                 <Form.Control required value={linkURL} onChange={(e) => setLinkURL(e.target.value)} />
             </Form.Group>
             <div className="form-cta">

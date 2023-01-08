@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { AsyncCreateLink, AsyncEditLink } from '../../state/collageLink/middleware'
 
+import { ReactComponent as Linking } from '../../assets/icons/Link.svg'
+
 import '../../styles/components/FormLayout.css'
 
 export default function FormAddLink({ currentData, showForm }) {
@@ -41,7 +43,7 @@ export default function FormAddLink({ currentData, showForm }) {
                 <Form.Control required value={linkName} onChange={(e) => setLinkName(e.target.value)} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>URL</Form.Label>
+                <Form.Label>URL <Linking /></Form.Label>
                 <Form.Control required value={linkURL} onChange={(e) => setLinkURL(e.target.value)} />
             </Form.Group>
             <div className="form-cta">

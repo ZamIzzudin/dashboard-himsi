@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AsyncRemoveBerita } from '../state/berita/middleware'
+import FormEditBerita from "../components/Berita/FormEditBerita";
 
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
-import FormEditBerita from "../components/Berita/FormEditBerita";
 
 const Berita = () => {
   const { berita = [] } = useSelector(states => states)

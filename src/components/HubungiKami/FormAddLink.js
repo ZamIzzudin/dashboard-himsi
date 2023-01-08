@@ -1,39 +1,46 @@
 import { Form } from 'react-bootstrap'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { AsyncCreateContact, AsyncEditContact } from '../../state/contact/middleware'
+
+import { ReactComponent as Linking } from '../../assets/icons/Link.svg'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormAddLink({ addData, editData, currentData }) {
-    const [linkTitle, setLinkTitle] = useState(currentData?.judul)
+export default function FormAddLink({ showForm, currentData }) {
+    const dispatch = useDispatch()
+
+    const [linkTitle, setLinkTitle] = useState(currentData?.nama_link)
     const [linkURL, setLinkURL] = useState(currentData?.url)
 
     function handleAddLink(e) {
         e.preventDefault()
         if (currentData !== null) {
-            editData({
-                id: currentData.id,
-                judul: linkTitle,
-                url: linkURL
-            })
+            dispatch(AsyncEditContact({
+                _id: currentData._id,
+                nama_link: linkTitle,
+                kategori: 'contact',
+                url: linkURL,
+            }))
+            showForm(false)
         } else {
-            const id = Math.floor(Math.random() * 1001)
-
-            addData({
-                id,
-                judul: linkTitle,
-                url: linkURL
-            })
+            dispatch(AsyncCreateContact({
+                nama_link: linkTitle,
+                kategori: 'contact',
+                url: linkURL,
+            }))
+            showForm(false)
         }
     }
 
     return (
         <Form onSubmit={(e) => handleAddLink(e)}>
             <Form.Group>
-                <Form.Label>Judul</Form.Label>
+                <Form.Label>Nama Contact</Form.Label>
                 <Form.Control required value={linkTitle} onChange={(e) => setLinkTitle(e.target.value)} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>URL</Form.Label>
+                <Form.Label>URL <Linking /></Form.Label>
                 <Form.Control required value={linkURL} onChange={(e) => setLinkURL(e.target.value)} />
             </Form.Group>
             <div className="form-cta">

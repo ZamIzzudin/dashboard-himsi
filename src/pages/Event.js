@@ -7,8 +7,8 @@ import { AsyncGetAllEvent, AsyncRemoveEvent } from '../state/event/middleware'
 import { AsyncGetAllDivisi } from '../state/divisi/middleware'
 
 import FormManageEvent from "../components/Event/FormManageEvent";
+import HIMSI_LOGO from '../assets/HIMSI_LOGO.webp'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
-import HIMSI_LOGO from '../assets/HIMSI_LOGO.png'
 
 export default function Event() {
   const dispatch = useDispatch()

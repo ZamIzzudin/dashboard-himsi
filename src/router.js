@@ -1,6 +1,6 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import { useEffect } from 'react'
-import { asyncRefreshToken } from './state/auth/middleware'
+import { asyncRefreshToken, asyncCheckLogin, asyncLogout } from './state/auth/middleware'
 import { useSelector, useDispatch } from 'react-redux'
 
 import Home from './pages/Home'
@@ -33,10 +33,15 @@ export default function Router() {
 
                 return () => clearInterval(interval);
             } catch (err) {
-                console.log(err)
+                dispatch(asyncLogout())
             }
         } else {
-            // Try Tto get token from cookie
+            // Try Tto get token from Local Storage
+            try {
+                dispatch(asyncCheckLogin())
+            } catch (err) {
+                dispatch(asyncLogout())
+            }
         }
     }, [auth, dispatch])
 

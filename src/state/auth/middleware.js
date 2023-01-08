@@ -21,11 +21,38 @@ function asyncLogin(email, password) {
                 token: response.data.accessToken,
             }
 
+            localStorage.setItem('dashboard_himsi_login', JSON.stringify(data))
+
             // Pass to Action
             dispatch(LoginAction(data))
             dispatch(HideError())
         } catch (err) {
             dispatch(ShowError('Cannot Login'))
+        }
+
+        dispatch(hideLoading())
+    }
+}
+
+function asyncCheckLogin() {
+    return async dispatch => {
+        dispatch(showLoading())
+
+        try {
+            // Get From Local Storage
+            let auth_data = JSON.parse(localStorage.getItem('dashboard_himsi_login'));
+
+            //Setup Cookies 
+            cookies.remove('refreshToken')
+            cookies.add('refreshToken', auth_data.token, 7)
+
+            localStorage.setItem('dashboard_himsi_login', JSON.stringify(auth_data))
+
+            // Pass to Action
+            dispatch(LoginAction(auth_data))
+            dispatch(HideError())
+        } catch (err) {
+            // Do Nothing
         }
 
         dispatch(hideLoading())
@@ -39,10 +66,20 @@ function asyncRefreshToken() {
 
             cookies.remove('refreshToken')
             cookies.add('refreshToken', response.data.accessToken, 7)
-            dispatch(RefreshTokenAction(response.data.accessToken))
 
+            let auth_data = JSON.parse(localStorage.getItem('dashboard_himsi_login'));
+            auth_data.token = response.data.accessToken
+
+            localStorage.setItem('dashboard_himsi_login', JSON.stringify(auth_data))
+
+            dispatch(RefreshTokenAction(response.data.accessToken))
         } catch (err) {
-            console.log(err)
+            dispatch(LogoutAction())
+            cookies.remove('refreshToken')
+            localStorage.clear()
+
+            // Set Route to default
+            window.location.assign("/")
         }
     }
 }
@@ -54,6 +91,7 @@ function asyncLogout() {
         try {
             dispatch(LogoutAction())
             cookies.remove('refreshToken')
+            localStorage.clear()
 
             // Set Route to default
             window.location.assign("/")
@@ -65,4 +103,4 @@ function asyncLogout() {
     }
 }
 
-export { asyncLogin, asyncRefreshToken, asyncLogout }
+export { asyncLogin, asyncCheckLogin, asyncRefreshToken, asyncLogout }

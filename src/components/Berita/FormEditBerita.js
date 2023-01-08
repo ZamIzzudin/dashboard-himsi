@@ -1,9 +1,11 @@
-import { Form, Accordion } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { AsyncCreateBerita, AsyncEditBerita } from '../../state/berita/middleware'
 
+import { ReactComponent as Linking } from '../../assets/icons/Link.svg'
 import Editor from '../Editor'
+import KategoriFilterForm from '../KategoriFilterForm';
 import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
@@ -20,24 +22,6 @@ export default function FormEditBerita({ currentData, showForm }) {
     const [linkBerita, setLinkBerita] = useState(currentData?.link_berita)
     const [gambarHeadingBerita, setGambarHeadingBerita] = useState(currentData?.header_berita.url)
     const [uploadFileBerita, setUploadFileBerita] = useState(currentData?.gambar_berita.url)
-
-    function addKategori(newKategori) {
-        let pre = [...kategoriBerita]
-        if (kategoriBerita.length === 0) {
-            pre.push(newKategori)
-        } else {
-            if (!kategoriBerita.includes(newKategori)) {
-                pre.push(newKategori)
-            }
-        }
-
-        setKategoriBerita(pre)
-    }
-
-    function deleteKategori(selectedKategori) {
-        const pre = kategoriBerita.filter(item => item !== selectedKategori)
-        setKategoriBerita(pre)
-    }
 
     function handleManageBerita(e) {
         e.preventDefault()
@@ -90,38 +74,8 @@ export default function FormEditBerita({ currentData, showForm }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Kategori</Form.Label>
+                <KategoriFilterForm currentData={kategoriBerita} setData={setKategoriBerita} />
             </Form.Group>
-            <Accordion className="mb-4">
-                <Accordion.Item>
-                    <Accordion.Header className="filter-header">{kategoriBerita.length === 0 ? ('Choose Kategori') : (
-                        kategoriBerita.map(item =>
-                            <span className="filter-item">
-                                {item}
-                                <button type="button" onClick={() => deleteKategori(item)}>X</button>
-                            </span>)
-                    )}</Accordion.Header>
-                    <Accordion.Body className="filter-body">
-                        <ul>
-                            <li>
-                                <button onClick={() => addKategori('Info Beasiswa')} type="button">+</button>
-                                Info Beasiswa
-                            </li>
-                            <li>
-                                <button onClick={() => addKategori('Info Perkuliahan')} type="button">+</button>
-                                Info Perkuliahan
-                            </li>
-                            <li>
-                                <button onClick={() => addKategori('Info Magang')} type="button">+</button>
-                                Info Magang
-                            </li>
-                            <li>
-                                <button onClick={() => addKategori('Info Lomba')} type="button">+</button>
-                                Info Lomba
-                            </li>
-                        </ul>
-                    </Accordion.Body>
-                </Accordion.Item>
-            </Accordion>
             <Form.Group>
                 <Form.Label>Isi</Form.Label>
                 <Editor defaultData={isiBerita} setData={setIsiBerita} />
@@ -131,11 +85,11 @@ export default function FormEditBerita({ currentData, showForm }) {
                 <InputImage getData={setUploadFileBerita} label="Upload Gambar Berita" currentData={uploadFileBerita} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>Link PDF</Form.Label>
+                <Form.Label>Link PDF <Linking /></Form.Label>
                 <Form.Control required value={linkPDF} onChange={(e) => setLinkPDF(e.target.value)} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>Link</Form.Label>
+                <Form.Label>Link <Linking /></Form.Label>
                 <Form.Control required value={linkBerita} onChange={(e) => setLinkBerita(e.target.value)} />
             </Form.Group>
             <div className="form-cta">

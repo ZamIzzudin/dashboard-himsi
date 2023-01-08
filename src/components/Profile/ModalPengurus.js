@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 
 import InputImage from '../InputImage'
 
+import { ReactComponent as Linking } from '../../assets/icons/Link.svg'
+
 import '../../styles/components/FormLayout.css'
 
 export default function ModalPengurus({ show, setShow, addData, editData, currentData }) {
@@ -77,7 +79,7 @@ export default function ModalPengurus({ show, setShow, addData, editData, curren
                         </Form.Select>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Social Media (Instargram)</Form.Label>
+                        <Form.Label>Social Media (Instargram) <Linking /></Form.Label>
                         <Form.Control required value={socmedPengurus} onChange={(e) => setSocmedPengurus(e.target.value)} />
                     </Form.Group>
                     <Form.Group>

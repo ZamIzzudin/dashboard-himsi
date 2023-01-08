@@ -5,6 +5,7 @@ import AuhtReducer from "./auth/reducer"
 import UserReducer from "./user/reducer"
 import FAQReducer from "./faq/reducer"
 import CollageLinkReducer from "./collageLink/reducer"
+import ContactReducer from "./contact/reducer"
 import BeritaReducer from "./berita/reducer"
 import HimpunanReducer from "./himpunan/reducer"
 import VisiMisiReducer from "./visiMisi/reducer"
@@ -12,7 +13,10 @@ import BidangReducer from "./bidang/reducer"
 import DivisiReducer from "./divisi/reducer"
 import PengurusReducer from "./pengurus/reducer"
 import EventReducer from "./event/reducer"
-// import ContactReducer from "./contact/reducer"
+import SocmedReducer from "./socmed/reducer"
+import PartnerReducer from "./partner/reducer"
+import SliderReducer from "./slider/reducer"
+import FooterReducer from "./footer/reducer"
 
 const store = configureStore({
     reducer: {
@@ -22,6 +26,7 @@ const store = configureStore({
         user: UserReducer,
         faq: FAQReducer,
         collageLink: CollageLinkReducer,
+        contact: ContactReducer,
         berita: BeritaReducer,
         himpunan: HimpunanReducer,
         visiMisi: VisiMisiReducer,
@@ -29,7 +34,10 @@ const store = configureStore({
         divisi: DivisiReducer,
         pengurus: PengurusReducer,
         event: EventReducer,
-        // contact: ContactReducer,
+        socmed: SocmedReducer,
+        partner: PartnerReducer,
+        slider: SliderReducer,
+        footer: FooterReducer,
     },
 });
 

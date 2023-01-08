@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import ErrorIllustration from '../assets/error.jpg'
+import ErrorIllustration from '../assets/error.webp'
 import '../styles/pages/404.css'
 
 export default function Page404() {

@@ -13,6 +13,23 @@ nav {
     background-color: #082240;
     border-radius: 18px;
     z-index: 2;
+    overflow: auto;
+}
+
+nav::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+nav::-webkit-scrollbar-track {
+    margin: 15px 0 !important;
+    border-radius: 10px;
+}
+
+/* Handle */
+nav::-webkit-scrollbar-thumb {
+    background: var(--primaryColor2);
+    border-radius: 10px;
 }
 
 .navbar-link-container {

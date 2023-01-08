@@ -66,6 +66,13 @@ const api = (() => {
     }
 
     // Link (Layanan Mahasiswa)
+    async function GetContact() {
+        const url = baseUrl + '/link?kategori=contact'
+
+        const response = await axios.get(url)
+        return response.data.data
+    }
+
     async function GetAllLink() {
         const url = baseUrl + '/link?kategori=e-layanan'
         const url2 = baseUrl + '/link?kategori=database-materi'
@@ -434,43 +441,9 @@ const api = (() => {
         return response.data.data
     }
 
-    // Contact
-    async function GetContact() {
-        const url = baseUrl + '/contact'
-
-        try {
-            const response = await axios.get(url)
-            return response.data.data
-        } catch (err) {
-            console.log(err)
-        }
-
-    }
-
-    async function CreateContact(data) {
-        const url = baseUrl + '/contact'
-
-        const response = await axios.post(url, data)
-        return response.data.data
-    }
-
-    async function EditContact(data) {
-        const url = baseUrl + '/contact/' + data._id
-
-        const response = await axios.put(url, data)
-        return response.data.data
-    }
-
-    async function RemoveContact(_id) {
-        const url = baseUrl + '/contact/' + _id
-
-        const response = await axios.delete(url)
-        return response.data.data
-    }
-
     // Social Media
     async function GetSocmed() {
-        const url = baseUrl + '/socmed'
+        const url = baseUrl + '/link?kategori=sosmed'
 
         try {
             const response = await axios.get(url)
@@ -482,15 +455,117 @@ const api = (() => {
     }
 
     async function EditSocmed(data) {
-        const url = baseUrl + '/socmed/' + data._id
+        const url = baseUrl + '/link/' + data._id
 
         const response = await axios.put(url, data)
         return response.data.data
     }
 
     // Partners
-    // Upcoming Event
+    async function GetPatrner() {
+        const url = baseUrl + '/partner'
+
+        try {
+            const response = await axios.get(url)
+            return response.data.data
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    async function CreatePartner(data) {
+        const url = baseUrl + '/partner'
+
+        const form = new FormData()
+
+        form.append('nama_partner', data.nama_partner)
+        form.append('logo_partner', data.logo_partner.file || undefined)
+
+        const response = await axios.post(url, form)
+        return response.data.data
+    }
+
+    async function EditPartner(data) {
+        const url = baseUrl + '/partner/' + data._id
+
+        const form = new FormData()
+
+        form.append('nama_partner', data.nama_partner)
+        form.append('logo_partner', data.logo_partner.file || undefined)
+
+        const response = await axios.put(url, form)
+        return response.data.data
+    }
+
+    async function RemovePartner(id) {
+        const url = baseUrl + '/partner/' + id
+
+        const response = await axios.delete(url)
+        return response.data.data
+    }
+
     // Slider Information
+    async function GetSlider() {
+        const url = baseUrl + '/slider'
+
+        try {
+            const response = await axios.get(url)
+            return response.data.data
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
+    async function CreateSlider(data) {
+        const url = baseUrl + '/slider'
+
+        const form = new FormData()
+
+        form.append('judul_slider', data.judul_slider)
+        form.append('gambar_slider', data.gambar_slider.file || undefined)
+
+        const response = await axios.post(url, form)
+        return response.data.data
+    }
+
+    async function EditSlider(data) {
+        const url = baseUrl + '/slider/' + data._id
+
+        const form = new FormData()
+
+        form.append('judul_slider', data.judul_slider)
+        form.append('gambar_slider', data.gambar_slider.file || undefined)
+
+        const response = await axios.put(url, form)
+        return response.data.data
+    }
+
+    async function RemoveSlider(id) {
+        const url = baseUrl + '/slider/' + id
+
+        const response = await axios.delete(url)
+        return response.data.data
+    }
+    // Footer
+    async function GetFooter() {
+        const url = baseUrl + '/footer'
+
+        try {
+            const response = await axios.get(url)
+            return response.data.data[0]
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    async function EditFooter(data) {
+        const url = baseUrl + '/footer/' + data._id
+
+        const response = await axios.put(url, data)
+        return response.data.data
+    }
 
     return {
         Login,
@@ -499,6 +574,7 @@ const api = (() => {
         CreateFAQ,
         EditFAQ,
         RemoveFAQ,
+        GetContact,
         GetAllLink,
         CreateLink,
         EditLink,
@@ -531,12 +607,18 @@ const api = (() => {
         CreateEvent,
         EditEvent,
         RemoveEvent,
-        GetContact,
-        CreateContact,
-        EditContact,
-        RemoveContact,
         GetSocmed,
         EditSocmed,
+        GetPatrner,
+        CreatePartner,
+        EditPartner,
+        RemovePartner,
+        GetSlider,
+        CreateSlider,
+        EditSlider,
+        RemoveSlider,
+        GetFooter,
+        EditFooter
     }
 })()
 

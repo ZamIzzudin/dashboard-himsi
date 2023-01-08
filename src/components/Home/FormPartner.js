@@ -1,30 +1,33 @@
 import { Form } from 'react-bootstrap'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { AsyncCreatePartner, AsyncEditPartner } from '../../state/partner/middleware'
 
 import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormPartner({ addData, editData, currentData }) {
-    const [partnerName, setPartnerName] = useState(currentData?.name)
-    const [partnerImage, setPartnerImage] = useState(currentData?.img)
+export default function FormPartner({ showForm, currentData }) {
+    const dispatch = useDispatch()
+
+    const [partnerName, setPartnerName] = useState(currentData?.nama_partner)
+    const [partnerImage, setPartnerImage] = useState(currentData?.logo_partner.url || null)
 
     function handleAddSlider(e) {
         e.preventDefault()
         if (currentData !== null) {
-            editData({
-                id: currentData.id,
-                name: partnerName,
-                img: partnerImage,
-            })
+            dispatch(AsyncEditPartner({
+                _id: currentData._id,
+                nama_partner: partnerName,
+                logo_partner: partnerImage,
+            }))
+            showForm(false)
         } else {
-            const id = Math.floor(Math.random() * 1001)
-
-            addData({
-                id,
-                name: partnerName,
-                img: partnerImage,
-            })
+            dispatch(AsyncCreatePartner({
+                nama_partner: partnerName,
+                logo_partner: partnerImage,
+            }))
+            showForm(false)
         }
     }
 
