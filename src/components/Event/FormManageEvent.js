@@ -5,6 +5,7 @@ import { AsyncCreateEvent, AsyncEditEvent } from '../../state/event/middleware'
 
 import Editor from '../Editor'
 import InputImage from '../InputImage'
+import InputManyImage from '../InputManyImage'
 
 import '../../styles/components/FormLayout.css'
 
@@ -14,14 +15,15 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
     const [judulEvent, setJudulEvent] = useState(currentData?.judul_event)
     const [penulisEvent, setPenulisEvent] = useState(currentData?.penulis_event)
     const [tanggalMulaiEvent, setTanggalMulaiEvent] = useState(currentData?.tanggal_mulai_event)
-    const [tanggalSelesaiEvent, setTanggalSelesaiEvent] = useState(currentData?.tanggal_selesai_event)
+    const [tanggalSelesaiEvent, setTanggalSelesaiEvent] = useState(currentData?.tanggal_selesai_event || null)
     const [isiEvent, setIsiEvent] = useState(currentData?.isi_event)
     const [kategoriEvent, setKategoriEvent] = useState(currentData?.kategori_event || 'Internal HIMSI')
     const [statusEvent, setStatusEvent] = useState(currentData?.status_event || 'Up Coming')
     const [headerEvent, setHeaderEvent] = useState(currentData?.header_event.url || null)
     const [gambarEvent, setGambarEvent] = useState(currentData?.gambar_event.url || null)
+    const [dokumentasiEvent, setDokumentasiEvent] = useState(currentData?.dokumentasi_event || [])
 
-    const [durasi, setDurasi] = useState('1 Hari')
+    const [durasi, setDurasi] = useState('1Hari')
 
     function handleAddProker(e) {
         e.preventDefault();
@@ -37,6 +39,7 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
                 status_event: statusEvent,
                 header_event: headerEvent,
                 gambar_event: gambarEvent,
+                dokumentasi_event: dokumentasiEvent,
                 id_divisi: idDivisi
             }, namaBidang))
 
@@ -52,6 +55,7 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
                 status_event: statusEvent,
                 header_event: headerEvent,
                 gambar_event: gambarEvent,
+                dokumentasi_event: dokumentasiEvent,
                 id_divisi: idDivisi
             }, namaBidang))
 
@@ -61,7 +65,7 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
     }
 
     useEffect(() => {
-        if (currentData.tanggal_selesai_event !== null) {
+        if (currentData?.tanggal_selesai_event !== null) {
             setDurasi('> 1 Hari')
         }
     }, [currentData])
@@ -134,7 +138,8 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
                 <Form.Label>Isi</Form.Label>
                 <Editor defaultData={isiEvent} setData={setIsiEvent} />
             </Form.Group>
-            <InputImage getData={setGambarEvent} label="Upload Dokumentasi" currentData={gambarEvent} />
+            <InputImage getData={setGambarEvent} label="Upload Gambar Event" currentData={gambarEvent} />
+            <InputManyImage getData={setDokumentasiEvent} currentData={dokumentasiEvent} label="Upload Dokumentasi Event" />
             <div className="form-cta">
                 <button className="form-submit-button" type="submit">Simpan</button>
             </div>

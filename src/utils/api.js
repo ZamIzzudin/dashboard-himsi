@@ -402,13 +402,16 @@ const api = (() => {
         form.append('judul_event', data.judul_event)
         form.append('penulis_event', data.penulis_event)
         form.append('tanggal_mulai_event', data.tanggal_mulai_event)
-
         form.append('isi_event', data.isi_event)
         form.append('status_event', data.status_event)
         form.append('kategori_event', data.kategori_event)
         form.append('id_divisi', data.id_divisi)
         form.append('header_event', data.header_event.file || undefined)
         form.append('gambar_event', data.gambar_event.file || undefined)
+
+        data.dokumentasi_event.forEach(gambar => {
+            form.append('dokumentasi_event[]', gambar.file || undefined)
+        })
 
         const response = await axios.post(url, form)
         return response.data.data
@@ -429,6 +432,10 @@ const api = (() => {
         form.append('id_divisi', data.id_divisi)
         form.append('header_event', data.header_event.file || undefined)
         form.append('gambar_event', data.gambar_event.file || undefined)
+
+        data.dokumentasi_event.forEach(gambar => {
+            form.append('dokumentasi_event[]', gambar.file || undefined)
+        })
 
         const response = await axios.put(url, form)
         return response.data.data

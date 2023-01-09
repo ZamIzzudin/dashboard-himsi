@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { AsyncRemoveBerita } from '../state/berita/middleware'
 import FormEditBerita from "../components/Berita/FormEditBerita";
@@ -16,6 +16,10 @@ const Berita = () => {
   function handleDeleteBerita(id) {
     dispatch(AsyncRemoveBerita(id))
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [showEditBeritaForm]);
 
   if (showEditBeritaForm) {
     return (
