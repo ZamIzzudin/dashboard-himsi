@@ -23,7 +23,7 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
     const [gambarEvent, setGambarEvent] = useState(currentData?.gambar_event.url || null)
     const [dokumentasiEvent, setDokumentasiEvent] = useState(currentData?.dokumentasi_event || [])
 
-    const [durasi, setDurasi] = useState('1Hari')
+    const [durasi, setDurasi] = useState(true)
 
     function handleAddProker(e) {
         e.preventDefault();
@@ -65,8 +65,10 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
     }
 
     useEffect(() => {
-        if (currentData?.tanggal_selesai_event !== null) {
-            setDurasi('> 1 Hari')
+        if (currentData?.tanggal_selesai_event === null || currentData?.tanggal_selesai_event === undefined) {
+            setDurasi(true)
+        } else {
+            setDurasi(false)
         }
     }, [currentData])
 
@@ -84,25 +86,34 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
             <Form.Group className="mb-4">
                 <Form.Label>Durasi Waktu</Form.Label>
                 <Form.Check
-                    onChange={() => setDurasi('1 Hari')}
+                    onChange={() => setDurasi(true)}
                     label="1 Hari"
                     name="group1"
                     type={'radio'}
                 />
                 <Form.Check
-                    onChange={() => setDurasi('> 1 Hari')}
+                    onChange={() => setDurasi(false)}
                     label="> 1 Hari"
                     name="group1"
                     type={'radio'}
                 />
             </Form.Group>
-            {durasi === '1 Hari' ? (
-                <Form.Group>
-                    <Form.Label>Tanggal</Form.Label>
-                    <Form.Control type="date" required value={tanggalMulaiEvent?.toString().substring(0, 10)} onChange={(e) => setTanggalMulaiEvent(e.target.value)} />
-                </Form.Group>
-            ) : (
-                <Form.Group>
+            <Row>
+                <Col>
+                    <Form.Group>
+                        <Form.Label>Tanggal</Form.Label>
+                        <Form.Control type="date" required value={tanggalMulaiEvent?.toString().substring(0, 10)} onChange={(e) => setTanggalMulaiEvent(e.target.value)} />
+                    </Form.Group>
+                </Col>
+                {!durasi && (
+                    <Col>
+                        <Form.Label>Tanggal Selesai</Form.Label>
+                        <Form.Control type="date" required value={tanggalSelesaiEvent?.toString().substring(0, 10)} onChange={(e) => setTanggalSelesaiEvent(e.target.value)} />
+                    </Col>
+                )}
+            </Row>
+
+            {/* <Form.Group>
                     <Row>
                         <Col>
                             <Form.Label>Tanggal Mulai</Form.Label>
@@ -113,8 +124,8 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
                             <Form.Control type="date" required value={tanggalSelesaiEvent?.toString().substring(0, 10)} onChange={(e) => setTanggalSelesaiEvent(e.target.value)} />
                         </Col>
                     </Row>
-                </Form.Group>
-            )}
+                </Form.Group> */}
+
             <Form.Group>
                 <Row>
                     <Col>
