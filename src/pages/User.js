@@ -59,7 +59,7 @@ export default function User() {
                         {user.map((link, index) => (
                             <tr>
                                 <td>{index + 1}</td>
-                                <td>{link.nama || 'Anonymous'}</td>
+                                <td>{link.nama_admin || 'Anonymous'}</td>
                                 <td>{link.username}</td>
                                 <td>{link.role}</td>
                                 <td className="table-cta">

@@ -82,7 +82,7 @@ export default function Profile() {
               <th>Kepanjangan</th>
               <th className="text-center">Action</th>
             </tr>
-            {bidang.map((item, index) => (
+            {bidang?.map((item, index) => (
               <tr>
                 <td>{index + 1}</td>
                 <td>{item.nama_bidang}</td>

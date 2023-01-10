@@ -1,6 +1,7 @@
 import { LoginAction, RefreshTokenAction, LogoutAction } from './action'
 import { ShowError, HideError } from '../error/middleware'
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
+import axios from 'axios'
 import api from '../../utils/api'
 import cookies from '../../utils/cookies'
 
@@ -21,6 +22,7 @@ function asyncLogin(email, password) {
                 token: response.data.accessToken,
             }
 
+            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
             localStorage.setItem('dashboard_himsi_login', JSON.stringify(data))
 
             // Pass to Action
@@ -46,6 +48,7 @@ function asyncCheckLogin() {
             cookies.remove('refreshToken')
             cookies.add('refreshToken', auth_data.token, 7)
 
+            axios.defaults.headers.common['Authorization'] = `Bearer ${auth_data.token}`
             localStorage.setItem('dashboard_himsi_login', JSON.stringify(auth_data))
 
             // Pass to Action
@@ -70,6 +73,7 @@ function asyncRefreshToken() {
             let auth_data = JSON.parse(localStorage.getItem('dashboard_himsi_login'));
             auth_data.token = response.data.accessToken
 
+            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
             localStorage.setItem('dashboard_himsi_login', JSON.stringify(auth_data))
 
             dispatch(RefreshTokenAction(response.data.accessToken))
@@ -92,6 +96,7 @@ function asyncLogout() {
             dispatch(LogoutAction())
             cookies.remove('refreshToken')
             localStorage.clear()
+            delete axios.defaults.headers.common['Authorization']
 
             // Set Route to default
             window.location.assign("/")

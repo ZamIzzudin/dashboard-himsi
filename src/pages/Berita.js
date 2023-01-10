@@ -21,6 +21,10 @@ const Berita = () => {
     window.scrollTo(0, 0);
   }, [showEditBeritaForm]);
 
+  useEffect(() => {
+    console.log(berita)
+  }, [berita]);
+
   if (showEditBeritaForm) {
     return (
       <main>
@@ -54,7 +58,7 @@ const Berita = () => {
               <th>Judul</th>
               <th className="text-center">Action</th>
             </tr>
-            {berita.map((data, index) => (
+            {berita?.map((data, index) => (
               <tr>
                 <td>{index + 1}</td>
                 <td>{data.tanggal_berita.slice(0, 10)}</td>

@@ -9,7 +9,7 @@ import '../../styles/components/FormLayout.css'
 export default function FormAddUser({ showForm, currentData }) {
     const dispatch = useDispatch()
 
-    const [nama, setName] = useState(currentData?.nama)
+    const [nama_admin, setName] = useState(currentData?.nama_admin)
     const [role, setRole] = useState(currentData?.role || 'Super Admin')
     const [username, setUsername] = useState(currentData?.username)
     const [password, setPassword] = useState(currentData?.password)
@@ -21,7 +21,7 @@ export default function FormAddUser({ showForm, currentData }) {
             // handle edit user
             dispatch(AsyncEditUser({
                 _id: currentData._id,
-                nama,
+                nama_admin,
                 role,
                 username,
                 password
@@ -30,7 +30,7 @@ export default function FormAddUser({ showForm, currentData }) {
         } else {
             // handle add user
             dispatch(AsyncCreateUser({
-                nama,
+                nama_admin,
                 role,
                 username,
                 password
@@ -43,7 +43,7 @@ export default function FormAddUser({ showForm, currentData }) {
         <Form onSubmit={(e) => handleAdd(e)}>
             <Form.Group>
                 <Form.Label>Nama</Form.Label>
-                <Form.Control value={nama} onChange={(e) => setName(e.target.value)} />
+                <Form.Control value={nama_admin} onChange={(e) => setName(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Role</Form.Label>

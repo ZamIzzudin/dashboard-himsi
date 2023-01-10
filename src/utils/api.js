@@ -5,7 +5,6 @@ const api = (() => {
     // const baseUrl = process.env.REACT_APP_API_ENDPOINT
     const baseUrl = "https://himsi-website-be.vercel.app"
 
-
     axios.defaults.withCredentials = true
 
     // Auth
@@ -29,6 +28,7 @@ const api = (() => {
             const response = await axios.get(url, {
                 credentials: "include"
             })
+
             return response
         } catch (err) {
             console.log(err)
@@ -114,7 +114,8 @@ const api = (() => {
         const url = baseUrl + '/berita'
 
         const response = await axios.get(url)
-        return response.data.data
+
+        return response.data.data[0].berita || null
     }
 
     async function CreateBerita(data) {
@@ -387,9 +388,9 @@ const api = (() => {
 
         try {
             const response = await axios.get(url)
-            return response.data.data
+            return response.data.data[0].event
         } catch (err) {
-            console.log(err)
+            return []
         }
 
     }
