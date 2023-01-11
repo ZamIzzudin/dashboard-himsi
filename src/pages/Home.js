@@ -133,7 +133,7 @@ export default function Home() {
               <th>Nama Partner</th>
               <th className="text-center">Action</th>
             </tr>
-            {partner.map((item, index) => (
+            {partner?.map((item, index) => (
               <tr>
                 <td>{index + 1}</td>
                 <td>{item.nama_partner}</td>
@@ -163,7 +163,7 @@ export default function Home() {
               <th>Link</th>
               <th className="text-center">Action</th>
             </tr>
-            {socmed.map((item, index) => (
+            {socmed?.map((item, index) => (
               <tr>
                 <td>{index + 1}</td>
                 <td>{item.nama_link}</td>

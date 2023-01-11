@@ -56,7 +56,7 @@ export default function Hubungikami() {
                             <th>Link</th>
                             <th className="text-center">Action</th>
                         </tr>
-                        {contact.map((item, index) => (
+                        {contact?.map((item, index) => (
                             <tr>
                                 <td>{index + 1}</td>
                                 <td>{item.nama_link}</td>

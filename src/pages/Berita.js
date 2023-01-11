@@ -21,10 +21,6 @@ const Berita = () => {
     window.scrollTo(0, 0);
   }, [showEditBeritaForm]);
 
-  useEffect(() => {
-    console.log(berita)
-  }, [berita]);
-
   if (showEditBeritaForm) {
     return (
       <main>

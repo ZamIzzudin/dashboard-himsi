@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useDispatch, useSelector } from 'react-redux'
 import { asyncLogout } from '../state/auth/middleware'
 import { useEffect } from 'react'
@@ -29,18 +30,23 @@ export default function Header() {
     }
 
     useEffect(() => {
-        dispatch(asyncGetDataHimpunan())
-        dispatch(AsyncGetAllBerita())
-        dispatch(AsyncGetAllUser())
-        dispatch(AsyncGetAllFAQ())
-        dispatch(AsyncGetContact())
-        dispatch(AsyncGetAllLink())
-        dispatch(AsyncGetVisiMisi())
-        dispatch(AsyncGetAllBidang())
-        dispatch(AsyncGetAllSocmed())
-        dispatch(AsyncGetAllPartner())
-        dispatch(AsyncGetAllSlider())
-        dispatch(asyncGetInfoFooter())
+        if (auth?.role === 'admin') {
+            dispatch(AsyncGetAllBidang())
+            dispatch(AsyncGetAllBerita())
+        } else {
+            dispatch(asyncGetDataHimpunan())
+            dispatch(AsyncGetAllBerita())
+            dispatch(AsyncGetAllUser())
+            dispatch(AsyncGetAllFAQ())
+            dispatch(AsyncGetContact())
+            dispatch(AsyncGetAllLink())
+            dispatch(AsyncGetVisiMisi())
+            dispatch(AsyncGetAllBidang())
+            dispatch(AsyncGetAllSocmed())
+            dispatch(AsyncGetAllPartner())
+            dispatch(AsyncGetAllSlider())
+            dispatch(asyncGetInfoFooter())
+        }
     }, [dispatch]);
 
     return (

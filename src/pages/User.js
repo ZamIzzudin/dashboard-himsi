@@ -56,7 +56,7 @@ export default function User() {
                             <th>Role</th>
                             <th className="text-center">Action</th>
                         </tr>
-                        {user.map((link, index) => (
+                        {user?.map((link, index) => (
                             <tr>
                                 <td>{index + 1}</td>
                                 <td>{link.nama_admin || 'Anonymous'}</td>

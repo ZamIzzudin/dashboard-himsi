@@ -211,8 +211,13 @@ tr:first-child {
     background-color: var(--white);
 }
 
-th:nth-child(2) {
-    width: 30%;
+tr td:nth-child(2) {
+    width: 20%;
+}
+
+tr td:nth-child(3) {
+    max-width: 30vw;
+    overflow-x: hidden;
 }
 
 .table-cta {

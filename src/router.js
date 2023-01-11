@@ -48,7 +48,7 @@ export default function Router() {
     return (
         <BrowserRouter>
             <Loading />
-            {auth.token === undefined ? (
+            {auth?.token === undefined ? (
                 // Route if user doesnt Login
                 <Switch>
                     <Route exact path="/" component={Login} />
@@ -57,19 +57,34 @@ export default function Router() {
             ) : (
                 // Route if user already Login
                 <>
-                    <Header />
-                    <Sidebar />
-                    <Switch>
-                        <Route exact path="/" component={Home} />
-                        <Route path="/profile" component={Profile} />
-                        <Route path="/events/:namaBidang" component={Event} />
-                        <Route path="/articles" component={Berita} />
-                        <Route path="/layanan-mahasiswa" component={LayananMahasiswa} />
-                        <Route path="/hubungi-kami" component={Hubungikami} />
-                        <Route path="/user" component={User} />
-                        <Route path="/footer" component={Footer} />
-                        <Route path="*" component={Page404} />
-                    </Switch>
+                    {auth?.role === 'admin' ? (
+                        <>
+                            <Header />
+                            <Sidebar />
+                            <Switch>
+                                <Route exact path="/" component={Berita} />
+                                <Route path="/events/:namaBidang" component={Event} />
+                                <Route path="*" component={Page404} />
+                            </Switch>
+                        </>
+                    ) : (
+                        <>
+                            <Header />
+                            <Sidebar />
+                            <Switch>
+                                <Route exact path="/" component={Home} />
+                                <Route path="/profile" component={Profile} />
+                                <Route path="/events/:namaBidang" component={Event} />
+                                <Route path="/articles" component={Berita} />
+                                <Route path="/layanan-mahasiswa" component={LayananMahasiswa} />
+                                <Route path="/hubungi-kami" component={Hubungikami} />
+                                <Route path="/user" component={User} />
+                                <Route path="/footer" component={Footer} />
+                                <Route path="*" component={Page404} />
+                            </Switch>
+                        </>
+                    )}
+
                 </>
             )}
         </BrowserRouter>

@@ -407,15 +407,15 @@ const api = (() => {
         form.append('status_event', data.status_event)
         form.append('kategori_event', data.kategori_event)
         form.append('id_divisi', data.id_divisi)
-        form.append('header_event', data.header_event.file || undefined)
-        form.append('gambar_event', data.gambar_event.file || undefined)
+        form.append('header_event', data?.header_event.file || undefined)
+        form.append('gambar_event', data?.gambar_event.file || undefined)
 
         if (data.tanggal_selesai_event !== null) {
             form.append('tanggal_selesai_event', data.tanggal_selesai_event)
         }
 
         data.dokumentasi_event.forEach(gambar => {
-            form.append('dokumentasi_event[]', gambar.file || undefined)
+            form.append('dokumentasi_event[]', gambar)
         })
 
         const response = await axios.post(url, form)
@@ -434,15 +434,15 @@ const api = (() => {
         form.append('status_event', data.status_event)
         form.append('kategori_event', data.kategori_event)
         form.append('id_divisi', data.id_divisi)
-        form.append('header_event', data.header_event.file || undefined)
-        form.append('gambar_event', data.gambar_event.file || undefined)
+        form.append('header_event', data?.header_event.file || undefined)
+        form.append('gambar_event', data?.gambar_event.file || undefined)
 
         if (data.tanggal_selesai_event !== null) {
             form.append('tanggal_selesai_event', data.tanggal_selesai_event)
         }
 
         data.dokumentasi_event.forEach(gambar => {
-            form.append('dokumentasi_event[]', gambar.file || undefined)
+            form.append('dokumentasi_event[]', gambar || undefined)
         })
 
         const response = await axios.put(url, form)

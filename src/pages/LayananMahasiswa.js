@@ -104,7 +104,7 @@ export default function LayananMahasiswa() {
                             <th>URL</th>
                             <th className="text-center">Action</th>
                         </tr>
-                        {collageLink.e_layanan.map((link, index) => {
+                        {collageLink?.e_layanan.map((link, index) => {
                             return (
                                 <tr>
                                     <td>{index + 1}</td>
@@ -137,7 +137,7 @@ export default function LayananMahasiswa() {
                             <th>URL</th>
                             <th className="text-center">Action</th>
                         </tr>
-                        {collageLink.database_materi.map((link, index) => {
+                        {collageLink?.database_materi.map((link, index) => {
                             return (
                                 <tr>
                                     <td>{index + 1}</td>
@@ -170,7 +170,7 @@ export default function LayananMahasiswa() {
                             <th>Jawaban</th>
                             <th className="text-center">Action</th>
                         </tr>
-                        {faq.map((FAQ, index) => (
+                        {faq?.map((FAQ, index) => (
                             <tr>
                                 <td>{index + 1}</td>
                                 <td>{FAQ.pertanyaan}</td>

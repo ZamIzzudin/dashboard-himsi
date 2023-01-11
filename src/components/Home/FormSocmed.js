@@ -10,14 +10,13 @@ import '../../styles/components/FormLayout.css'
 export default function FormUpcoming({ currentData, showForm }) {
     const dispatch = useDispatch()
 
-    const [socmedName, setSocmedName] = useState(currentData.nama_link)
-    const [socmedURL, seSocmedURL] = useState(currentData.url)
+    const [socmedURL, seSocmedURL] = useState(currentData?.url)
 
     function handleAddSlider(e) {
         e.preventDefault()
         dispatch(AsyncEditSocmed({
             _id: currentData._id,
-            nama_link: socmedName,
+            nama_link: currentData.nama_link,
             url: socmedURL,
             kategori: "sosmed"
         }))
@@ -28,7 +27,7 @@ export default function FormUpcoming({ currentData, showForm }) {
         <Form onSubmit={(e) => handleAddSlider(e)}>
             <Form.Group>
                 <Form.Label>Nama Socmed</Form.Label>
-                <Form.Control required value={socmedName} onChange={(e) => setSocmedName(e.target.value)} />
+                <Form.Control required value={currentData?.nama_link} disable />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Link <Linking /></Form.Label>

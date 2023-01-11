@@ -18,7 +18,7 @@ export default function FormEditBerita({ currentData, showForm }) {
     const [penulisBerita, setPenulisBerita] = useState(currentData?.penulis_berita)
     const [kategoriBerita, setKategoriBerita] = useState(currentData?.kategori_berita || [])
     const [isiBerita, setIsiBerita] = useState(currentData?.isi_berita)
-    const [linkPDF, setLinkPDF] = useState(currentData?.link_pdf)
+    const [linkPDF, setLinkPDF] = useState(currentData?.link_pdf || ' ')
     const [linkBerita, setLinkBerita] = useState(currentData?.link_berita)
     const [gambarHeadingBerita, setGambarHeadingBerita] = useState(currentData?.header_berita.url)
     const [uploadFileBerita, setUploadFileBerita] = useState(currentData?.gambar_berita.url)
@@ -86,7 +86,7 @@ export default function FormEditBerita({ currentData, showForm }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Link PDF <Linking /></Form.Label>
-                <Form.Control required value={linkPDF} onChange={(e) => setLinkPDF(e.target.value)} />
+                <Form.Control value={linkPDF} onChange={(e) => setLinkPDF(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Link <Linking /></Form.Label>
