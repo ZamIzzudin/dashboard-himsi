@@ -415,7 +415,7 @@ const api = (() => {
         }
 
         data.dokumentasi_event.forEach(gambar => {
-            form.append('dokumentasi_event[]', gambar)
+            form.append('dokumentasi_event', gambar)
         })
 
         const response = await axios.post(url, form)
@@ -442,7 +442,7 @@ const api = (() => {
         }
 
         data.dokumentasi_event.forEach(gambar => {
-            form.append('dokumentasi_event[]', gambar || undefined)
+            form.append('dokumentasi_event', gambar)
         })
 
         const response = await axios.put(url, form)

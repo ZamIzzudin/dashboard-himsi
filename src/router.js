@@ -27,9 +27,10 @@ export default function Router() {
         // do refresh token where token is'nt undefined
         if (auth.token !== undefined) {
             try {
+                // Do in 8 minutes
                 const interval = setInterval(() => {
                     dispatch(asyncRefreshToken())
-                }, 10000);
+                }, 480000);
 
                 return () => clearInterval(interval);
             } catch (err) {

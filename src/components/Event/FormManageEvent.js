@@ -58,6 +58,7 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
                 dokumentasi_event: dokumentasiEvent,
                 id_divisi: idDivisi
             }, namaBidang))
+            console.log(dokumentasiEvent)
             showForm(false)
         }
 
