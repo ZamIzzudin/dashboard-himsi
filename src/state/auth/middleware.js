@@ -89,15 +89,16 @@ function asyncRefreshToken() {
 }
 
 function asyncLogout() {
-    return dispatch => {
+    return async dispatch => {
         dispatch(showLoading())
 
         try {
-            dispatch(LogoutAction())
             cookies.remove('refreshToken')
             localStorage.clear()
             delete axios.defaults.headers.common['Authorization']
 
+            await api.Logout()
+            dispatch(LogoutAction())
             // Set Route to default
             window.location.assign("/")
         } catch (err) {

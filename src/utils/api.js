@@ -36,6 +36,15 @@ const api = (() => {
 
     }
 
+    async function Logout() {
+        const url = baseUrl + '/logout'
+
+        const response = await axios.get(url)
+
+        return response
+
+    }
+
     // FAQ
     async function GetAllFAQ() {
         const url = baseUrl + '/faq'
@@ -585,6 +594,7 @@ const api = (() => {
     return {
         Login,
         Refresh,
+        Logout,
         GetAllFAQ,
         CreateFAQ,
         EditFAQ,
