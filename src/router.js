@@ -37,7 +37,7 @@ export default function Router() {
                 dispatch(asyncLogout())
             }
         } else {
-            // Try Tto get token from Local Storage
+            // Try Tto get token from Session Storage
             try {
                 dispatch(asyncCheckLogin())
             } catch (err) {

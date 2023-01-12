@@ -80,7 +80,7 @@ export default function KategoriFilterForm({ setData, currentData }) {
                     <Col>
                         <ul>
                             <li>
-                                <button onClick={() => addKategori('HIMSI TechNEWS')} type="button">+</button>
+                                <button onClick={() => addKategori('HIMSI Tech NEWS')} type="button">+</button>
                                 HIMSI TechNEWS
                             </li>
                             <li>

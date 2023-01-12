@@ -23,7 +23,7 @@ function asyncLogin(email, password) {
             }
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
-            localStorage.setItem('dashboard_himsi_login', JSON.stringify(data))
+            sessionStorage.setItem('dashboard_himsi_login', JSON.stringify(data))
 
             // Pass to Action
             dispatch(LoginAction(data))
@@ -41,15 +41,15 @@ function asyncCheckLogin() {
         dispatch(showLoading())
 
         try {
-            // Get From Local Storage
-            let auth_data = JSON.parse(localStorage.getItem('dashboard_himsi_login'));
+            // Get From Session Storage
+            let auth_data = JSON.parse(sessionStorage.getItem('dashboard_himsi_login'));
 
             //Setup Cookies 
             cookies.remove('refreshToken')
             cookies.add('refreshToken', auth_data.token, 7)
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${auth_data.token}`
-            localStorage.setItem('dashboard_himsi_login', JSON.stringify(auth_data))
+            sessionStorage.setItem('dashboard_himsi_login', JSON.stringify(auth_data))
 
             // Pass to Action
             dispatch(LoginAction(auth_data))
@@ -70,17 +70,17 @@ function asyncRefreshToken() {
             cookies.remove('refreshToken')
             cookies.add('refreshToken', response.data.accessToken, 7)
 
-            let auth_data = JSON.parse(localStorage.getItem('dashboard_himsi_login'));
+            let auth_data = JSON.parse(sessionStorage.getItem('dashboard_himsi_login'));
             auth_data.token = response.data.accessToken
 
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
-            localStorage.setItem('dashboard_himsi_login', JSON.stringify(auth_data))
+            sessionStorage.setItem('dashboard_himsi_login', JSON.stringify(auth_data))
 
             dispatch(RefreshTokenAction(response.data.accessToken))
         } catch (err) {
             dispatch(LogoutAction())
             cookies.remove('refreshToken')
-            localStorage.clear()
+            sessionStorage.clear()
 
             // Set Route to default
             window.location.assign("/")
@@ -94,7 +94,7 @@ function asyncLogout() {
 
         try {
             cookies.remove('refreshToken')
-            localStorage.clear()
+            sessionStorage.clear()
             delete axios.defaults.headers.common['Authorization']
 
             await api.Logout()
