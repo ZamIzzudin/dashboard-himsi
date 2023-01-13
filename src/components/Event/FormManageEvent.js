@@ -116,7 +116,7 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
                     <Col>
                         <Form.Label>Status</Form.Label>
                         <Form.Select value={statusEvent} onChange={(e) => setStatusEvent(e.target.value)}>
-                            <option value="Up Coming">Upcoming</option>
+                            <option value="Upcoming">Upcoming</option>
                             <option value="On Going">On Going</option>
                             <option value="Done">Done</option>
                         </Form.Select>
