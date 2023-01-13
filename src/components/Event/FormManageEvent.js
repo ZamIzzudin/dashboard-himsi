@@ -18,7 +18,7 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
     const [tanggalSelesaiEvent, setTanggalSelesaiEvent] = useState(currentData?.tanggal_selesai_event || null)
     const [isiEvent, setIsiEvent] = useState(currentData?.isi_event)
     const [kategoriEvent, setKategoriEvent] = useState(currentData?.kategori_event || 'Internal HIMSI')
-    const [statusEvent, setStatusEvent] = useState(currentData?.status_event || 'Up Coming')
+    const [statusEvent, setStatusEvent] = useState(currentData?.status_event || 'Upcoming')
     const [headerEvent, setHeaderEvent] = useState(currentData?.header_event.url || null)
     const [gambarEvent, setGambarEvent] = useState(currentData?.gambar_event.url || null)
     const [dokumentasiEvent, setDokumentasiEvent] = useState(currentData?.dokumentasi_event || [])
