@@ -20,6 +20,7 @@ import { AsyncGetAllSocmed } from '../state/socmed/middleware'
 import { AsyncGetAllPartner } from '../state/partner/middleware'
 import { AsyncGetAllSlider } from '../state/slider/middleware'
 import { asyncGetInfoFooter } from '../state/footer/middleware'
+import { AsyncGetAllTautan } from '../state/tautan/middleware'
 
 export default function Header() {
     const { auth = {} } = useSelector(states => states)
@@ -46,6 +47,7 @@ export default function Header() {
             dispatch(AsyncGetAllPartner())
             dispatch(AsyncGetAllSlider())
             dispatch(asyncGetInfoFooter())
+            dispatch(AsyncGetAllTautan())
         }
     }, [dispatch]);
 

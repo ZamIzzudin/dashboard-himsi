@@ -80,7 +80,7 @@ export default function ModalPengurus({ show, setShow, addData, editData, curren
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Social Media (Instargram) <Linking /></Form.Label>
-                        <Form.Control required value={socmedPengurus} onChange={(e) => setSocmedPengurus(e.target.value)} />
+                        <Form.Control placeholder="https://" value={socmedPengurus} onChange={(e) => setSocmedPengurus(e.target.value)} />
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Foto Pengurus</Form.Label>

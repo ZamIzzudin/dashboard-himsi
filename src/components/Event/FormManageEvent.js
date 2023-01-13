@@ -58,7 +58,6 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
                 dokumentasi_event: dokumentasiEvent,
                 id_divisi: idDivisi
             }, namaBidang))
-            console.log(dokumentasiEvent)
             showForm(false)
         }
 
@@ -101,7 +100,7 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
             <Row>
                 <Col>
                     <Form.Group>
-                        <Form.Label>Tanggal</Form.Label>
+                        <Form.Label>Tanggal Mulai</Form.Label>
                         <Form.Control type="date" required value={tanggalMulaiEvent?.toString().substring(0, 10)} onChange={(e) => setTanggalMulaiEvent(e.target.value)} />
                     </Form.Group>
                 </Col>
@@ -112,26 +111,12 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
                     </Col>
                 )}
             </Row>
-
-            {/* <Form.Group>
-                    <Row>
-                        <Col>
-                            <Form.Label>Tanggal Mulai</Form.Label>
-                            <Form.Control type="date" required value={tanggalMulaiEvent?.toString().substring(0, 10)} onChange={(e) => setTanggalMulaiEvent(e.target.value)} />
-                        </Col>
-                        <Col>
-                            <Form.Label>Tanggal Selesai</Form.Label>
-                            <Form.Control type="date" required value={tanggalSelesaiEvent?.toString().substring(0, 10)} onChange={(e) => setTanggalSelesaiEvent(e.target.value)} />
-                        </Col>
-                    </Row>
-                </Form.Group> */}
-
             <Form.Group>
                 <Row>
                     <Col>
                         <Form.Label>Status</Form.Label>
                         <Form.Select value={statusEvent} onChange={(e) => setStatusEvent(e.target.value)}>
-                            <option value="Up Coming">Up Coming</option>
+                            <option value="Up Coming">Upcoming</option>
                             <option value="On Going">On Going</option>
                             <option value="Done">Done</option>
                         </Form.Select>

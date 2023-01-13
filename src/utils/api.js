@@ -82,6 +82,13 @@ const api = (() => {
         return response.data.data
     }
 
+    async function GetTautan() {
+        const url = baseUrl + '/link?kategori=tautan'
+
+        const response = await axios.get(url)
+        return response.data.data
+    }
+
     async function GetAllLink() {
         const url = baseUrl + '/link?kategori=e-layanan'
         const url2 = baseUrl + '/link?kategori=database-materi'
@@ -600,6 +607,7 @@ const api = (() => {
         EditFAQ,
         RemoveFAQ,
         GetContact,
+        GetTautan,
         GetAllLink,
         CreateLink,
         EditLink,

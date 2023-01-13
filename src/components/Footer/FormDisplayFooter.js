@@ -37,7 +37,7 @@ export default function FormDisplayFooter() {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Website <Linking /></Form.Label>
-                <Form.Control value={websiteFooter} onChange={(e) => setWebsiteFooter(e.target.value)} />
+                <Form.Control placeholder="https://" value={websiteFooter} onChange={(e) => setWebsiteFooter(e.target.value)} />
             </Form.Group>
             <div className="form-cta">
                 <button className="form-submit-button" type="submit">Simpan</button>

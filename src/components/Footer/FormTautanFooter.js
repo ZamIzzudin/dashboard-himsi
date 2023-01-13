@@ -1,32 +1,34 @@
 import { Form } from 'react-bootstrap'
 import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { AsyncCreateTautan, AsyncEditTautan } from '../../state/tautan/middleware'
 
 import { ReactComponent as Linking } from '../../assets/icons/Link.svg'
 
 import '../../styles/components/FormLayout.css'
 
 export default function FormTautanFooter({ currentData, showForm }) {
-    const [linkTitle, setLinkTitle] = useState(currentData?.judul)
+    const dispatch = useDispatch()
+
+    const [linkTitle, setLinkTitle] = useState(currentData?.nama_link)
     const [linkURL, setLinkURL] = useState(currentData?.url)
 
     function handleAddLink(e) {
         e.preventDefault()
         if (currentData !== null) {
-            const data = {
+            dispatch(AsyncEditTautan({
                 _id: currentData._id,
-                judul: linkTitle,
+                nama_link: linkTitle,
+                kategori: 'tautan',
                 url: linkURL
-            }
-
-            console.log(data)
+            }))
             showForm(false)
         } else {
-            const data = {
-                judul: linkTitle,
+            dispatch(AsyncCreateTautan({
+                nama_link: linkTitle,
+                kategori: 'tautan',
                 url: linkURL
-            }
-
-            console.log(data)
+            }))
             showForm(false)
         }
     }
@@ -39,7 +41,7 @@ export default function FormTautanFooter({ currentData, showForm }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>URL <Linking /></Form.Label>
-                <Form.Control required value={linkURL} onChange={(e) => setLinkURL(e.target.value)} />
+                <Form.Control placeholder="https://" required value={linkURL} onChange={(e) => setLinkURL(e.target.value)} />
             </Form.Group>
             <div className="form-cta">
                 <button className="form-submit-button" type="submit">Simpan</button>

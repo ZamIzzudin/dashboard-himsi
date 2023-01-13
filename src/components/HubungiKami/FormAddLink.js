@@ -41,7 +41,7 @@ export default function FormAddLink({ showForm, currentData }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>URL <Linking /></Form.Label>
-                <Form.Control required value={linkURL} onChange={(e) => setLinkURL(e.target.value)} />
+                <Form.Control placeholder="https://" required value={linkURL} onChange={(e) => setLinkURL(e.target.value)} />
             </Form.Group>
             <div className="form-cta">
                 <button className="form-submit-button" type="submit">Simpan</button>

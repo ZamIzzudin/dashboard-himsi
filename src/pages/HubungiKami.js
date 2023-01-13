@@ -26,10 +26,10 @@ export default function Hubungikami() {
     if (showAddForm) {
         return (
             <main>
-                <h1 className="page-header">User</h1>
+                <h1 className="page-header">Hubungi Kami</h1>
                 <section className="content-section">
                     <div className="section-header-container">
-                        <h4 className="section-header">Tambah User</h4>
+                        <h4 className="section-header">Manage Contact Support</h4>
                         <button onClick={() => setShowAddForm(false)} className="section-add-btn">-</button>
                     </div>
                     <div className="section-body">

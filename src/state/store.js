@@ -16,6 +16,7 @@ import EventReducer from "./event/reducer"
 import SocmedReducer from "./socmed/reducer"
 import PartnerReducer from "./partner/reducer"
 import SliderReducer from "./slider/reducer"
+import TautanReducer from "./tautan/reducer"
 import FooterReducer from "./footer/reducer"
 
 const store = configureStore({
@@ -37,6 +38,7 @@ const store = configureStore({
         socmed: SocmedReducer,
         partner: PartnerReducer,
         slider: SliderReducer,
+        tautan: TautanReducer,
         footer: FooterReducer,
     },
 });
