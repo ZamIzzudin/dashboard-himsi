@@ -1,4 +1,4 @@
-import { Form } from 'react-bootstrap'
+import { Form, Modal } from 'react-bootstrap'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { AsyncCreateBerita, AsyncEditBerita } from '../../state/berita/middleware'
@@ -14,21 +14,21 @@ export default function FormEditBerita({ currentData, showForm }) {
     const dispatch = useDispatch()
 
     const [judulBerita, setJudulBerita] = useState(currentData?.judul_berita)
-    const [tanggalBerita, setTanggalBerita] = useState(currentData?.tanggal_berita)
     const [penulisBerita, setPenulisBerita] = useState(currentData?.penulis_berita)
     const [kategoriBerita, setKategoriBerita] = useState(currentData?.kategori_berita || [])
     const [isiBerita, setIsiBerita] = useState(currentData?.isi_berita)
     const [linkPDF, setLinkPDF] = useState(currentData?.link_pdf || '')
-    const [linkBerita, setLinkBerita] = useState(currentData?.link_berita)
-    const [gambarHeadingBerita, setGambarHeadingBerita] = useState(currentData?.header_berita.url)
-    const [uploadFileBerita, setUploadFileBerita] = useState(currentData?.gambar_berita.url)
+    const [linkBerita, setLinkBerita] = useState(currentData?.link_berita || '')
+    const [gambarHeadingBerita, setGambarHeadingBerita] = useState(currentData?.header_berita.url || null)
+    const [uploadFileBerita, setUploadFileBerita] = useState(currentData?.gambar_berita.url || null)
+
+    const [error, setError] = useState(false)
 
     function handleManageBerita(e) {
         e.preventDefault()
         if (currentData !== null) {
             dispatch(AsyncEditBerita({
                 _id: currentData._id,
-                tanggal_berita: tanggalBerita,
                 penulis_berita: penulisBerita,
                 kategori_berita: kategoriBerita,
                 judul_berita: judulBerita,
@@ -40,18 +40,21 @@ export default function FormEditBerita({ currentData, showForm }) {
             }))
             showForm(false)
         } else {
-            dispatch(AsyncCreateBerita({
-                header_berita: gambarHeadingBerita,
-                tanggal_berita: tanggalBerita,
-                penulis_berita: penulisBerita,
-                kategori_berita: kategoriBerita,
-                judul_berita: judulBerita,
-                isi_berita: isiBerita,
-                gambar_berita: uploadFileBerita,
-                link_berita: linkBerita,
-                link_pdf: linkPDF
-            }))
-            showForm(false)
+            if (uploadFileBerita !== null && gambarHeadingBerita !== null) {
+                dispatch(AsyncCreateBerita({
+                    header_berita: gambarHeadingBerita,
+                    penulis_berita: penulisBerita,
+                    kategori_berita: kategoriBerita,
+                    judul_berita: judulBerita,
+                    isi_berita: isiBerita,
+                    gambar_berita: uploadFileBerita,
+                    link_berita: linkBerita,
+                    link_pdf: linkPDF
+                }))
+                showForm(false)
+            } else {
+                setError(true)
+            }
         }
     }
 
@@ -63,10 +66,6 @@ export default function FormEditBerita({ currentData, showForm }) {
             <Form.Group>
                 <Form.Label>Judul</Form.Label>
                 <Form.Control required value={judulBerita} onChange={(e) => setJudulBerita(e.target.value)} />
-            </Form.Group>
-            <Form.Group>
-                <Form.Label>Tanggal</Form.Label>
-                <Form.Control required value={tanggalBerita?.toString().substring(0, 10)} type="date" onChange={(e) => setTanggalBerita(e.target.value)} />
             </Form.Group>
             <Form.Group>
                 <Form.Label>Penulis</Form.Label>
@@ -82,19 +81,31 @@ export default function FormEditBerita({ currentData, showForm }) {
             </Form.Group>
             <Form.Group>
                 <Form.Label>Upload File</Form.Label>
-                <InputImage getData={setUploadFileBerita} label="Upload Gambar Berita" currentData={uploadFileBerita} />
+                <InputImage getData={setUploadFileBerita} label="Upload Gambar Article / Poster" currentData={uploadFileBerita} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>Link PDF <Linking /></Form.Label>
+                <Form.Label>Link PDF (Booklet)<Linking /> (opsional)</Form.Label>
                 <Form.Control placeholder="Link Google Drive" value={linkPDF} onChange={(e) => setLinkPDF(e.target.value)} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>Link <Linking /></Form.Label>
-                <Form.Control placeholder="https://" required value={linkBerita} onChange={(e) => setLinkBerita(e.target.value)} />
+                <Form.Label>Link <Linking /> (opsional)</Form.Label>
+                <Form.Control placeholder="https://" value={linkBerita} onChange={(e) => setLinkBerita(e.target.value)} />
             </Form.Group>
             <div className="form-cta">
                 <button className="form-submit-button" type="submit">Simpan</button>
             </div>
+            <Modal
+                size="sm"
+                centered
+                show={error}
+                onHide={() => setError(false)}>
+                <Modal.Header>
+                    <Modal.Title>Error</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="error-modal-body">
+                    <span>You must upload image</span>
+                </Modal.Body>
+            </Modal>
         </Form>
     )
 }

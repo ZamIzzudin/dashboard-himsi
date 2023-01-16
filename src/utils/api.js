@@ -140,12 +140,11 @@ const api = (() => {
 
         form.append('judul_berita', data.judul_berita)
         form.append('penulis_berita', data.penulis_berita)
-        form.append('tanggal_berita', data.tanggal_berita)
         form.append('isi_berita', data.isi_berita)
         form.append('link_berita', data.link_berita)
         form.append('link_pdf', data.link_pdf)
-        form.append('header_berita', data.header_berita.file || data.header_berita)
-        form.append('gambar_berita', data.gambar_berita.file || data.gambar_berita)
+        form.append('header_berita', data.header_berita.file || undefined)
+        form.append('gambar_berita', data.gambar_berita.file || undefined)
 
         data.kategori_berita.forEach(kategori => {
             form.append('kategori_berita[]', kategori)
@@ -162,7 +161,6 @@ const api = (() => {
 
         form.append('judul_berita', data.judul_berita)
         form.append('penulis_berita', data.penulis_berita)
-        form.append('tanggal_berita', data.tanggal_berita)
         form.append('isi_berita', data.isi_berita)
         form.append('link_berita', data.link_berita)
         form.append('link_pdf', data.link_pdf)

@@ -1,4 +1,4 @@
-import { Form, Row, Col } from 'react-bootstrap'
+import { Form, Row, Col, Modal } from 'react-bootstrap'
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { AsyncCreateEvent, AsyncEditEvent } from '../../state/event/middleware'
@@ -24,6 +24,7 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
     const [dokumentasiEvent, setDokumentasiEvent] = useState(currentData?.dokumentasi_event || [])
 
     const [durasi, setDurasi] = useState(true)
+    const [error, setError] = useState(false)
 
     function handleAddProker(e) {
         e.preventDefault();
@@ -37,28 +38,32 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
                 isi_event: isiEvent,
                 kategori_event: kategoriEvent,
                 status_event: statusEvent,
-                header_event: headerEvent,
-                gambar_event: gambarEvent,
+                header_event: headerEvent || currentData?.header_event.url,
+                gambar_event: gambarEvent || currentData?.gambar_event.url,
                 dokumentasi_event: dokumentasiEvent,
                 id_divisi: idDivisi
             }, namaBidang))
 
             showForm(false)
         } else {
-            dispatch(AsyncCreateEvent({
-                judul_event: judulEvent,
-                penulis_event: penulisEvent,
-                tanggal_mulai_event: tanggalMulaiEvent,
-                tanggal_selesai_event: tanggalSelesaiEvent,
-                isi_event: isiEvent,
-                kategori_event: kategoriEvent,
-                status_event: statusEvent,
-                header_event: headerEvent,
-                gambar_event: gambarEvent,
-                dokumentasi_event: dokumentasiEvent,
-                id_divisi: idDivisi
-            }, namaBidang))
-            showForm(false)
+            if (headerEvent !== null && gambarEvent !== null) {
+                dispatch(AsyncCreateEvent({
+                    judul_event: judulEvent,
+                    penulis_event: penulisEvent,
+                    tanggal_mulai_event: tanggalMulaiEvent,
+                    tanggal_selesai_event: tanggalSelesaiEvent,
+                    isi_event: isiEvent,
+                    kategori_event: kategoriEvent,
+                    status_event: statusEvent,
+                    header_event: headerEvent,
+                    gambar_event: gambarEvent,
+                    dokumentasi_event: dokumentasiEvent,
+                    id_divisi: idDivisi
+                }, namaBidang))
+                showForm(false)
+            } else {
+                setError(true)
+            }
         }
 
     }
@@ -134,11 +139,23 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
                 <Form.Label>Isi</Form.Label>
                 <Editor defaultData={isiEvent} setData={setIsiEvent} />
             </Form.Group>
-            <InputImage getData={setGambarEvent} label="Upload Gambar Event" currentData={gambarEvent} />
-            <InputManyImage getData={setDokumentasiEvent} currentData={dokumentasiEvent} label="Upload Dokumentasi Event" />
+            <InputImage getData={setGambarEvent} label="Upload Gambar Event / Poster" currentData={gambarEvent} />
+            <InputManyImage getData={setDokumentasiEvent} currentData={dokumentasiEvent} label="Upload Dokumentasi Event (opsional)" />
             <div className="form-cta">
                 <button className="form-submit-button" type="submit">Simpan</button>
             </div>
+            <Modal
+                size="sm"
+                centered
+                show={error}
+                onHide={() => setError(false)}>
+                <Modal.Header>
+                    <Modal.Title>Error</Modal.Title>
+                </Modal.Header>
+                <Modal.Body className="error-modal-body">
+                    <span>You must upload image</span>
+                </Modal.Body>
+            </Modal>
         </Form>
     )
 }

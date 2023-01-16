@@ -331,3 +331,9 @@ textarea:focus-visible {
 .form-check-label {
     font-size: 1.4em !important;
 }
+
+.error-modal-body span {
+    text-align: center;
+    font-size: 1.8em !important;
+    display: block;
+}
