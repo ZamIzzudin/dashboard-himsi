@@ -93,10 +93,18 @@ export default function FormEditBerita({ currentData, showForm }) {
             link_berita: linkBerita,
             link_pdf: linkPDF
         }
-        const listDraft = [...draft, data]
-        localStorage.setItem('draft_berita', JSON.stringify(listDraft))
-        setSuccessDraft(true)
-        getDraft()
+
+        if (draft === null) {
+            const listDraft = [data]
+            localStorage.setItem('draft_berita', JSON.stringify(listDraft))
+            setSuccessDraft(true)
+            getDraft()
+        } else {
+            const listDraft = [...draft, data]
+            localStorage.setItem('draft_berita', JSON.stringify(listDraft))
+            setSuccessDraft(true)
+            getDraft()
+        }
     }
 
     useEffect(() => {
