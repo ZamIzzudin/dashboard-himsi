@@ -47,6 +47,66 @@ textarea:focus-visible {
     border-radius: 10px;
 }
 
+.form-draft-button {
+    font-size: 1.6em;
+    font-weight: 700;
+    padding: 16px 48px;
+    border: none;
+    background-color: var(--gray4);
+    color: var(--white);
+    border-radius: 10px;
+}
+
+.draft-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.draft-card {
+    background-color: var(--gray4);
+    width: fit-content;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+}
+
+.draft-card span {
+    font-size: 1.5em;
+}
+
+.draft-card .use {
+    padding: 0 5px;
+    border: none;
+    font-size: 1.5em;
+    border-radius: 5px;
+    color: var(--white);
+    background-color: var(--primaryColor2);
+}
+
+.draft-card .delete {
+    padding: 0 5px;
+    border: none;
+    font-size: 1.5em;
+    border-radius: 5px;
+    color: var(--white);
+    background-color: var(--stateColorError);
+}
+
+.form-cancel-button {
+    font-size: 1.6em;
+    font-weight: 700;
+    padding: 14px 48px;
+    border: 3px solid var(--gray4);
+    background-color: var(--white);
+    color: var(--gray4);
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
 .form-image {
     border: 2px solid var(--gray4);
     border-radius: 8px;
@@ -330,6 +390,34 @@ textarea:focus-visible {
 
 .form-check-label {
     font-size: 1.4em !important;
+}
+
+.kategori-dynamic-form button {
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primaryColor2);
+    width: 25px;
+    height: 25px;
+    color: white;
+    font-size: 1.5em;
+    border-radius: 5px !important;
+}
+
+.kategori-dynamic-form input {
+    margin-left: 10px !important;
+    font-size: 1.5em !important;
+    border: none !important;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+    font-size: 1em;
+    border-bottom: 1px solid var(--gray4) !important;
+}
+
+.kategori-dynamic-form input:focus {
+    box-shadow: none;
 }
 
 .error-modal-body span {

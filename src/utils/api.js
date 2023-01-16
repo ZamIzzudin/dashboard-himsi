@@ -577,6 +577,7 @@ const api = (() => {
         const response = await axios.delete(url)
         return response.data.data
     }
+
     // Footer
     async function GetFooter() {
         const url = baseUrl + '/footer'
@@ -593,6 +594,15 @@ const api = (() => {
         const url = baseUrl + '/footer/' + data._id
 
         const response = await axios.put(url, data)
+        return response.data.data
+    }
+
+    // Utils
+    async function GetKategori() {
+        const url = baseUrl + '/kategori_berita'
+
+        const response = await axios.get(url)
+
         return response.data.data
     }
 
@@ -649,7 +659,8 @@ const api = (() => {
         EditSlider,
         RemoveSlider,
         GetFooter,
-        EditFooter
+        EditFooter,
+        GetKategori
     }
 })()
 
