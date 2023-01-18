@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { loadingBarReducer } from 'react-redux-loading-bar'
 import ErrorReducer from './error/reducer'
+import SuccessReducer from './success/reducer'
 import AuhtReducer from "./auth/reducer"
 import UserReducer from "./user/reducer"
 import FAQReducer from "./faq/reducer"
@@ -23,6 +24,7 @@ const store = configureStore({
     reducer: {
         loadingBar: loadingBarReducer,
         error: ErrorReducer,
+        success: SuccessReducer,
         auth: AuhtReducer,
         user: UserReducer,
         faq: FAQReducer,

@@ -12,13 +12,26 @@ const Berita = () => {
   const [showEditBeritaForm, setShowEditBeritaForm] = useState(false);
 
   const [selectedData, setSelectedData] = useState(null)
+  const [draft, setDraft] = useState([])
 
   function handleDeleteBerita(id) {
     dispatch(AsyncRemoveBerita(id))
   }
 
+  function getDraft() {
+    const listDraft = localStorage.getItem('draft_berita')
+    setDraft(JSON.parse(listDraft))
+  }
+
+  function deleteDraft(idx) {
+    const newDraftList = draft.filter((item, index) => idx !== index)
+    localStorage.setItem('draft_berita', JSON.stringify(newDraftList))
+    getDraft()
+  }
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    getDraft()
   }, [showEditBeritaForm]);
 
   if (showEditBeritaForm) {
@@ -63,6 +76,29 @@ const Berita = () => {
                   <div className="table-cta-container">
                     <button onClick={() => { setShowEditBeritaForm(true); setSelectedData(data) }} className="section-edit-btn">Edit</button>
                     <button onClick={() => handleDeleteBerita(data._id)} className="section-delete-btn"><Delete /></button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </table>
+
+          <h3 className="org-text mb-4">Draft</h3>
+          <table>
+            <tr>
+              <th>No.</th>
+              <th>Tanggal</th>
+              <th>Judul</th>
+              <th className="text-center">Action</th>
+            </tr>
+            {draft?.map((data, index) => (
+              <tr>
+                <td>{index + 1}</td>
+                <td>{data.tanggal_berita.slice(0, 10)}</td>
+                <td>{data.judul_berita}</td>
+                <td className="table-cta">
+                  <div className="table-cta-container">
+                    <button onClick={() => { setShowEditBeritaForm(true); setSelectedData(data) }} className="section-edit-btn">Edit</button>
+                    <button onClick={() => deleteDraft(index)} className="section-delete-btn"><Delete /></button>
                   </div>
                 </td>
               </tr>

@@ -39,14 +39,15 @@ export default function FormAddLink({ currentData, showForm }) {
     return (
         <Form onSubmit={(e) => handleManageLink(e)}>
             <Form.Group>
-                <Form.Label>Nama</Form.Label>
-                <Form.Control required value={linkName} onChange={(e) => setLinkName(e.target.value)} />
+                <Form.Label>Judul <span className="required">*</span></Form.Label>
+                <Form.Control placeholder='Nama Layanan' required value={linkName} onChange={(e) => setLinkName(e.target.value)} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>URL <Linking /></Form.Label>
+                <Form.Label>URL <Linking /> <span className="required">*</span></Form.Label>
                 <Form.Control placeholder="https://" required value={linkURL} onChange={(e) => setLinkURL(e.target.value)} />
             </Form.Group>
             <div className="form-cta">
+                <button onClick={() => showForm(false)} className="form-cancel-button" type="button">Cancel</button>
                 <button className="form-submit-button" type="submit">Simpan</button>
             </div>
         </Form>

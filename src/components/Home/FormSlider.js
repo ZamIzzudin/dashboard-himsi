@@ -33,12 +33,13 @@ export default function FormSlider({ showForm, currentData }) {
 
     return (
         <Form onSubmit={(e) => handleManageSlider(e)}>
-            <InputImage getData={setSliderImage} label="Upload Gambar Slider Information" currentData={sliderImage} />
+            <InputImage getData={setSliderImage} label="Upload Gambar Slider Preview *" currentData={sliderImage} />
             <Form.Group>
-                <Form.Label>Judul</Form.Label>
-                <Form.Control required value={sliderTitle} onChange={(e) => setSliderTitle(e.target.value)} />
+                <Form.Label>Judul <span className="required">*</span></Form.Label>
+                <Form.Control required placeholder="Judul Event/Artikel" value={sliderTitle} onChange={(e) => setSliderTitle(e.target.value)} />
             </Form.Group>
-            <div className="form-cta">
+            <div className="form-cta gap-3">
+                <button onClick={() => showForm(false)} className="form-cancel-button" type="button">Cancel</button>
                 <button className="form-submit-button" type="submit">Simpan</button>
             </div>
         </Form>

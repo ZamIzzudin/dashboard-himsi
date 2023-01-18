@@ -3,16 +3,20 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux"
 import { AsyncRemovePartner } from '../state/partner/middleware'
 import { AsyncRemoveSlider } from '../state/slider/middleware'
+import { HideError } from '../state/error/middleware'
+import { HideSuccess } from '../state/success/middleware'
 
 import FormSlider from "../components/Home/FormSlider";
 import FormPartner from "../components/Home/FormPartner";
 import FormSocmed from "../components/Home/FormSocmed";
 
+
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 import { ReactComponent as Linking } from '../assets/icons/Link.svg'
+import InfoModal from '../components/InfoModal'
 
 export default function Home() {
-  const { socmed = [], partner = [], slider = [] } = useSelector(states => states)
+  const { socmed = [], partner = [], slider = [], success, error } = useSelector(states => states)
   const dispatch = useDispatch()
 
   const [showSliderForm, setSliderForm] = useState(false)
@@ -20,6 +24,11 @@ export default function Home() {
   const [showSocmedForm, setSocmedForm] = useState(false)
 
   const [selectedData, setSelectedData] = useState(null)
+
+  function handleModal() {
+    dispatch(HideError())
+    dispatch(HideSuccess())
+  }
 
   // Delete Function
   function handleDeleteSlider(id) {
@@ -178,6 +187,12 @@ export default function Home() {
           </table>
         </div>
       </section >
+
+      {/* Error Modal */}
+      <InfoModal show={error.status} setShow={handleModal} value={error.message} type="error" />
+      {/* Success Draft*/}
+      <InfoModal show={success.status} setShow={handleModal} value={success.message} type="success" />
+
     </main>
   );
 }

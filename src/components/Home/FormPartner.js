@@ -33,12 +33,13 @@ export default function FormPartner({ showForm, currentData }) {
 
     return (
         <Form onSubmit={(e) => handleAddSlider(e)}>
-            <InputImage getData={setPartnerImage} label="Upload Logo Partner" currentData={partnerImage} />
+            <InputImage getData={setPartnerImage} label="Upload Logo Partner *" currentData={partnerImage} />
             <Form.Group>
-                <Form.Label>Nama</Form.Label>
-                <Form.Control required value={partnerName} onChange={(e) => setPartnerName(e.target.value)} />
+                <Form.Label>Nama <span className="required">*</span></Form.Label>
+                <Form.Control required placeholder='Brand Partner' value={partnerName} onChange={(e) => setPartnerName(e.target.value)} />
             </Form.Group>
-            <div className="form-cta">
+            <div className="form-cta gap-3">
+                <button onClick={() => showForm(false)} className="form-cancel-button" type="button">Cancel</button>
                 <button className="form-submit-button" type="submit">Simpan</button>
             </div>
         </Form>

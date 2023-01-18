@@ -1,6 +1,8 @@
 import api from '../../utils/api'
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import { GetAllSliderAction, CreateSliderAction, EditSliderAction, RemoveSliderAction } from './action'
+import { ShowSuccess } from '../success/middleware';
+import { ShowError } from '../error/middleware';
 
 function AsyncGetAllSlider() {
     return async dispatch => {
@@ -9,7 +11,7 @@ function AsyncGetAllSlider() {
             const response = await api.GetSlider()
             dispatch(GetAllSliderAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Get Slider'))
         }
         dispatch(hideLoading())
     }
@@ -20,11 +22,12 @@ function AsyncCreateSlider(data) {
         dispatch(showLoading())
         try {
             await api.CreateSlider(data)
+            dispatch(ShowSuccess('Success Create Slider'))
 
             const response = await api.GetSlider()
             dispatch(CreateSliderAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Create Slider'))
         }
         dispatch(hideLoading())
     }
@@ -35,11 +38,12 @@ function AsyncEditSlider(data) {
         dispatch(showLoading())
         try {
             await api.EditSlider(data)
+            dispatch(ShowSuccess('Success Edit Slider'))
 
             const response = await api.GetSlider()
             dispatch(EditSliderAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Edit Slider'))
         }
         dispatch(hideLoading())
     }
@@ -50,11 +54,12 @@ function AsyncRemoveSlider(id) {
         dispatch(showLoading())
         try {
             await api.RemoveSlider(id)
+            dispatch(ShowSuccess('Success Remove Slider'))
 
             const response = await api.GetSlider()
             dispatch(RemoveSliderAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Remove Slider'))
         }
         dispatch(hideLoading())
     }

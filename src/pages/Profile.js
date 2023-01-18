@@ -1,29 +1,39 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+
 import { AsyncRemoveBidang } from '../state/bidang/middleware';
+import { HideError } from '../state/error/middleware'
+import { HideSuccess } from '../state/success/middleware'
 
 import FormHimpunan from '../components/Profile/FormHimpunan'
 import FormBidang from '../components/Profile/FormBidang'
 import FormVisiMisi from '../components/Profile/FormVisiMisi'
+import InfoModal from '../components/InfoModal'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
 // import HIMSI from '../utils/HIMSIdummy'
 
 export default function Profile() {
-  const { bidang = [] } = useSelector(states => states)
+  const { bidang = [], success, error } = useSelector(states => states)
   const dispatch = useDispatch()
 
   const [showBidangForm, setShowBidangForm] = useState(false)
 
   const [selectedData, setSelectedData] = useState(null)
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [showBidangForm]);
+  function handleModal() {
+    dispatch(HideError())
+    dispatch(HideSuccess())
+  }
 
   function deleteBidang(id) {
     dispatch(AsyncRemoveBidang(id))
   }
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [showBidangForm]);
+
 
   if (showBidangForm) {
     return (
@@ -38,6 +48,10 @@ export default function Profile() {
             <FormBidang currentData={selectedData} showForm={setShowBidangForm} />
           </div>
         </section>
+        {/* Error Modal */}
+        <InfoModal show={error.status} setShow={handleModal} value={error.message} type="error" />
+        {/* Success Draft*/}
+        <InfoModal show={success.status} setShow={handleModal} value={success.message} type="success" />
       </main>
     )
   }
@@ -99,6 +113,10 @@ export default function Profile() {
         </div>
       </section>
 
+      {/* Error Modal */}
+      <InfoModal show={error.status} setShow={handleModal} value={error.message} type="error" />
+      {/* Success Draft*/}
+      <InfoModal show={success.status} setShow={handleModal} value={success.message} type="success" />
     </main>
   );
 }

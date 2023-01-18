@@ -1,6 +1,8 @@
 import api from '../../utils/api'
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import { GetAllBidangAction, CreateBidangAction, EditBidangAction, RemoveBidangAction } from './action'
+import { ShowSuccess } from '../success/middleware';
+import { ShowError } from '../error/middleware';
 
 function AsyncGetAllBidang() {
     return async dispatch => {
@@ -10,7 +12,7 @@ function AsyncGetAllBidang() {
             const response = await api.GetBidang()
             dispatch(GetAllBidangAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Get Bidang'))
         }
 
         dispatch(hideLoading());
@@ -23,11 +25,12 @@ function AsyncCreateBidang(data) {
 
         try {
             await api.CreateBidang(data)
+            dispatch(ShowSuccess('Success Create Bidang'))
 
             const response = await api.GetBidang()
             dispatch(CreateBidangAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Create Bidang'))
         }
 
         dispatch(hideLoading());
@@ -40,11 +43,12 @@ function AsyncEditBidang(id, data) {
 
         try {
             await api.EditBidang(id, data)
+            dispatch(ShowSuccess('Success Edit Bidang'))
 
             const response = await api.GetBidang()
             dispatch(EditBidangAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Edit Bidang'))
         }
 
         dispatch(hideLoading());
@@ -57,11 +61,12 @@ function AsyncRemoveBidang(id) {
 
         try {
             await api.RemoveBidang(id)
+            dispatch(ShowSuccess('Success Remove Bidang'))
 
             const response = await api.GetBidang()
             dispatch(RemoveBidangAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Remove Bidang'))
         }
 
         dispatch(hideLoading());

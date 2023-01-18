@@ -49,8 +49,8 @@ a:active {
 
 body {
     background-image: url(../assets/siluet.png);
-    background-position: center;
-    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
     overflow-x: hidden;
 }
 
@@ -263,4 +263,9 @@ tr td:nth-child(3) {
 
 .error-message {
     width: 80%;
+}
+
+.org-text {
+    color: var(--primaryColor2);
+    font-weight: bold;
 }

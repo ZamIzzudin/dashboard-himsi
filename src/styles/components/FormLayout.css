@@ -223,6 +223,7 @@ textarea:focus-visible {
 
 .modal-body {
     padding: 14px 24px 24px 24px !important;
+    width: 100% !important;
 }
 
 .modal-header {
@@ -231,8 +232,8 @@ textarea:focus-visible {
     width: 100%;
     height: 100%;
     padding: 24px !important;
-    border-top-left-radius: 18px !important;
-    border-top-right-radius: 18px !important;
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
 }
 
 .display-list-bubble {
@@ -420,8 +421,7 @@ textarea:focus-visible {
     box-shadow: none;
 }
 
-.error-modal-body span {
-    text-align: center;
-    font-size: 1.8em !important;
-    display: block;
+.required {
+    color: var(--primaryColor2);
+    font-size: 1em;
 }

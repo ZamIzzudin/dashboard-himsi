@@ -40,13 +40,13 @@ export default function FormVisiMisi() {
     return (
         <Form onSubmit={(e) => editVisiMisi(e)}>
             <Form.Group>
-                <Form.Label>Visi</Form.Label>
+                <Form.Label>Visi <span className="required">*</span></Form.Label>
                 <InputGroup>
                     <textarea value={visi} onChange={(e) => setVisi(e.target.value)} />
                 </InputGroup>
             </Form.Group>
             <div className="corner-cta">
-                <Form.Label>Misi</Form.Label>
+                <Form.Label>Misi <span className="required">*</span></Form.Label>
                 <button type="button" className="section-add-btn" onClick={() => setShowMisiForm(true)}>+</button>
             </div>
             {/* Visi Tabel */}

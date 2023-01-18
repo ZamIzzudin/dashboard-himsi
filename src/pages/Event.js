@@ -1,18 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+
 import { AsyncGetAllEvent, AsyncRemoveEvent } from '../state/event/middleware'
 import { AsyncGetAllDivisi } from '../state/divisi/middleware'
+import { HideError } from '../state/error/middleware'
+import { HideSuccess } from '../state/success/middleware'
 
 import FormManageEvent from "../components/Event/FormManageEvent";
+import InfoModal from '../components/InfoModal'
+
 import HIMSI_LOGO from '../assets/HIMSI_LOGO.webp'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
 export default function Event() {
   const dispatch = useDispatch()
-  const { event = [], bidang = [], divisi = [] } = useSelector(states => states)
+  const { event = [], bidang = [], divisi = [], success, error } = useSelector(states => states)
   const { namaBidang } = useParams();
 
   const [showManageEventForm, setShowManageEventForm] = useState(false)
@@ -23,8 +27,23 @@ export default function Event() {
 
   const [selectedData, setSelectedData] = useState(null)
 
+  function handleModal() {
+    dispatch(HideError())
+    dispatch(HideSuccess())
+  }
+
+
   function deleteEvent(idProker) {
     dispatch(AsyncRemoveEvent(idProker, namaBidang))
+  }
+
+  function deleteDraft(title) {
+    const listDraft = localStorage.getItem('draft_berita')
+    const draft = JSON.parse(listDraft)
+
+    const newDraftList = draft.filter((item) => title !== item.judul_event)
+    localStorage.setItem('draft_event', JSON.stringify(newDraftList))
+    setupDisplayEventEachDivisi()
   }
 
   function getDetailBidang() {
@@ -33,10 +52,14 @@ export default function Event() {
   }
 
   function setupDisplayEventEachDivisi() {
+    const listDraft = localStorage.getItem('draft_event')
+    const draft = JSON.parse(listDraft)
+
     const pre = divisi.map(item => {
       return {
         ...item,
-        event: event.filter(each => item.nama_divisi === each.divisi)
+        event: event.filter(each => item.nama_divisi === each.divisi),
+        draft: draft.filter(each => item._id === each.id_divisi)
       }
     })
     setDisplayedEvent(pre)
@@ -54,6 +77,7 @@ export default function Event() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    setupDisplayEventEachDivisi()
   }, [showManageEventForm]);
 
   if (showManageEventForm) {
@@ -121,10 +145,36 @@ export default function Event() {
               )
               )}
             </table>
+
+            <h3 className="org-text mb-4">Draft</h3>
+            <table>
+              <tr>
+                <th>No.</th>
+                <th>Nama Event</th>
+                <th className="text-center">Action</th>
+              </tr>
+              {item.draft.map((acara, index) => (
+                <tr>
+                  <td>{index + 1}</td>
+                  <td>{acara.judul_event}</td>
+                  <td className="table-cta">
+                    <div className="table-cta-container">
+                      <button onClick={() => { setShowManageEventForm(true); setSelectedData(acara); setSelectedDivisi(item._id); }} className="section-edit-btn">Edit</button>
+                      <button onClick={() => deleteDraft(acara.judul_event)} className="section-delete-btn"><Delete /></button>
+                    </div>
+                  </td>
+                </tr>
+              )
+              )}
+            </table>
           </div>
         </section >
       ))}
 
+      {/* Error Modal */}
+      <InfoModal show={error.status} setShow={handleModal} value={error.message} type="error" />
+      {/* Success Draft*/}
+      <InfoModal show={success.status} setShow={handleModal} value={success.message} type="success" />
     </main>
   );
 };

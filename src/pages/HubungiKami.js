@@ -1,19 +1,28 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+
 import { AsyncRemoveContact } from '../state/contact/middleware'
+import { HideError } from '../state/error/middleware'
+import { HideSuccess } from '../state/success/middleware'
 
 import FormAddLink from '../components/HubungiKami/FormAddLink'
+import InfoModal from '../components/InfoModal'
 
 import { ReactComponent as Linking } from '../assets/icons/Link.svg'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
 export default function Hubungikami() {
-    const { contact } = useSelector(states => states)
+    const { contact, success, error } = useSelector(states => states)
     const dispatch = useDispatch()
 
     const [showAddForm, setShowAddForm] = useState(false)
 
     const [selectedData, setSelectedData] = useState(null)
+
+    function handleModal() {
+        dispatch(HideError())
+        dispatch(HideSuccess())
+    }
 
     function deleteLink(id) {
         dispatch(AsyncRemoveContact(id))
@@ -73,6 +82,10 @@ export default function Hubungikami() {
                     </table>
                 </div>
             </section>
+            {/* Error Modal */}
+            <InfoModal show={error.status} setShow={handleModal} value={error.message} type="error" />
+            {/* Success Draft*/}
+            <InfoModal show={success.status} setShow={handleModal} value={success.message} type="success" />
         </main>
     )
 }

@@ -1,19 +1,19 @@
 import api from '../../utils/api'
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import { GetAllBeritaAction, CreateBeritaAction, EditBeritaAction, RemoveBeritaAction } from './action'
+import { ShowSuccess } from '../success/middleware';
+import { ShowError } from '../error/middleware';
 
 function AsyncGetAllBerita() {
     return async dispatch => {
+        dispatch(showLoading())
         try {
-            dispatch(showLoading())
-
             const response = await api.GetAllBerita()
             dispatch(GetAllBeritaAction(response))
-
-            dispatch(hideLoading())
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Get Article'))
         }
+        dispatch(hideLoading())
     }
 }
 
@@ -22,11 +22,12 @@ function AsyncCreateBerita(data) {
         dispatch(showLoading())
         try {
             await api.CreateBerita(data);
+            dispatch(ShowSuccess('Success Create Article'))
 
             const response = await api.GetAllBerita();
             dispatch(CreateBeritaAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Create Article'))
         }
 
         dispatch(hideLoading())
@@ -39,11 +40,12 @@ function AsyncEditBerita(data) {
 
         try {
             await api.EditBerita(data);
+            dispatch(ShowSuccess('Success Edit Article'))
 
             const response = await api.GetAllBerita();
             dispatch(EditBeritaAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Edit Article'))
         }
 
         dispatch(hideLoading())
@@ -56,11 +58,12 @@ function AsyncRemoveBerita(id) {
 
         try {
             await api.RemoveBerita(id);
+            dispatch(ShowSuccess('Success Remove Article'))
 
             const response = await api.GetAllBerita();
             dispatch(RemoveBeritaAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Remove Article'))
         }
 
         dispatch(hideLoading())

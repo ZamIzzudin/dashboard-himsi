@@ -1,6 +1,8 @@
 import api from '../../utils/api'
 import { hideLoading, showLoading } from 'react-redux-loading-bar';
 import { GetContactAction, CreateContactAction, EditContactAction, RemoveContactAction } from './action'
+import { ShowSuccess } from '../success/middleware';
+import { ShowError } from '../error/middleware';
 
 function AsyncGetContact() {
     return async dispatch => {
@@ -8,10 +10,8 @@ function AsyncGetContact() {
         try {
             const response = await api.GetContact()
             dispatch(GetContactAction(response))
-
-
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Get Contact'))
         }
         dispatch(hideLoading())
     }
@@ -22,11 +22,12 @@ function AsyncCreateContact(data) {
         dispatch(showLoading())
         try {
             await api.CreateLink(data);
+            dispatch(ShowSuccess('Success Create Contact'))
 
             const response = await api.GetContact();
             dispatch(CreateContactAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Create Contact'))
         }
         dispatch(hideLoading())
     }
@@ -37,11 +38,12 @@ function AsyncEditContact(data) {
         dispatch(showLoading())
         try {
             await api.EditLink(data);
+            dispatch(ShowSuccess('Success Edit Contact'))
 
             const response = await api.GetContact();
             dispatch(EditContactAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Edit Contact'))
         }
         dispatch(hideLoading())
     }
@@ -52,11 +54,12 @@ function AsyncRemoveContact(id) {
         dispatch(showLoading())
         try {
             await api.RemoveLink(id);
+            dispatch(ShowSuccess('Success Remove Contact'))
 
             const response = await api.GetContact();
             dispatch(RemoveContactAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Remove Contact'))
         }
         dispatch(hideLoading())
     }

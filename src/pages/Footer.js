@@ -1,20 +1,29 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+
 import { AsyncRemoveTautan } from '../state/tautan/middleware'
+import { HideError } from '../state/error/middleware'
+import { HideSuccess } from '../state/success/middleware'
+
 import FormTautanFooter from '../components/Footer/FormTautanFooter'
+import FormDisplayFooter from '../components/Footer/FormDisplayFooter'
+import InfoModal from '../components/InfoModal'
 
 import { ReactComponent as Linking } from '../assets/icons/Link.svg'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
-import FormDisplayFooter from '../components/Footer/FormDisplayFooter'
-
 export default function User() {
-    const { tautan = [] } = useSelector(states => states)
+    const { tautan = [], success, error } = useSelector(states => states)
     const dispatch = useDispatch()
 
     const [showAddTautanForm, setShowAddTautanForm] = useState(false)
 
     const [selectedData, setSelectedData] = useState(null)
+
+    function handleModal() {
+        dispatch(HideError())
+        dispatch(HideSuccess())
+    }
 
     function deleteTautan(id) {
         dispatch(AsyncRemoveTautan(id))
@@ -87,6 +96,10 @@ export default function User() {
                     </table>
                 </div>
             </section>
+            {/* Error Modal */}
+            <InfoModal show={error.status} setShow={handleModal} value={error.message} type="error" />
+            {/* Success Draft*/}
+            <InfoModal show={success.status} setShow={handleModal} value={success.message} type="success" />
         </main >
     )
 }

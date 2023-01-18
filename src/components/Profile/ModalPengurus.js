@@ -64,11 +64,11 @@ export default function ModalPengurus({ show, setShow, addData, editData, curren
             <Modal.Body>
                 <Form onSubmit={(e) => addPengurus(e)} className="form">
                     <Form.Group>
-                        <Form.Label>Nama Pengurus</Form.Label>
-                        <Form.Control required value={namaPengurus} onChange={(e) => setNamaPengurus(e.target.value)} />
+                        <Form.Label>Nama Pengurus <span className="required">*</span></Form.Label>
+                        <Form.Control placeholder='Nama Pengurus' required value={namaPengurus} onChange={(e) => setNamaPengurus(e.target.value)} />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Jabatan</Form.Label>
+                        <Form.Label>Jabatan <span className="required">*</span></Form.Label>
                         <Form.Select value={jabatanPengurus} onChange={(e) => setJabatanPengurus(e.target.value)}>
                             <option value="Ketua Bidang">Ketua Bidang</option>
                             <option value="Wakil Bidang">Wakil Bidang</option>
@@ -79,14 +79,15 @@ export default function ModalPengurus({ show, setShow, addData, editData, curren
                         </Form.Select>
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Social Media (Instargram) <Linking /></Form.Label>
-                        <Form.Control placeholder="https://" value={socmedPengurus} onChange={(e) => setSocmedPengurus(e.target.value)} />
+                        <Form.Label>Social Media (Instargram) <span className="required">*</span> <Linking /></Form.Label>
+                        <Form.Control placeholder="https://www.instagram.com/" value={socmedPengurus} onChange={(e) => setSocmedPengurus(e.target.value)} />
                     </Form.Group>
                     <Form.Group>
-                        <Form.Label>Foto Pengurus</Form.Label>
+                        <Form.Label>Foto Pengurus <span className="required">*</span></Form.Label>
                         <InputImage getData={setImagePengurus} label="Upload Foto Pengurus" currentData={imagePengurus} />
                     </Form.Group>
                     <div className="form-cta">
+                        <button onClick={() => setShow(false)} className="form-cancel-button" type="button">Cancel</button>
                         <button className="form-submit-button" type="submit">Simpan</button>
                     </div>
                 </Form>

@@ -32,19 +32,19 @@ export default function FormHimpunan() {
     return (
         <Form onSubmit={(e) => editDataHimpunan(e)}>
             <Form.Group>
-                <Form.Label>Nama Himpunan</Form.Label>
+                <Form.Label>Nama Himpunan <span className="required">*</span></Form.Label>
                 <Form.Control required value={himpunanNama} onChange={(e) => setHimpunanNama(e.target.value)} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>Nama Universitas</Form.Label>
+                <Form.Label>Nama Universitas <span className="required">*</span></Form.Label>
                 <Form.Control required value={himpunanUniversitas} onChange={(e) => setHimpunanUniversitas(e.target.value)} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>Logo Himpunan</Form.Label>
+                <Form.Label>Logo Himpunan <span className="required">*</span></Form.Label>
                 <InputImage label="Upload File" getData={setHimpunanLogo} currentData={himpunanLogo} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>Gambar Struktur</Form.Label>
+                <Form.Label>Gambar Struktur <span className="required">*</span></Form.Label>
                 <InputImage label="Upload File" getData={setGambarStruktur} currentData={gambarStruktur} />
             </Form.Group>
             <div className="form-cta">

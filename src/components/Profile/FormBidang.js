@@ -93,20 +93,20 @@ export default function FormBidang({ currentData, showForm }) {
         <>
             <Form onSubmit={(e) => handleManageBidang(e)}>
                 <Form.Group>
-                    <Form.Label>Nama Bidang</Form.Label>
-                    <Form.Control required value={namaBidang} onChange={(e) => setNamaBidang(e.target.value)} />
+                    <Form.Label>Nama Bidang <span className="required">*</span></Form.Label>
+                    <Form.Control placeholder='Nama Singkatan Bidang' required value={namaBidang} onChange={(e) => setNamaBidang(e.target.value)} />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Kepanjangan</Form.Label>
-                    <Form.Control required value={kepanjanganBidang} onChange={(e) => setKepanjanganBidang(e.target.value)} />
+                    <Form.Label>Kepanjangan <span className="required">*</span></Form.Label>
+                    <Form.Control placeholder='Nama Kepanjangan Bidang' required value={kepanjanganBidang} onChange={(e) => setKepanjanganBidang(e.target.value)} />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Logo</Form.Label>
-                    <InputImage getData={setLogoBidang} label="Upload Logo Bidang" currentData={logoBidang} />
+                    <Form.Label>Logo <span className="required">*</span></Form.Label>
+                    <InputImage getData={setLogoBidang} label="Upload File" currentData={logoBidang} />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Deskripsi</Form.Label>
-                    <textarea value={deskripsiBidang} onChange={(e) => setDeskripsiBidang(e.target.value)} />
+                    <Form.Label>Deskripsi <span className="required">(opsional)</span></Form.Label>
+                    <textarea placeholder="Deskripsi Bidang" value={deskripsiBidang} onChange={(e) => setDeskripsiBidang(e.target.value)} />
                 </Form.Group>
 
                 {currentData?.nama_bidang !== undefined && (
@@ -170,6 +170,7 @@ export default function FormBidang({ currentData, showForm }) {
                 )}
 
                 <div className="form-cta">
+                    <button onClick={() => showForm(false)} className="form-cancel-button" type="button">Cancel</button>
                     <button className="form-submit-button" type="submit">Simpan</button>
                 </div>
             </Form>

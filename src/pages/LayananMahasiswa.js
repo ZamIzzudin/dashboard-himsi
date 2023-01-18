@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+
 import { AsyncRemoveFAQ } from '../state/faq/middleware'
 import { AsyncRemoveLink } from '../state/collageLink/middleware'
+import { HideError } from '../state/error/middleware'
+import { HideSuccess } from '../state/success/middleware'
 
 import FormAddLink from '../components/LayananMahasiswa/FormAddLink'
 import FormAddDBMateri from '../components/LayananMahasiswa/FormAddDBMateri'
 import FormAddFAQ from '../components/LayananMahasiswa/FormAddFAQ'
+import InfoModal from '../components/InfoModal'
 
 import { ReactComponent as Linking } from '../assets/icons/Link.svg'
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
 export default function LayananMahasiswa() {
-    const { faq = [], collageLink = [] } = useSelector(states => states)
+    const { faq = [], collageLink = [], success, error } = useSelector(states => states)
     const dispatch = useDispatch()
 
     // parameter to handle showed form
@@ -20,6 +24,11 @@ export default function LayananMahasiswa() {
     const [showAddDBMateriForm, setSowAddDBMateriForm] = useState(false)
 
     const [selectedData, setSelectedData] = useState(null)
+
+    function handleModal() {
+        dispatch(HideError())
+        dispatch(HideSuccess())
+    }
 
     // scroll top
     useEffect(() => {
@@ -187,6 +196,10 @@ export default function LayananMahasiswa() {
                 </div>
             </section >
 
+            {/* Error Modal */}
+            <InfoModal show={error.status} setShow={handleModal} value={error.message} type="error" />
+            {/* Success Draft*/}
+            <InfoModal show={success.status} setShow={handleModal} value={success.message} type="success" />
         </main>
     )
 }

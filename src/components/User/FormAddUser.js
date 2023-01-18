@@ -42,25 +42,26 @@ export default function FormAddUser({ showForm, currentData }) {
     return (
         <Form onSubmit={(e) => handleAdd(e)}>
             <Form.Group>
-                <Form.Label>Nama</Form.Label>
-                <Form.Control value={nama_admin} onChange={(e) => setName(e.target.value)} />
+                <Form.Label>Nama <span className="required">*</span></Form.Label>
+                <Form.Control placeholder='Nama User' value={nama_admin} onChange={(e) => setName(e.target.value)} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>Role</Form.Label>
+                <Form.Label>Role <span className="required">*</span></Form.Label>
                 <Form.Select value={role} onChange={(e) => setRole(e.target.value)}>
                     <option value="super admin">Super Admin</option>
                     <option value="admin">Admin</option>
                 </Form.Select>
             </Form.Group>
             <Form.Group>
-                <Form.Label>Username</Form.Label>
-                <Form.Control value={username} onChange={(e) => setUsername(e.target.value)} />
+                <Form.Label>Username <span className="required">*</span></Form.Label>
+                <Form.Control placeholder='Username Untuk Login' value={username} onChange={(e) => setUsername(e.target.value)} />
             </Form.Group>
             <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control value={password} onChange={(e) => setPassword(e.target.value)} />
+                <Form.Label>Password <span className="required">*</span></Form.Label>
+                <Form.Control placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} />
             </Form.Group>
             <div className="form-cta">
+                <button onClick={() => showForm(false)} className="form-cancel-button" type="button">Cancel</button>
                 <button className="form-submit-button" type="submit">Simpan</button>
             </div>
         </Form>

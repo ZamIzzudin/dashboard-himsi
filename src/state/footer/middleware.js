@@ -1,6 +1,8 @@
 import api from '../../utils/api'
 import { hideLoading, showLoading } from 'react-redux-loading-bar'
 import { GetInfoFooterAction, EditInfoFooterAction } from './action'
+import { ShowSuccess } from '../success/middleware';
+import { ShowError } from '../error/middleware';
 
 function asyncGetInfoFooter() {
     return async dispatch => {
@@ -10,7 +12,7 @@ function asyncGetInfoFooter() {
             const response = await api.GetFooter()
             dispatch(GetInfoFooterAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Get Footer Data'))
         }
 
         dispatch(hideLoading())
@@ -23,11 +25,12 @@ function asyncEditInfoFooter(data) {
 
         try {
             await api.EditFooter(data)
+            dispatch(ShowSuccess('Success Edit Footer Data'))
 
             const response = await api.GetFooter()
             dispatch(EditInfoFooterAction(response))
         } catch (err) {
-            alert(err.message)
+            dispatch(ShowError('Cannot Edit Footer Data'))
         }
 
         dispatch(hideLoading())

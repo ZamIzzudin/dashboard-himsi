@@ -421,6 +421,8 @@ const api = (() => {
         form.append('status_event', data.status_event)
         form.append('kategori_event', data.kategori_event)
         form.append('id_divisi', data.id_divisi)
+        form.append('link_pdf', data.link_pdf)
+        form.append('link_pendaftaran', data.link_pendaftaran)
         form.append('header_event', data?.header_event.file || undefined)
         form.append('gambar_event', data?.gambar_event.file || undefined)
 
@@ -448,6 +450,8 @@ const api = (() => {
         form.append('status_event', data.status_event)
         form.append('kategori_event', data.kategori_event)
         form.append('id_divisi', data.id_divisi)
+        form.append('link_pdf', data.link_pdf)
+        form.append('link_pendaftaran', data.link_pendaftaran)
         form.append('header_event', data?.header_event.file || undefined)
         form.append('gambar_event', data?.gambar_event.file || undefined)
 
