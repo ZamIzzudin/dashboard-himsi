@@ -32,6 +32,9 @@ export default function Profile() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    if (!showBidangForm) {
+      setSelectedData(null);
+    }
   }, [showBidangForm]);
 
 

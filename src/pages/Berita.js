@@ -1,18 +1,31 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import { AsyncRemoveBerita } from '../state/berita/middleware'
+import { HideError } from '../state/error/middleware'
+import { HideSuccess } from '../state/success/middleware'
+
 import FormEditBerita from "../components/Berita/FormEditBerita";
+import InfoModal from '../components/InfoModal'
 
 import { ReactComponent as Delete } from '../assets/icons/Delete.svg'
 
 const Berita = () => {
-  const { berita = [] } = useSelector(states => states)
+  const { berita = [], success, error } = useSelector(states => states)
   const dispatch = useDispatch()
 
   const [showEditBeritaForm, setShowEditBeritaForm] = useState(false);
 
+  const [drafted, setDrafted] = useState(false)
   const [selectedData, setSelectedData] = useState(null)
   const [draft, setDraft] = useState([])
+
+
+  function handleModal() {
+    dispatch(HideError())
+    dispatch(HideSuccess())
+  }
+
 
   function handleDeleteBerita(id) {
     dispatch(AsyncRemoveBerita(id))
@@ -32,6 +45,10 @@ const Berita = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     getDraft()
+    if (!showEditBeritaForm) {
+      setSelectedData(null);
+      setDrafted(true)
+    }
   }, [showEditBeritaForm]);
 
   if (showEditBeritaForm) {
@@ -44,7 +61,7 @@ const Berita = () => {
             <button onClick={() => setShowEditBeritaForm(false)} className="section-add-btn">-</button>
           </div>
           <div className="section-body">
-            <FormEditBerita showForm={setShowEditBeritaForm} currentData={selectedData} />
+            <FormEditBerita drafted={drafted} showForm={setShowEditBeritaForm} currentData={selectedData} />
           </div>
         </section>
       </main>
@@ -106,6 +123,11 @@ const Berita = () => {
           </table>
         </div>
       </section>
+
+      {/* Error Modal */}
+      <InfoModal show={error.status} setShow={handleModal} value={error.message} type="error" />
+      {/* Success Draft*/}
+      <InfoModal show={success.status} setShow={handleModal} value={success.message} type="success" />
     </main>
   );
 }

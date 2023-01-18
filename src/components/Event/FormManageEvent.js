@@ -12,7 +12,7 @@ import InputManyImage from '../InputManyImage'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormManageEvent({ namaBidang, idDivisi, currentData, showForm }) {
+export default function FormManageEvent({ namaBidang, idDivisi, currentData, showForm, drafted }) {
     const dispatch = useDispatch()
 
     const [judulEvent, setJudulEvent] = useState(currentData?.judul_event)
@@ -25,7 +25,7 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
     const [headerEvent, setHeaderEvent] = useState(currentData?.header_event?.url || null)
     const [gambarEvent, setGambarEvent] = useState(currentData?.gambar_event?.url || null)
     const [dokumentasiEvent, setDokumentasiEvent] = useState(currentData?.dokumentasi_event || [])
-    const [linkEvent, setLinkEvent] = useState(currentData?.link_pdf)
+    const [linkEvent, setLinkEvent] = useState(currentData?.link_pdf || '')
     const [linkPendaftaran, setLinkPendaftaran] = useState(currentData?.link_pendaftaran)
 
     const [durasi, setDurasi] = useState(true)
@@ -36,26 +36,7 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
 
     function handleAddProker(e) {
         e.preventDefault();
-        if (currentData !== null) {
-            dispatch(AsyncEditEvent({
-                _id: currentData._id,
-                judul_event: judulEvent,
-                penulis_event: penulisEvent,
-                tanggal_mulai_event: tanggalMulaiEvent,
-                tanggal_selesai_event: tanggalSelesaiEvent,
-                isi_event: isiEvent,
-                kategori_event: kategoriEvent,
-                status_event: statusEvent,
-                header_event: headerEvent || currentData?.header_event.url,
-                gambar_event: gambarEvent || currentData?.gambar_event.url,
-                dokumentasi_event: dokumentasiEvent,
-                link_pdf: linkEvent,
-                link_pendaftaran: linkPendaftaran,
-                id_divisi: idDivisi
-            }, namaBidang))
-
-            showForm(false)
-        } else {
+        if (drafted) {
             if (headerEvent !== null && gambarEvent !== null) {
                 dispatch(AsyncCreateEvent({
                     judul_event: judulEvent,
@@ -76,7 +57,50 @@ export default function FormManageEvent({ namaBidang, idDivisi, currentData, sho
             } else {
                 setError(true)
             }
+        } else {
+            if (currentData !== null) {
+                dispatch(AsyncEditEvent({
+                    _id: currentData._id,
+                    judul_event: judulEvent,
+                    penulis_event: penulisEvent,
+                    tanggal_mulai_event: tanggalMulaiEvent,
+                    tanggal_selesai_event: tanggalSelesaiEvent,
+                    isi_event: isiEvent,
+                    kategori_event: kategoriEvent,
+                    status_event: statusEvent,
+                    header_event: headerEvent || currentData?.header_event.url,
+                    gambar_event: gambarEvent || currentData?.gambar_event.url,
+                    dokumentasi_event: dokumentasiEvent,
+                    link_pdf: linkEvent,
+                    link_pendaftaran: linkPendaftaran,
+                    id_divisi: idDivisi
+                }, namaBidang))
+
+                showForm(false)
+            } else {
+                if (headerEvent !== null && gambarEvent !== null) {
+                    dispatch(AsyncCreateEvent({
+                        judul_event: judulEvent,
+                        penulis_event: penulisEvent,
+                        tanggal_mulai_event: tanggalMulaiEvent,
+                        tanggal_selesai_event: tanggalSelesaiEvent,
+                        isi_event: isiEvent,
+                        kategori_event: kategoriEvent,
+                        status_event: statusEvent,
+                        header_event: headerEvent,
+                        gambar_event: gambarEvent,
+                        dokumentasi_event: dokumentasiEvent,
+                        link_pdf: linkEvent,
+                        link_pendaftaran: linkPendaftaran,
+                        id_divisi: idDivisi
+                    }, namaBidang))
+                    showForm(false)
+                } else {
+                    setError(true)
+                }
+            }
         }
+
     }
 
     function getDraft() {

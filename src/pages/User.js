@@ -29,6 +29,9 @@ export default function User() {
     // scroll top
     useEffect(() => {
         window.scrollTo(0, 0);
+        if (!showAddForm) {
+            setSelectedData(null);
+        }
     }, [showAddForm]);
 
     // Form that shown when parameter (true)

@@ -41,6 +41,9 @@ export default function Home() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    if (!showSliderForm && !showPartnerForm && !showSocmedForm) {
+      setSelectedData(null);
+    }
   }, [showSliderForm, showPartnerForm, showSocmedForm]);
 
   // Slider Information Form

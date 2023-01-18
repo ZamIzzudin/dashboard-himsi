@@ -12,7 +12,7 @@ import InputImage from '../InputImage'
 
 import '../../styles/components/FormLayout.css'
 
-export default function FormEditBerita({ currentData, showForm }) {
+export default function FormEditBerita({ currentData, showForm, drafted }) {
     const dispatch = useDispatch()
 
     const [judulBerita, setJudulBerita] = useState(currentData?.judul_berita)
@@ -33,20 +33,7 @@ export default function FormEditBerita({ currentData, showForm }) {
 
     function handleManageBerita(e) {
         e.preventDefault()
-        if (currentData !== null) {
-            dispatch(AsyncEditBerita({
-                _id: currentData._id,
-                penulis_berita: penulisBerita,
-                kategori_berita: kategoriBerita,
-                judul_berita: judulBerita,
-                isi_berita: isiBerita,
-                gambar_berita: uploadFileBerita || currentData?.gambar_berita.url,
-                header_berita: gambarHeadingBerita || currentData?.header_berita.url,
-                link_berita: linkBerita,
-                link_pdf: linkPDF
-            }))
-            showForm(false)
-        } else {
+        if (drafted) {
             if (uploadFileBerita !== null && gambarHeadingBerita !== null) {
                 dispatch(AsyncCreateBerita({
                     header_berita: gambarHeadingBerita,
@@ -61,6 +48,37 @@ export default function FormEditBerita({ currentData, showForm }) {
                 showForm(false)
             } else {
                 setError(true)
+            }
+        } else {
+            if (currentData !== null) {
+                dispatch(AsyncEditBerita({
+                    _id: currentData._id,
+                    penulis_berita: penulisBerita,
+                    kategori_berita: kategoriBerita,
+                    judul_berita: judulBerita,
+                    isi_berita: isiBerita,
+                    gambar_berita: uploadFileBerita || currentData?.gambar_berita.url,
+                    header_berita: gambarHeadingBerita || currentData?.header_berita.url,
+                    link_berita: linkBerita,
+                    link_pdf: linkPDF
+                }))
+                showForm(false)
+            } else {
+                if (uploadFileBerita !== null && gambarHeadingBerita !== null) {
+                    dispatch(AsyncCreateBerita({
+                        header_berita: gambarHeadingBerita,
+                        penulis_berita: penulisBerita,
+                        kategori_berita: kategoriBerita,
+                        judul_berita: judulBerita,
+                        isi_berita: isiBerita,
+                        gambar_berita: uploadFileBerita,
+                        link_berita: linkBerita,
+                        link_pdf: linkPDF
+                    }))
+                    showForm(false)
+                } else {
+                    setError(true)
+                }
             }
         }
     }

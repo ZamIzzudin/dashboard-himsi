@@ -30,6 +30,9 @@ export default function Hubungikami() {
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        if (!showAddForm) {
+            setSelectedData(null);
+        }
     }, [showAddForm]);
 
     if (showAddForm) {

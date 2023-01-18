@@ -33,6 +33,9 @@ export default function LayananMahasiswa() {
     // scroll top
     useEffect(() => {
         window.scrollTo(0, 0);
+        if (!showAddLinkForm && !showAddFAQForm) {
+            setSelectedData(null);
+        }
     }, [showAddLinkForm, showAddFAQForm]);
 
     function deleteFAQ(id) {

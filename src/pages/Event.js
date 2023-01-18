@@ -21,6 +21,7 @@ export default function Event() {
 
   const [showManageEventForm, setShowManageEventForm] = useState(false)
 
+  const [drafted, setDrafted] = useState(false)
   const [displayedEvent, setDisplayedEvent] = useState([])
   const [detailBidang, setDetailBidang] = useState(null)
   const [selectedDivisi, setSelectedDivisi] = useState(null)
@@ -31,7 +32,6 @@ export default function Event() {
     dispatch(HideError())
     dispatch(HideSuccess())
   }
-
 
   function deleteEvent(idProker) {
     dispatch(AsyncRemoveEvent(idProker, namaBidang))
@@ -59,7 +59,7 @@ export default function Event() {
       return {
         ...item,
         event: event.filter(each => item.nama_divisi === each.divisi),
-        draft: draft.filter(each => item._id === each.id_divisi)
+        draft: draft?.filter(each => item._id === each.id_divisi) || []
       }
     })
     setDisplayedEvent(pre)
@@ -78,6 +78,10 @@ export default function Event() {
   useEffect(() => {
     window.scrollTo(0, 0);
     setupDisplayEventEachDivisi()
+    if (!showManageEventForm) {
+      setSelectedData(null);
+      setDrafted(true)
+    }
   }, [showManageEventForm]);
 
   if (showManageEventForm) {
@@ -97,7 +101,7 @@ export default function Event() {
             <button onClick={() => { setShowManageEventForm(false); setSelectedData(null); }} className="section-add-btn">-</button>
           </div>
           <div className="section-body">
-            <FormManageEvent namaBidang={namaBidang} idDivisi={selectedDivisi} showForm={setShowManageEventForm} currentData={selectedData} />
+            <FormManageEvent drafted={drafted} namaBidang={namaBidang} idDivisi={selectedDivisi} showForm={setShowManageEventForm} currentData={selectedData} />
           </div>
         </section>
       </main>
@@ -159,7 +163,7 @@ export default function Event() {
                   <td>{acara.judul_event}</td>
                   <td className="table-cta">
                     <div className="table-cta-container">
-                      <button onClick={() => { setShowManageEventForm(true); setSelectedData(acara); setSelectedDivisi(item._id); }} className="section-edit-btn">Edit</button>
+                      <button onClick={() => { setShowManageEventForm(true); setSelectedData(acara); setSelectedDivisi(item._id); setDrafted(true) }} className="section-edit-btn">Edit</button>
                       <button onClick={() => deleteDraft(acara.judul_event)} className="section-delete-btn"><Delete /></button>
                     </div>
                   </td>

@@ -32,7 +32,10 @@ export default function User() {
     // scroll top
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+        if (!showAddTautanForm) {
+            setSelectedData(null);
+        }
+    }, [showAddTautanForm]);
 
     if (showAddTautanForm) {
         return (
