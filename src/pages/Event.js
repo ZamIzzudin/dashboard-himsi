@@ -132,7 +132,7 @@ export default function Event() {
             <table>
               <tr>
                 <th>No.</th>
-                <th>Nama Event</th>
+                <th className="wide-coloumn">Nama Event</th>
                 <th className="text-center">Action</th>
               </tr>
               {item.event.map((acara, index) => (
@@ -154,7 +154,7 @@ export default function Event() {
             <table>
               <tr>
                 <th>No.</th>
-                <th>Nama Event</th>
+                <th className="wide-coloumn">Nama Event</th>
                 <th className="text-center">Action</th>
               </tr>
               {item.draft.map((acara, index) => (

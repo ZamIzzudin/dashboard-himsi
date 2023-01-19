@@ -60,7 +60,7 @@ export default function FormVisiMisi() {
                     {listMisi?.map((item, index) => (
                         <tr>
                             <td>{index + 1}</td>
-                            <td>{item}</td>
+                            <td className="wide-coloumn">{item}</td>
                             <td className="table-cta">
                                 <div className="table-cta-container">
                                     <button type="button" onClick={() => deleteMisi(item)} className="section-delete-btn"><Delete /></button>
@@ -71,7 +71,7 @@ export default function FormVisiMisi() {
                     {showMisiForm && (
                         <tr>
                             <td>{listMisi.length + 1}</td>
-                            <td>
+                            <td className="wide-coloumn">
                                 <input className="invisable-form" placeholder="Masukkan Text" type="text" onChange={(e) => setMisi(e.target.value)} />
                             </td>
                             <td className="table-cta">
@@ -83,7 +83,10 @@ export default function FormVisiMisi() {
                     )}
                 </table>
             </Form.Group>
-            <div className="form-cta">
+            <div className="form-cta gap-3">
+                {showMisiForm && (
+                    <button onClick={() => setShowMisiForm(false)} className="form-cancel-button" type="button">Cancel</button>
+                )}
                 <button className="form-submit-button" type="submit">Simpan</button>
             </div>
         </Form>

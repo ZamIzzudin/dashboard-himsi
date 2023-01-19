@@ -43,7 +43,7 @@ export default function FormAddLink({ showForm, currentData }) {
                 <Form.Label>URL <Linking /> <span className="required">*</span></Form.Label>
                 <Form.Control placeholder="https://" required value={linkURL} onChange={(e) => setLinkURL(e.target.value)} />
             </Form.Group>
-            <div className="form-cta">
+            <div className="form-cta gap-3">
                 <button onClick={() => showForm(false)} className="form-cancel-button" type="button">Cancel</button>
                 <button className="form-submit-button" type="submit">Simpan</button>
             </div>

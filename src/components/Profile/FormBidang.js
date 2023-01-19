@@ -169,7 +169,7 @@ export default function FormBidang({ currentData, showForm }) {
                     </>
                 )}
 
-                <div className="form-cta">
+                <div className="form-cta gap-3">
                     <button onClick={() => showForm(false)} className="form-cancel-button" type="button">Cancel</button>
                     <button className="form-submit-button" type="submit">Simpan</button>
                 </div>

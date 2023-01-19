@@ -425,3 +425,7 @@ textarea:focus-visible {
     color: var(--primaryColor2);
     font-size: 1em;
 }
+
+.wide-coloumn {
+    width: 73% !important;
+}
