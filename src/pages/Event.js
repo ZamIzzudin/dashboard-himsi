@@ -78,9 +78,9 @@ export default function Event() {
   useEffect(() => {
     window.scrollTo(0, 0);
     setupDisplayEventEachDivisi()
-    if (!showManageEventForm) {
+    if (showManageEventForm === false) {
       setSelectedData(null);
-      setDrafted(true)
+      setDrafted(false)
     }
   }, [showManageEventForm]);
 
@@ -163,7 +163,7 @@ export default function Event() {
                   <td>{acara.judul_event}</td>
                   <td className="table-cta">
                     <div className="table-cta-container">
-                      <button onClick={() => { setShowManageEventForm(true); setSelectedData(acara); setSelectedDivisi(item._id); setDrafted(true) }} className="section-edit-btn">Edit</button>
+                      <button onClick={() => { setDrafted(true); setShowManageEventForm(true); setSelectedData(acara); setSelectedDivisi(item._id); }} className="section-edit-btn">Edit</button>
                       <button onClick={() => deleteDraft(acara.judul_event)} className="section-delete-btn"><Delete /></button>
                     </div>
                   </td>

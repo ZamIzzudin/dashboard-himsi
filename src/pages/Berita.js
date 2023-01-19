@@ -47,7 +47,7 @@ const Berita = () => {
     getDraft()
     if (!showEditBeritaForm) {
       setSelectedData(null);
-      setDrafted(true)
+      setDrafted(false)
     }
   }, [showEditBeritaForm]);
 
@@ -114,7 +114,7 @@ const Berita = () => {
                 <td>{data.judul_berita}</td>
                 <td className="table-cta">
                   <div className="table-cta-container">
-                    <button onClick={() => { setShowEditBeritaForm(true); setSelectedData(data) }} className="section-edit-btn">Edit</button>
+                    <button onClick={() => { setShowEditBeritaForm(true); setSelectedData(data); setDrafted(true); }} className="section-edit-btn">Edit</button>
                     <button onClick={() => deleteDraft(index)} className="section-delete-btn"><Delete /></button>
                   </div>
                 </td>
