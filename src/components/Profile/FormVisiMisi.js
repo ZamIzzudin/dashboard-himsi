@@ -26,7 +26,6 @@ export default function FormVisiMisi() {
         dispatch(AsyncEditVisiMisi(data))
     }
 
-
     function addMisi() {
         setListMisi([...listMisi, misi])
         setMisi('')
@@ -47,7 +46,7 @@ export default function FormVisiMisi() {
             </Form.Group>
             <div className="corner-cta">
                 <Form.Label>Misi <span className="required">*</span></Form.Label>
-                <button type="button" className="section-add-btn" onClick={() => setShowMisiForm(true)}>+</button>
+                <button type="button" className="section-add-btn" onClick={() => { setShowMisiForm(true); setMisi('') }}>+</button>
             </div>
             {/* Visi Tabel */}
             <Form.Group>
@@ -63,6 +62,7 @@ export default function FormVisiMisi() {
                             <td className="wide-coloumn">{item}</td>
                             <td className="table-cta">
                                 <div className="table-cta-container">
+                                    <button type="button" onClick={() => { setShowMisiForm(true); setMisi(item); deleteMisi(item) }} className="section-edit-btn">Edit</button>
                                     <button type="button" onClick={() => deleteMisi(item)} className="section-delete-btn"><Delete /></button>
                                 </div>
                             </td>
@@ -72,7 +72,7 @@ export default function FormVisiMisi() {
                         <tr>
                             <td>{listMisi.length + 1}</td>
                             <td className="wide-coloumn">
-                                <input className="invisable-form" placeholder="Masukkan Text" type="text" onChange={(e) => setMisi(e.target.value)} />
+                                <input value={misi} className="invisable-form" placeholder="Masukkan Text" type="text" onChange={(e) => setMisi(e.target.value)} />
                             </td>
                             <td className="table-cta">
                                 <div className="table-cta-container">
