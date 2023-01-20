@@ -86,7 +86,7 @@ export default function ModalPengurus({ show, setShow, addData, editData, curren
                         <Form.Label>Foto Pengurus <span className="required">*</span></Form.Label>
                         <InputImage getData={setImagePengurus} label="Upload Foto Pengurus" currentData={imagePengurus} />
                     </Form.Group>
-                    <div className="form-cta">
+                    <div className="form-cta gap-3">
                         <button onClick={() => setShow(false)} className="form-cancel-button" type="button">Cancel</button>
                         <button className="form-submit-button" type="submit">Simpan</button>
                     </div>

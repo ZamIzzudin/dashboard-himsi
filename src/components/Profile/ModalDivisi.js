@@ -48,7 +48,7 @@ export default function ModalDivisi({ show, setShow, addData, editData, currentD
                         <Form.Label>Nama Divisi <span className="required">*</span></Form.Label>
                         <Form.Control placeholder='Nama Divisi' required value={namaDivisi} onChange={(e) => setNamaDivisi(e.target.value)} />
                     </Form.Group>
-                    <div className="form-cta">
+                    <div className="form-cta gap-3">
                         <button onClick={() => setShow(false)} className="form-cancel-button" type="button">Cancel</button>
                         <button className="form-submit-button" type="submit">Simpan</button>
                     </div>
