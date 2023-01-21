@@ -48,8 +48,8 @@ export default function FormAddUser({ showForm, currentData }) {
             <Form.Group>
                 <Form.Label>Role <span className="required">*</span></Form.Label>
                 <Form.Select value={role} onChange={(e) => setRole(e.target.value)}>
-                    <option value="super admin">Super Admin</option>
-                    <option value="admin">Admin</option>
+                    <option value="Super Admin">Super Admin</option>
+                    <option value="Admin">Admin</option>
                 </Form.Select>
             </Form.Group>
             <Form.Group>
